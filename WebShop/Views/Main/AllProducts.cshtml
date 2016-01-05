@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Products";
+}
+<div id="notifyWin" class="success-notify notify"></div>
+<div class="container prod-container" ng-controller="prodCtrl">
+    @*left side*@
+    <div class="row">
+        <div class="col-md-3">
+            <h3 class="text-center color-h text-uppercase">@Resource.ShopBy</h3>
+            <hr />
+            <h5 class="text-uppercase"><b>@Resource.ShopOpt</b></h5>
+            <hr />
+            <h6>@Resource.Price</h6>
+            <div ng-cloak>
+
+                @*@Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 0 }, { "To", 299 } })
+                @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 300 }, { "To", 599 } })
+                @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 600 }, { "To", 999 } })
+                @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 1000 } })*@
+            </div>
+            @*@Html.Partial("Partial/_InfoCartPartial")
+            @Html.Partial("Partial/_RecentlyViewed")*@
+        </div>
+        @*right side*@
+        <div class="col-md-9 all-product">
+            <div class="row">
+                <div class="text-center">
+                    <p class="separator"></p>
+                    <span class="separator-text">@Resource.ProductShop</span>
+                </div>
+            </div>
+            <div ng-repeat="item in items" class="col-md-4 anim-show">
+                @Html.Partial("Partial/_ProductsPartial")
+
+            </div>
+            <div id="loading" style="position: absolute">
+                <img src="~/Image/loader.gif" alt="loading">
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="up">
+    <div class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span></div>
+</div>
+@section scripts
+{
+    <link href="~/Content/ItemProd.css" rel="stylesheet" />
+    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+    <script src="~/Scripts/Angular/Home/Index/Slick.js"></script>
+
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
+    <script src="~/Scripts/Angular/Common/LazyLoadService.js"></script>
+
+    <script src="~/Scripts/Angular/Home/Products/Controller.js"></script>
+    <script src="~/Scripts/Angular/Home/Products/Filter.js"></script>
+
+}

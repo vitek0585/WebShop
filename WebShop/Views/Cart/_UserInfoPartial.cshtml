@@ -1,0 +1,35 @@
+﻿<table class="table table-striped" ng-cloak>
+    <col width="30%"></col>
+    <col width="30%"></col>
+    <col width="40%"></col>
+    <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+    </tr>
+    <tr>
+        <td>{{view.userInfo.userName}}</td>
+        <td>{{view.userInfo.email}}</td>
+        <td>
+            <div class="panel-group" id="collapse">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#collapse-info" href="#collapse-info-one">
+                                Roles
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse-info-one" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div ng-if="view.userInfo.roles.length==0">No roles</div>
+                            <div ng-repeat="role in view.userInfo.roles">
+                                {{$index+1}} - {{role}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

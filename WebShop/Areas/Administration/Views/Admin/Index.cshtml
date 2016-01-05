@@ -1,0 +1,73 @@
+﻿@model WebShop.Models.PageInfo<WebShop.EFModel.Model.Good>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="notifyWin" class="success-notify notify"></div>
+
+
+<div class="container container-fluid admin" ng-app="adminApp">
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#goods" data-toggle="tab">Goods</a></li>
+            <li><a href="#users" data-toggle="tab">Users</a></li>
+        </ul>
+    </div>
+    <div id="adminContent" class="tab-content">
+        <div class="tab-pane fade active in" id="goods">
+            <div class="row" ng-controller="ctrlGlobal">
+                <div class="col-md-4">
+                    @Html.Partial("_GoodsView", Model)
+                </div>
+                <div class="col-md-8">
+                    @Html.Partial("_ModalWindow")
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab" ng-click="sliderSetup()">Description</a></li>
+                        <li><a href="#image-upload" data-toggle="tab">Upload Image</a></li>
+                        <input type="checkbox" checked data-toggle="toggle" data-on="Edit" data-off="Create" class="select-mode" ng-cloak>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="home">
+                            @Html.Partial("_GoodEdit")
+                        </div>
+                        <div class="tab-pane fade image-edit" id="image-upload" ng-controller="ctrlUpload">
+                            @Html.Partial("_UploadView")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="users" ng-controller="ctrlEditUser">
+            @Html.Partial("_UserEditPartial")
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts{
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+    <link href="~/Content/EditImage.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <link href="~/Content/Slider.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
+    <script src="~/Scripts/Angular/Common/SelectedDirective.js"></script>
+    <script src="~/Scripts/Angular/Common/DirectiveLoading.js"></script>
+    <script src="~/Scripts/Angular/Common/Paging/RouteService.js"></script>
+    <script src="~/Scripts/Angular/Common/Paging/PagingDirective.js"></script>
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Admin/Index/Controller.js"></script>
+    <script src="~/Scripts/Angular/Admin/Index/UploadDirective.js"></script>
+    <script src="~/Scripts/Angular/Admin/Index/Filter.js"></script>
+
+}
+
+
+

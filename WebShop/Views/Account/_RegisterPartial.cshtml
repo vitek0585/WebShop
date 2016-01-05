@@ -1,0 +1,101 @@
+﻿@using WebShop.Infostructure.Helpers
+@model WebShop.Models.Account.RegisterViewModel
+@{
+    var name = Html.GetName(m => m.UserName);
+    var email = Html.GetName(m => m.Email);
+    var password = Html.GetName(m => m.Password);
+    var confirmPassw = Html.GetName(m => m.ConfirmPassword);
+}
+<form method="POST" class="form-horizontal" role="form" novalidate name="registerForm" id="registerForm">
+    @Html.AntiForgeryToken()
+    @*Name user*@
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="">Name</label>
+        <div class="col-sm-8">
+            <input type="text"
+                   class="form-control"
+                   id="@name"
+                   placeholder="Enter name"
+                   name="@name"
+                   ng-model="user.@name"
+                   ng-pattern="/^[A-Za-z]\w{2,20}$/"
+                   ng-class="registerForm.@name.$dirty&&!registerForm.@name.$valid?'custom-invalid':''">
+        </div>
+        <div class="col-sm-8 col-md-push-4"
+             ng-class="registerForm.@name.$valid?'custom-valid':'custom-invalid'" 
+             ng-cloak>
+            <span ng-show="registerForm.@name.$dirty&&!registerForm.@name.$valid">The user name should be minimum 3 and maximum 20 characters, and first character must be a letter</span>
+        </div>
+    </div>
+    @*Email*@
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="">Email</label>
+        <div class="col-sm-8">
+            <input type="email"
+                   class="form-control"
+                   id="@email"
+                   placeholder="Enter email"
+                   name="@email"
+                   ng-model="user.@email"
+                   ng-required="true"
+                   ng-class="registerForm.@email.$dirty&&!registerForm.@email.$valid?'custom-invalid':''">
+        </div>
+        <div class="col-sm-8 col-md-push-4"
+             ng-class="registerForm.@email.$valid?'custom-valid':'custom-invalid'"
+             ng-cloak>
+            <span ng-show="registerForm.@email.$dirty&&!registerForm.@email.$valid">Email is required</span>
+        </div>
+    </div>
+    @*Password*@
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="">Password</label>
+        <div class="col-sm-8">
+            <input type="password"
+                   class="form-control"
+                   id="@password"
+                   placeholder="Enter password"
+                   name="@password"
+                   ng-model="user.@password"
+                   ng-minlength="6"
+                   ng-maxlength="20"
+                   ng-required="true"
+                   ng-class="registerForm.@password.$dirty&&!registerForm.@password.$valid?'custom-invalid':''">
+        </div>
+        <div class="col-sm-8 col-md-push-4"
+             ng-class="registerForm.@password.$valid?'custom-valid':'custom-invalid'"
+             ng-cloak>
+            <span ng-show="registerForm.@password.$dirty&&!registerForm.@password.$valid">Password is required (min 6 and max 20 characters)</span>
+        </div>
+    </div>
+    @*Confirm password*@
+    <div class="form-group">
+        <label class="col-sm-4 control-label" for="">Confirm password</label>
+        <div class="col-sm-8">
+            <input compare-to source="user.@password"
+                   type="password"
+                   class="form-control"
+                   id="@confirmPassw"
+                   placeholder="Confirm password"
+                   name="@confirmPassw"
+                   ng-model="user.@confirmPassw"
+                   ng-minlength="6"
+                   ng-maxlength="20"
+                   ng-required="true"
+                   ng-class="registerForm.@confirmPassw.$dirty&&!registerForm.@confirmPassw.$valid?'custom-invalid':''">
+        </div>
+        <div class="col-sm-8 col-md-push-4"
+             ng-class="registerForm.@confirmPassw.$valid?'custom-valid':'custom-invalid'"
+             ng-cloak>
+            <span ng-show="registerForm.@confirmPassw.$dirty&&!registerForm.@confirmPassw.$valid">Password is not confirm</span>
+        </div>
+    </div>
+    <div ng-if="responseHandler.message!=''" class="col-md-8 col-lg-push-4" ng-cloak>
+        <pre class="label-error">{{responseHandler.message}}</pre>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12 text-right">
+            <button class="btn btn-primary" ng-click="submit(registerForm)" ng-disabled="!registerForm.$valid">Register</button>
+        </div>
+    </div>
+
+</form>

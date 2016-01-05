@@ -1,0 +1,101 @@
+﻿
+.navbar-inverse .navbar-nav > li > a {
+    color: #333333;
+    line-height: 40px;
+    text-transform: uppercase;
+    transition: color .4s;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    background-color: #ffffff;
+}
+
+.icon-menu .navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    box-shadow: 0 0 20px #F1F1EF;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #DBB879;
+    background-color: #ffffff;
+    z-index: 1001;
+}
+
+.navbar-inverse {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+
+    .navbar-inverse .navbar-nav > li > .menu-option {
+        color: #F1F1EF;
+        line-height: 55px;
+        text-transform: uppercase;
+        background: #ffffff;
+        transition: all .4s;
+    }
+
+        .navbar-inverse .navbar-nav > li > .menu-option:hover {
+            color: #DBB879;
+            cursor: pointer;
+        }
+
+    .navbar-inverse .dropdown-menu > li > a {
+        background-color: #ffffff;
+        color: #333333;
+        transition: all .4s;
+    }
+
+        .navbar-inverse .dropdown-menu > li > a:hover {
+            background-color: #ffffff;
+            color: #DBB879;
+        }
+
+.dropdown-menu {
+    box-shadow: 0 0 20px #F1F1EF;
+}
+
+.dropdown.open {
+    box-shadow: 0 0 20px #F1F1EF;
+}
+
+    .dropdown.open > .menu-option {
+        z-index: 1001;
+    }
+
+ul > .icon-menu {
+    margin-left: 1em;
+}
+
+/*dropdown menu on hover*/
+.href-dropdown-header {
+    z-index: 1001;
+}
+
+.menu-dropdown-header:hover .dropdown-menu,
+.menu-dropdown-header:hover > .href-dropdown-header {
+    display: block;
+    background: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li:hover, .navbar-inverse .navbar-nav > li:focus {
+    box-shadow: 0 0 20px #EFEEF3;
+}
+.glyphicon.glyphicon-menu-down {
+        top: 0;
+}
+.glyphicon-menu-down:before {
+
+    content: "\e259";
+    font-size: 0.6em;
+}
+.sub-menu-banner {
+        width: 100%;
+    height: 180px;
+}
+.sub-menu-banner > div {
+     width: 100%;
+    height: 100%;
+}

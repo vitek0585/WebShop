@@ -1,0 +1,33 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Image-Carousel-cardigan {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1px;
+}
+.Image-Carousel-carousel2 {
+/* You may have to set 'display: block' */
+	width: 570px;
+	height: 826px;
+	background: url('MySprite.jpg') -1px -416px;
+}
+.Image-Carousel-illusion {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1243px;
+}
+.Image-Carousel-josefina {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1658px;
+}
+.Image-Carousel-quilted {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -2073px;
+}

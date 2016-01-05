@@ -1,0 +1,67 @@
+﻿@model ICategoryCulture
+@{
+    ViewBag.Title = string.Concat(Model.CategoryName, "-", Model.TypeName);
+}
+<div id="notifyWin" class="success-notify notify"></div>
+<div class="container prod-container" ng-controller="prodCtrl">
+    @*left side*@
+    <div class="row">
+        <div class="col-md-3">
+            <h3 class="text-center color-h text-uppercase">@Resource.ShopBy</h3>
+            <hr />
+            <h5 class="text-uppercase"><b>@Resource.ShopOpt</b></h5>
+            <hr />
+            <h6>@Resource.Price</h6>
+            <div ng-cloak>
+
+                @*@Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 0 }, { "To", 299 } })
+                    @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 300 }, { "To", 599 } })
+                    @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 600 }, { "To", 999 } })
+                    @Html.Partial("Partial/_PriceCountPartial", null, new ViewDataDictionary() { { "From", 1000 } })*@
+            </div>
+            @*@Html.Partial("Partial/_InfoCartPartial")
+                @Html.Partial("Partial/_RecentlyViewed")*@
+        </div>
+        @*right side*@
+        <div class="col-md-9 all-product" ng-controller="pageCtrl" ng-init="category=@Model.CategoryId;clickPage(@ViewBag.Page)">
+            <div class="row">
+                <div class="text-center">
+                    <p class="separator"></p>
+                    <span class="separator-text">@Model.CategoryName</span>
+                </div>
+            </div>
+            <div class="row" style="min-height: 600px">
+                <div ng-repeat="item in items" class="col-md-4 anim-show">
+                    @Html.Partial("/Views/Main/Partial/_ProductsPartial.cshtml")
+                </div>
+                <div class="loader-products" ng-show="isWait">
+                    <div class="flexbox-container" style="height: 100%">
+                        <img src="~/Image/loader.gif" alt="loading" style="height: 3em;width: 3em">
+                    </div>
+                </div>
+            </div>
+            <div paging-setup click-page="clickPage" info="info" class="paging"></div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts
+{
+    <link href="~/Content/ItemProd.css" rel="stylesheet" />
+    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Angular/Home/Index/Slick.js"></script>
+
+    <script src="~/Scripts/Angular/Common/Paging/RouteService.js"></script>
+    <script src="~/Scripts/Angular/Common/Paging/PagingDirective.js"></script>
+
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
+
+
+    <script src="~/Scripts/Angular/Home/Products/Controller.js"></script>
+
+
+}

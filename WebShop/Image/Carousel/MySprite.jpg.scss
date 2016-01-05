@@ -1,0 +1,33 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Image-Carousel-cardigan() {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1px;
+}
+@mixin sprite-Image-Carousel-carousel2() {
+/* You may have to set 'display: block' */
+	width: 570px;
+	height: 826px;
+	background: url('MySprite.jpg') -1px -416px;
+}
+@mixin sprite-Image-Carousel-illusion() {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1243px;
+}
+@mixin sprite-Image-Carousel-josefina() {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -1658px;
+}
+@mixin sprite-Image-Carousel-quilted() {
+/* You may have to set 'display: block' */
+	width: 270px;
+	height: 414px;
+	background: url('MySprite.jpg') -1px -2073px;
+}

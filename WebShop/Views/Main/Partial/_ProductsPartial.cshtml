@@ -1,0 +1,69 @@
+﻿<div class="item-prod">
+    <input type="hidden" ng-bind="::item.goodId" />
+    <div class="image-prod col-md-12 col-sm-12" ng-cloak="true">
+        @*основная картинка*@
+        <slick class="slider-for{{::$index}}"
+               as-nav-for='.slider-nav{{::$index}}'
+               fade="true"
+               data="item"
+               arrows="false"
+               init-onload=true>
+            <div ng-repeat="photo in item.photos | limitTo:3">
+                <div ng-if="item.discount>0" class="text-uppercase sale-shape">@Resource.Discount</div>
+                @*<zoom ng-src="{{::'/getPhoto/'+photo}}" alt="not img" class="primary-img"
+                style="width: 100%;" mark-height="100" mark-width="100" zoom-lvl="3"  />*@
+                @*<a href="{{::'/Home/GetDetails/'+item.goodId}}">
+                    <img ng-src="{{::'/Image/Products/'+photo}}"
+                         style="width: 100%; height: 385px;"/>
+
+                </a>*@
+                <div ng-style="{'background':'url(/Image/Products/{{photo}}) no-repeat center','background-size': 'contain'}"
+                     class="primary-img">
+
+                </div>
+            </div>
+            <div ng-if="item.photos.length==0">
+                <a href="{{::'/Categories/GetDetails/'+item.goodId}}">
+                    <div ng-style="{'background':'url(/Image/not-image.png) no-repeat center','background-size': 'contain'}"
+                         class="primary-img"
+                         style="width: 100%;">
+
+                    </div>
+                </a>
+            </div>
+        </slick>
+        @*картинки выбора*@
+        <div class="image-slider" ng-cloak="true">
+            <div class="image-prod-all">
+                <slick class="slider-nav{{::$index}}"
+                       as-nav-for='.slider-for{{::$index}}'
+                       infinite="true" dots=true
+                       style="width: 60px"
+                       slides-to-show=3
+                       slides-to-scroll=1
+                       swipe="true"
+                       focus-on-select="true"
+                       data="item" init-onload=true
+                       arrows="false"
+                       vertical="true">
+                    <div ng-repeat="photo in item.photos | limitTo:3">
+                        <img class="image-item" ng-src="{{::'/Image/Products/'+photo}}" alt="not img"
+                             style="width: 50px; height: 80px;" />
+                    </div>
+                </slick>
+            </div>
+        </div>
+    </div>
+    <div class="description-prod col-md-12 col-sm-12">
+        <div class="name-prod">{{::item.goodName}}</div>
+        <div class="price-prod">{{::item.priceUsd | currencyExtend:0}}</div>
+    </div>
+    <div ng-if="item.goodCount>0" class="container-action-prod">
+        <a class="action-prod btn glyphicon glyphicon-shopping-cart" ng-click="item.goodCount=1;add(item)">
+        </a>
+    </div>
+    <div ng-if="item.goodCount==0" class="container-action-prod">
+        <h4>@Resource.NotInStock</h4>
+    </div>
+</div>
+

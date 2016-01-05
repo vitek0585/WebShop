@@ -1,0 +1,59 @@
+﻿@using System.Threading
+@{
+    var symbol = Thread.CurrentThread.CurrentUICulture.NumberFormat.CurrencySymbol;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
+    <script src="~/Scripts/jquery-1.7.2.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+
+    <link href="~/Content/slick.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css" />*@
+    <link href="~/Content/slick-theme.css" rel="stylesheet" />
+
+    <link href="~/Content/NavBar.css" rel="stylesheet" />
+    <link href="~/Content/Carousel.css" rel="stylesheet" />
+    <link href="~/Content/Zoom.css" rel="stylesheet" />
+</head>
+<body ng-app="globalApp" ng-controller="globalCtrl" ng-init="initSymbol('@symbol')">
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            @{
+                Html.RenderPartial("_HeaderView");
+            }
+
+        </div>
+    </div>
+    <div class="body-content">
+        <section>
+            @RenderBody()
+        </section>
+        <footer>
+            @Html.Partial("_FooterPartial")
+        </footer>
+    </div>
+    <div id="up">
+        <div class="btn btn-primary"><span class="glyphicon glyphicon-arrow-up"></span></div>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/slick.min.js"></script>
+<script src="~/Scripts/Angular/Global/GlobalApp.js"></script>
+    <script src="~/Scripts/Angular/Common/LazyLoadService.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

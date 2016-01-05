@@ -1,0 +1,38 @@
+﻿
+<table class="table table-striped" ng-cloak>
+    <col width="50%">
+    <thead>
+        <tr>
+            <th>Orders</th>
+            <th>Summa</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="sale in view.history | orderBy:'-date' track by $index">
+            <td>
+                <div class="panel-group" id="collapse">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#collapse" href="#collapse-one{{$index}}">
+                                    Orders
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse-one{{$index}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div ng-repeat="order in sale.orders track by $index ">
+                                    {{$index+1}} - {{order}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>{{sale.summa}}</td>
+            <td>{{sale.date|date:'dd/M/yy'}}</td>
+        </tr>
+    </tbody>
+</table>
+

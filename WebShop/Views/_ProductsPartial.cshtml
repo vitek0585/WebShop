@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@model IEnumerable<WebShop.Models.GoodHome>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4" ng-controller="ctrl">
+        <div class="panel panel-default">
+            <input type="hidden" ng-bind="::item.GoodId='@item.GoodId'" />
+
+            <div class="panel-heading">
+                {{::item.GoodName='@item.GoodName'}}
+                @*<div class="container-tooltip" tool-tip-direct e-id="@item.GoodId"></div>*@
+            </div>
+
+            <div class="panel-body cart">
+                <div class="row" ng-init="id='@item.PhotoId'">
+                    <img ng-src="{{id!=''?'/getPhoto/'+id:'/Image/not-image.png'}}" alt="Not image" />
+                </div>
+                <div style="margin-top: 10px" ng-init="item.PriceUsd=@item.PriceUsd.ToString(CultureInfo.GetCultureInfo("en-us"))">
+                    <b>Price</b>:{{::item.PriceUsd}}
+                </div>
+                <div style="margin-top: 10px">
+                    <b>Count goods</b>: @item.GoodCount
+                </div>
+                <div style="margin-top: 10px">
+                    <button class="btn btn-primary " ng-click="add(item,url).then(success,error);isActive=false"
+                            ng-disabled="!isActive||!(@item.GoodCount>
+                        0)">Add to cart<i class="glyphicon glyphicon-ok"></i>
+                    </button>
+                </div>
+                <div class="info" ng-class="item.css">{{item.message}}</div>
+            </div>
+        </div>
+    </div>
+
+}

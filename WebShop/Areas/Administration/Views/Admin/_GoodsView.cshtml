@@ -1,0 +1,20 @@
+﻿
+@model WebShop.Models.PageInfo<WebShop.EFModel.Model.Good>
+
+<div class="row good-view" ng-controller="ctrlPaging" id="controll-view-goods">
+    <div ng-if="items.length==0" class="text-center"> 
+        <img src="~/Image/load.gif" class="img-loading" alt="Loading..."/>
+    </div>
+    <div ng-init="clickPage(@Model.CurrentPage);info.currentPage=@Model.CurrentPage;info.totalPages=@Model.TotalPages" style="cursor: pointer">
+        <div ng-repeat="item in items track by $index" ng-cloak>
+            <div class="alert alert-dismissible alert-info" ng-click="selectItem(item)">
+                <button type="button" class="close glyphicon glyphicon-trash" ng-click="showModal(item.goodId,'removeGood',$event)"></button>
+                <strong>ID: {{item.goodId}}</strong>
+                <p>
+                    <strong>Name good -</strong> {{item.goodName}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div paging-setup click-page="clickPage" info="info" ng-if="items.length>0" class="paging"></div>
+</div>

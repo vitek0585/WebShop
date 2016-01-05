@@ -1,0 +1,39 @@
+﻿<table ng-if="files.length>0">
+    <thead>
+        <tr>
+            <td colspan="5">
+                <div><b>Uploaded files:</b> {{(files|filter:{upload:true}).length}}</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr ng-repeat-start="file in files track by $index" ng-init="progress={width:{'width':'0%'},active:false};">
+            <td><img ng-src={{file.result}} alt='error image'/></td>
+            <td>{{file.name}}</td>
+            <td>{{file.size|sizeFilter}}</td>
+            <td>{{file.type}}</td>
+            <td>
+                <div class="btn-group-vertical">
+                    <button type="button" class="btn btn-sm btn-primary button-upload" ng-disabled="file.upload||progress.active" ng-click="upload($index,progress)">Save</button>
+                    <button type="button" class="btn btn-sm  btn-danger" ng-disabled="file.upload||progress.active" ng-click="remove($index)">Remove</button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat-end>
+            <td colspan="5">
+                <div class="progress progress-striped active" ng-show="progress.active">
+                    <div class="progress-bar" ng-style="progress.width"></div>
+                </div>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

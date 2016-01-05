@@ -1,0 +1,59 @@
+﻿<link href="~/Content/EditImage.css" rel="stylesheet" />
+
+<div style="position:absolute;height:100px;width:100px; background: red;z-index: 2000"></div>
+<div style="position:absolute;height:100px;width:100px; background: green; left: 50px;overflow: hidden"></div>
+
+@*<div class="row">
+    <div class="item-prod col-md-4 col-sm-4">
+        <div class="image-prod col-md-12 col-sm-12 slider-for" style="width:200px;height: 300px">
+           
+
+        </div>
+        <div>
+            <div class="image-slider ">
+                <div class="image-prod-all slider-nav">
+                    <div class="image-item">
+                        <img src="/Image/not-image.png" alt="not img" />
+                    </div>
+                    <div class="image-item">
+                        <img src="/Image/not-image.png" alt="not img" />
+                    </div>
+                    <div class="image-item">
+                        <img src="/Image/not-image.png" alt="not img" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="description-prod col-md-12 col-sm-12">
+            <div class="name-prod">Heellooo stylesheet</div>
+            <div class="price-prod">1200 $</div>
+        </div>
+        <div class="container-action-prod">
+            <div class="action-prod"></div>
+            <div class="action-prod"></div>
+            <div class="action-prod"></div>
+        </div>
+    </div>
+</div>*@
+
+@section scripts
+{
+    <script>
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            asNavFor: '.slider-for',
+            vertical: true,
+            dots: true,
+            centerMode: true,
+            focusOnSelect: true
+        });
+    </script>
+}

@@ -1,0 +1,23 @@
+﻿@model WebShop.Models.Account.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="row" ng-app="loginApp">
+    <div class="col-md-6">
+        <section id="loginForm" ng-controller="loginCtrl">
+            @Html.Partial("_LoginPartial", Model)
+            <spin-wait show-when="responseHandler.isBusy" />
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Angular/Common/SerializeToObject.js"></script>
+    <script src="~/Scripts/Angular/Common/DirectiveLoading.js"></script>
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Account/Login/Controller.js"></script>
+}

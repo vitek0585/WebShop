@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebShop.Models.UserOrder>
+@{
+    ViewBag.Title = "My Cart";
+}
+<div class="container container-fluid" ng-controller="ctrl">
+    <section ng-controller="views">
+        <h3 class="color-h text-uppercase">Shopping Cart</h3>
+        <hr />
+
+        <div class="col-md-3">
+            @if (Request.IsAuthenticated)
+            {
+                <div ng-init="getHistory('@User.Identity.Name');getUserInfo('@User.Identity.Name')"></div>
+                @Html.Partial("_MenuUserPartial")
+            }
+        </div>
+        <div class="col-md-9 cart" ng-switch on="view.current">
+            <div ng-switch-when="cart">
+                <form ng-init="items.count=@Model.Count()">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <input type="hidden" value="@User.Identity.Name" name="userName"/>
+                    }
+
+                    <div class="row">
+                        @Html.Partial("_ItemOrder", Model)
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="clearfix">
+                                <button class="btn btn-primary btn-buy to-right" ng-disabled="!isActive||items.count==0" ng-click="showModal('buy');">
+                                    Buy<i class="glyphicon glyphicon-shopping-cart"></i>
+                                </button>
+                            </div>
+                            <hr />
+                            <div class="to-right" ng-cloak>
+                                <h4><span class="color-h text-uppercase">Total amount: </span>{{items.totalAmount|number:2}} $</h4>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="info" ng-class="result.css" ng-cloak>{{result.message}}</div>
+                    </div>
+                    @Html.Partial("_ModalWindow")
+                </form>
+            </div>
+            <div class="row" ng-switch-when="history">
+                @Html.Partial("_HistoryPartial")
+            </div>
+            <div class="row" ng-switch-when="userInfo">
+                @Html.Partial("_UserInfoPartial")
+            </div>
+        </div>
+    </section>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Cart/Show/Controller.js"></script>
+}

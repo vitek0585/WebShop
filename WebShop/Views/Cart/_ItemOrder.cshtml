@@ -1,0 +1,62 @@
+﻿@using System.Globalization
+@model IEnumerable<WebShop.Models.UserOrder>
+
+<table class="table table-bordered">
+    <col width="15%"></col>
+    <col width="25%"></col>
+    <col width="15%"></col>
+    <col width="10%"></col>
+    <col width="20%"></col>
+    <col width="15%"></col>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Subtotal</th>
+        <th>Remove</th>
+    </tr>
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <tr id="item-@Model.ElementAt(i).GoodId" ng-controller="order" ng-init="obj={count:@Model.ElementAt(i).CountGood,price:@Model.ElementAt(i).PriceUsd.ToString(CultureInfo.GetCultureInfo("en-us")) }">
+            <td>
+                @Html.Hidden("[" + i + "].GoodId", Model.ElementAt(i).GoodId)
+                @Html.Hidden("[" + i + "].GoodNameRu", Model.ElementAt(i).GoodName)
+                @Html.Hidden("[" + i + "].PriceUsd", Model.ElementAt(i).PriceUsd)
+                @if (Model.ElementAt(i).Photos.Any())
+                {
+                    <img src="/getPhoto/@Model.ElementAt(i).Photos.ElementAt(0)" alt="No image"/>
+                }
+                else
+                {
+                    
+                    <img src="@Url.Content("/Image/not-image.png")" alt="No image"/>
+                }
+            </td>
+            <td>
+                <div>@Model.ElementAt(i).GoodName</div>
+            </td>
+            <td>
+                {{obj.price|number:2}} 
+            </td>
+            <td>
+                <div>
+                    <input name="[@i].GoodCount" ng-model="obj.count" type="number" class="form-control col-sm-4" min="1"/>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <div  ng-cloak>
+                        {{obj.price*obj.count|number:2}} 
+                    </div>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-danger remove"
+                        ng-click="showModal('remove');currentItem.Id=@Model.ElementAt(i).GoodId">
+                    Remove <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </td>
+        </tr>
+    }
+</table>

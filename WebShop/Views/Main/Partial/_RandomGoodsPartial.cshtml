@@ -1,0 +1,20 @@
+﻿<div class="col-md-12 widget-random" ng-cloak>
+
+    <div class="col-md-8">
+        <a href="{{::'/Home/GetDetails/'+item.goodId}}">
+            <div ng-if="item.photos[0]" class="img" ng-style="{'background-image':'url({{::'/getPhoto/'+item.photos[0]}})'}"></div>
+            @* <div ng-if="!item.photos[0]" class="img" ng-style="background-image: url('{{'/getPhoto/'+item.photos[0]}}')"></div>*@
+            <div ng-if="!item.photos[0]" class="img" style="background-image:url(/Image/not-image.png)"></div>
+
+            @*<img ng-if="item.photos[0]" ng-src="{{::'/getPhoto/'+item.photos[0]}}" alt="No image" width="100%"/>*@
+                @*<img ng-if="!item.photos[0]" ng-src="/Image/not-image.png" alt="No image" width="100%"/>*@
+        </a>
+    </div>
+    <div class="col-md-4">
+        <h5>{{::item.goodName}}</h5>
+        <h5>{{::item.priceUsd|currencyExtend:0:item.currencySymbol}}</h5>
+        <div class="text-uppercase">
+            <a class="color-h" href="{{::'/Home/GetDetails/'+item.goodId}}">to view</a>
+        </div>
+    </div>
+</div>

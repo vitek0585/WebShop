@@ -1,0 +1,14 @@
+﻿.widget-random {
+    margin-top: 1em;
+}
+.widget-random .col-md-4{
+    padding: 0;
+}
+.widget-random .img {
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    width:100%
+}

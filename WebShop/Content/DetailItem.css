@@ -1,0 +1,58 @@
+﻿/*base*/
+.slick-slider {
+    margin-bottom: 5px;
+    z-index: 0;
+    margin-left: 0;
+    margin-right: 0;
+    
+}
+/*my*/
+.item-detail {
+    height: 625px;
+    width: 350px;
+    position: relative;
+    padding: 0;
+    float: right;
+}
+.item-detail:hover {
+    z-index: 1000;
+}
+.item-detail .original {
+    height: 471px;
+    width: 100%;
+}
+.original img {
+     height: 471px;
+     width: 100%;
+}
+.image-prod {
+    margin-top: 5px;
+    /*height: 471px;*/
+    
+}
+.image-slider {
+
+    margin-top: 5px;
+  overflow: hidden;
+    
+}
+.slick-slide {
+    margin: 0 5px;
+  
+}
+/* the parent */
+.slick-list {
+    margin: 0 -5px;
+      overflow: visible;
+}
+:focus {
+    outline: -webkit-focus-ring-color auto 0;
+}
+/*zoom*/
+.zoomed{
+    float: left;
+    position: relative;
+    overflow: hidden;
+    left: 336px;
+    z-index: 1000;
+}

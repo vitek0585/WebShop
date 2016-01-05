@@ -1,0 +1,30 @@
+﻿
+<div class="modal-info" ng-show="modal.isModal" ng-cloak >
+    <div style="display:inline-block;top:100px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="hideModal()">&times;</button>
+                    <h4 class="modal-title">Your cart</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{modal.message}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="hideModal()">Close</button>
+                    <button type="button" class="btn btn-success" ng-click="modal.action();hideModal()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(".modal-info").draggable({
+            handle: ".modal-header",
+            containment: "parent",
+            cursor: "move"
+        });
+    </script>
+}

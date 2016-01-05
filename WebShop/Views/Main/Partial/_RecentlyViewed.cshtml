@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebShop.Models.GoodView>
+
+
+@foreach (var item in Model.Reverse())
+{
+    int id = item.GoodId;
+    string photo = item.Photo;
+    string goodName = item.GoodName;
+    decimal price = item.Price;
+
+
+    <div class="col-md-12 widget-random">
+        <div class="col-md-8">
+            <a href="{{::'/Home/GetDetails/'+ @id}}">
+                @if (photo.Any())
+                {
+                    <div class="img" style="background-image: url({{::'/Image/Products/'+@photo}})"></div>
+                }
+                else
+                {
+                    <div class="img" style="background-image: url('/Image/not-image.png')"></div>
+                }
+            </a>
+        </div>
+        <div class="col-md-4">
+            <h5>@goodName</h5>
+            <h5>{{@price|currencyExtend:0}}</h5>
+            <div class="text-uppercase">
+                <a class="color-h" href="{{::'/Home/GetDetails/'+@id}}">to view</a>
+            </div>
+        </div>
+    </div>
+
+}
+

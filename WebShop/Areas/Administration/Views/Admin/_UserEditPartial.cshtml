@@ -1,0 +1,58 @@
+﻿<div ng-controller="ctrlPagingUsers" style="position: relative">
+    <div ng-init="clickPage(1);"></div>
+    <table class="table table-striped">
+        <col width="10%"></col>
+        <col width="30%"></col>
+        <col width="40%"></col>
+        <col width="20%"></col>
+        <tr>
+            <th>Id</th>
+            <th>User name</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="item in items track by $index" ng-init="roles">
+            <td>{{item.id}}</td>
+            <td>{{item.userName}}</td>
+            <td>
+                <div>
+                    <div select-picker bind="item" select="roles"></div>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-info" ng-click="save(item.id,roles);">Save</button>
+                <button class="btn btn-danger" ng-click="showModal();currentUser(item,items)">Remove</button>
+            </td>
+        </tr>
+    </table>
+    
+    @*Modal remove*@
+    <div class="modal-info" ng-show="modal.isModal" ng-cloak>
+        <div style="display: inline-block; top: 100px">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="hideModal()">&times;</button>
+                        <h4 class="modal-title">Remove user</h4>
+                    </div>
+                    <div class="modal-body text-left">
+                        <div><b>Id</b> - {{user.id}}
+                        </div>
+                        <div><b>User name</b> - {{user.userName}}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="hideModal()">Close</button>
+                        <button type="button" class="btn btn-success" ng-click="remove();hideModal()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div paging-setup click-page="clickPage" info="info" ng-if="items.length>0" class="paging"></div>
+    <spin-wait show-when="items.length==0" />
+
+    
+</div>
+
