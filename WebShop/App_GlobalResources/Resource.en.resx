@@ -214,6 +214,9 @@ UNDER THE SAME ROOF</value>
   <data name="LogOff" xml:space="preserve">
     <value>Log Off</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value>main</value>
+  </data>
   <data name="MoreUs" xml:space="preserve">
     <value>More about us</value>
   </data>

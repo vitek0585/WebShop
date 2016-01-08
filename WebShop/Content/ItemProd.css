@@ -5,7 +5,7 @@
 }
 /*my*/
 .item-prod {
-    height: 554px;
+    height: 505px;
     position: relative;
     padding: 0;
 }
@@ -21,7 +21,9 @@
 
 .image-prod {
     margin-top: 5px;
-    height: 385px;
+    /*height: 385px;*/
+    height: 350px;
+
      overflow: hidden;
 }
 
@@ -44,7 +46,8 @@
 
 .primary-img {
 
-    height: 385px;
+    height: 350px;
+    /*height: 385px;*/
     /*width: 100%;*/
   
 }
@@ -134,7 +137,7 @@
 .sale-shape:before {
     content: "";
     position: absolute;
-    right: -14px;
+    right: -13px;
     top: 0;
     width: 0;
     height: 0;
@@ -145,7 +148,7 @@
 .sale-shape:after {
     content: "";
     position: absolute;
-    right: -14px;
+    right: -13px;
     bottom: 0;
     width: 0;
     height: 0;

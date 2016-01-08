@@ -10,6 +10,7 @@ using Owin;
 using WebShop.Api.Implements;
 using WebShop.Api.Interfaces;
 using WebShop.EFModel.Context;
+using WebShop.EFModel.Model;
 using WebShop.Identity.Context;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Models;
@@ -29,6 +30,7 @@ namespace WebShop.Core.Settings.Autofac
         {
             builder.RegisterType(typeof(GoodsRepository)).As(typeof(IGoodsRepository)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(CategoryRepository)).As(typeof(ICategoryRepository)).InstancePerLifetimeScope();
+            builder.RegisterType(typeof(CategoryTypeRepository)).As(typeof(ICategoryTypeRepository)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(SaleRepository)).As(typeof(ISaleRepository)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(SalePosRepository)).As(typeof(ISalePosRepository)).InstancePerLifetimeScope();
             builder.RegisterType<PhotoGoodsRepository>().As<IPhotoRepository>().InstancePerLifetimeScope();

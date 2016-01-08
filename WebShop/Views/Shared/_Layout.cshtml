@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
+    @Scripts.Render("~/bundles/modernizr")
+    @*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
     <script src="~/Scripts/jquery-1.7.2.min.js"></script>
     <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/Scripts/angular.js"></script>
@@ -52,8 +52,10 @@
     </div>
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/slick.min.js"></script>
-<script src="~/Scripts/Angular/Global/GlobalApp.js"></script>
+
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
     <script src="~/Scripts/Angular/Common/LazyLoadService.js"></script>
+    <script src="~/Scripts/Angular/Global/GlobalApp.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,16 +1,22 @@
-﻿@model ICategoryCulture
+﻿@using WebShop.Infostructure.BreadCrumsService
+@using WebShop.Infostructure.Helpers
+@model ICategoryCulture
+
 @{
     ViewBag.Title = string.Concat(Model.CategoryName, "-", Model.TypeName);
 }
 <div id="notifyWin" class="success-notify notify"></div>
-<div class="container prod-container" ng-controller="prodCtrl">
+<div class="container" ng-controller="prodCtrl">
     @*left side*@
-    <div class="row">
+    <div class="row row-nomargin row-nopadding">
+        <div class="col-md-12">
+            @Html.GenerateBreadCrumbs(new BreadCrumbsCategory(Model.CategoryId), Model.TypeName)
+        </div>
         <div class="col-md-3">
             <h3 class="text-center color-h text-uppercase">@Resource.ShopBy</h3>
-            <hr />
+            <hr/>
             <h5 class="text-uppercase"><b>@Resource.ShopOpt</b></h5>
-            <hr />
+            <hr/>
             <h6>@Resource.Price</h6>
             <div ng-cloak>
 
@@ -36,7 +42,7 @@
                 </div>
                 <div class="loader-products" ng-show="isWait">
                     <div class="flexbox-container" style="height: 100%">
-                        <img src="~/Image/loader.gif" alt="loading" style="height: 3em;width: 3em">
+                        <img src="~/Image/loader.gif" alt="loading" style="height: 3em; width: 3em">
                     </div>
                 </div>
             </div>
@@ -50,14 +56,13 @@
 @section scripts
 {
     <link href="~/Content/ItemProd.css" rel="stylesheet" />
-    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+    <link href="~/Content/idgetRandom.css" rel="stylesheet" />
 
     <script src="~/Scripts/Angular/Home/Index/Slick.js"></script>
 
     <script src="~/Scripts/Angular/Common/Paging/RouteService.js"></script>
     <script src="~/Scripts/Angular/Common/Paging/PagingDirective.js"></script>
 
-    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
     <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
 
 

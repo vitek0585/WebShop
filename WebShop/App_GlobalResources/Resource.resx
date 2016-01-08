@@ -214,6 +214,9 @@
   <data name="LogOff" xml:space="preserve">
     <value>Выйти</value>
   </data>
+  <data name="Main" xml:space="preserve">
+    <value>главная</value>
+  </data>
   <data name="MoreUs" xml:space="preserve">
     <value>Больше о нас</value>
   </data>

@@ -1,14 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WebShop.Models.InterfacesModel
 {
+    public interface IBreadCrumbsModel
+    {
+        string NameLink { get; set; }
+        string Href { get; set; }
+       
+    }
+
+    public class BreadCrumbsModel:IBreadCrumbsModel
+    {
+        public string NameLink { get; set; }
+        public string Href { get; set; }
+
+
+    }
+
+    public interface IBreadCrumbsCategoryModel : IBreadCrumbsModel
+    {
+        int CategoryId { get; set; }
+
+    }
+
     public interface ICategoryCulture
     {
-        string CategoryId { get; set; }
+        int CategoryId { get; set; }
         string TypeName { get; set; }
         string CategoryName { get; set; }
         string TypeByHref { get; set; }
-   
+
 
     }
     public interface ITypeCategoryModel<T> where T : ICategoryModelBase

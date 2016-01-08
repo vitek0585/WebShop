@@ -709,3 +709,13 @@ blockquote {
     background: rgba(233, 233, 233, 0.45);
    
 }
+.old-price {
+    
+    text-decoration: line-through;
+
+}
+.new-price {
+    text-align: center;
+    color: #8b0000;
+
+}

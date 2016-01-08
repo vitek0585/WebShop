@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using WebShop.Controllers.Base;
 using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
@@ -9,7 +10,7 @@ using WebShop.Repo.Interfaces;
 
 namespace WebShop.Controllers.Controller
 {
-    using IExtendModel = ITypeCategoryModel<ICategoryModel>;
+    using ICatModel = ITypeCategoryModel<ICategoryModel>;
 
     [RoutePrefix("Catalog")]
     [TypeOfCulture]
@@ -28,24 +29,33 @@ namespace WebShop.Controllers.Controller
             _sizeStorageViewed = 5;
         }
         [Route("{type}")]
-        public ActionResult CategoryByType(string type, int id)
+        public ActionResult Categories(string type)
         {
-            var discount = 50;
+            var discount = 0;
+            var id = _categoryService.GetTypeIdByName(type);
 
-            var data = _categoryService.GetCategoryByType<IExtendModel>(id, GetCurrentLanguage());
-            ViewBag.Sale = _categoryService.GetCategoryByTypeSale<IExtendModel>(id, GetCurrentLanguage(), discount);
+            if (id.HasValue)
+            {
+                var data = _categoryService.GetCategoryByType<ICatModel>(id.Value, GetCurrentLanguage());
+                ViewBag.Sale = _categoryService.GetCategoryByTypeSale<ICatModel>(id.Value, GetCurrentLanguage(), discount);
+                return View(data);
+            }
 
-            return View(data);
+            return HttpNotFound();
+
         }
-        [Route("{type}/Category/{id:int}/{page:int:min(1)=1}")]
-        public ActionResult GetGoodsByCategory(string type, int id, int page)
+        [Route("{type}/Category/{id:int:min(1):max(100000)}/{page:int:min(1):max(1000)=1}")]
+        public ActionResult CategoryGoods(string type, int id, int page)
         {
             var data = _categoryService.GetCategoryByCulture<ICategoryCulture>(type, id, GetCurrentLanguage());
+
             if (data != null)
             {
                 ViewBag.Page = page;
+                //ViewBag.BreadCrums = _categoryService.GetCategoryWithChild<IBreadCrumbsModel>(id, GetCurrentLanguage());
                 return View(data);
             }
+
             return HttpNotFound();
 
         }
@@ -61,7 +71,10 @@ namespace WebShop.Controllers.Controller
         public JsonResult AllCategory()
         {
             //var data = _goodService.GetByPage<dynamic>(1, _totalPerPage,10, GetCurrentCurrency(), GetCurrentLanguage());
-            return Json(_categoryService.GetCategoryByCulture<ICategoryCulture>("Women",10, GetCurrentLanguage()), JsonRequestBehavior.AllowGet);
+            //var data = _categoryService.GetCategoryWithChild<IBreadCrumbsModel>(51, GetCurrentLanguage());
+             var d = _categoryService.GetCategoryByTypeSale<ICatModel>(1, GetCurrentLanguage(), 0);
+           //var d = _categoryService.GetCategoryByCulture<ICategoryCulture>("Men", 42, GetCurrentLanguage());
+            return Json(d, JsonRequestBehavior.AllowGet);
         }
 
         #region Helper

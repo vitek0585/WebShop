@@ -1,9 +1,11 @@
-﻿@model ITypeCategoryModel<ICategoryModel>
+﻿@using WebShop.Infostructure.BreadCrumsService
+@using WebShop.Infostructure.Helpers
+@model ITypeCategoryModel<ICategoryModel>
 
 @{
     ViewBag.Title = string.Concat(Resource.Categories.ToUpper(),"-",Model.TypeName);
 }
-
+@Html.GenerateBreadCrumbs(new BreadCrumbsCommon(), Model.TypeName)
 <div class="row home" ng-cloak id="container">
     <div class="container prod-container">
         <div class="row">
@@ -12,7 +14,7 @@
                 {
                     foreach (var item in (ViewBag.Sale as ITypeCategoryModel<ICategoryModel>).Items)
                     {
-                        <div>@item.CategoryName</div>
+                        @Html.Partial("Partial/_CategoryWidget", item, new ViewDataDictionary { { "type", Model.TypeByHref } })
                     }
                 }
             </div>
