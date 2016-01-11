@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>accept</value>
+  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Add to cart</value>
   </data>
@@ -154,6 +157,12 @@ UNDER THE SAME ROOF</value>
   <data name="Categories" xml:space="preserve">
     <value>сategory</value>
   </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>clear filter</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>color</value>
+  </data>
   <data name="Count" xml:space="preserve">
     <value>Count</value>
   </data>
@@ -177,6 +186,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>filter</value>
   </data>
   <data name="FilterPriceMore" xml:space="preserve">
     <value>and more &lt;b class='color-h'&gt; {{{{(items|countPrice:{0}:{1}).length}}}}&lt;/b&gt;</value>
@@ -250,11 +262,26 @@ UNDER THE SAME ROOF</value>
   <data name="Russian" xml:space="preserve">
     <value>Russian</value>
   </data>
-  <data name="ShopBy" xml:space="preserve">
-    <value>Shop by</value>
-  </data>
   <data name="ShopOpt" xml:space="preserve">
     <value>Shopping Options</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>size</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>sort by</value>
+  </data>
+  <data name="SortByNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="SortByNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SortByPriceAsc" xml:space="preserve">
+    <value>Price ascending</value>
+  </data>
+  <data name="SortByPriceDesc" xml:space="preserve">
+    <value>Price descending </value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>

@@ -11,30 +11,30 @@
         </li>
         <li>
             <div ng-class="collapse.curr?'sub-menu-collapse':'sub-menu-in'" id="collapseExample" class="dropdown-menu-content">
-                <div class="text-uppercase">
-                    @Html.ActionLink(Resource.CurrencyUSD, "ChangeCurrency", "Main", new { currency = "usd", refUrl = Request.Url.AbsoluteUri }, null)
+                <div class="text-uppercase hvr-bounce-to-right">
+                    @Html.ActionLink(Resource.CurrencyUSD, "ChangeCurrency", "Main", new { currency = "usd", refUrl = Request.Url.AbsoluteUri }, new { @class = "href-dropdown-header" })
 
                 </div>
                 <hr />
-                <div class="text-uppercase">
-                    @Html.ActionLink(Resource.CurrencyUAH, "ChangeCurrency", "Main", new { currency = "uah", refUrl = Request.Url.AbsoluteUri }, null)
+                <div class="text-uppercase hvr-bounce-to-right">
+                    @Html.ActionLink(Resource.CurrencyUAH, "ChangeCurrency", "Main", new { currency = "uah", refUrl = Request.Url.AbsoluteUri }, new { @class = "href-dropdown-header" })
                 </div>
             </div>
         </li>
         @*Language*@
         <li>
             <a data-toggle="collapse.lang" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" ng-click="collapseLang($event)">
-                <span class="text-uppercase cursor-href">@Resource.Language<i class="glyphicon glyphicon-menu-down"></i></span>
+                <span class="text-uppercase cursor-href">@Resource.Language<i class="glyphicon glyphicon-menu-down "></i></span>
             </a>
         </li>
         <li>
             <div ng-class="collapse.lang?'sub-menu-collapse':'sub-menu-in'" id="collapseExample" class="dropdown-menu-content">
-                <div class="text-uppercase">
-                    @Html.ActionLink(Resource.English, "ChangeLanguage", "Main", new { lang = "en", refUrl = Request.Url.AbsoluteUri }, null)
+                <div class="text-uppercase hvr-bounce-to-right">
+                    @Html.ActionLink(Resource.English, "ChangeLanguage", "Main", new { lang = "en", refUrl = Request.Url.AbsoluteUri }, new { @class = "href-dropdown-header" })
                 </div>
                 <hr />
-                <div class="text-uppercase">
-                    @Html.ActionLink(Resource.Russian, "ChangeLanguage", "Main", new { lang = "ru", refUrl = Request.Url.AbsoluteUri }, null)
+                <div class="text-uppercase hvr-bounce-to-right">
+                    @Html.ActionLink(Resource.Russian, "ChangeLanguage", "Main", new { lang = "ru", refUrl = Request.Url.AbsoluteUri }, new { @class = "href-dropdown-header" })
                 </div>
             </div>
         </li>

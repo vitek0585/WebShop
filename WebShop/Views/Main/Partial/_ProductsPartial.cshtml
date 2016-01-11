@@ -9,7 +9,7 @@
                arrows="false"
                init-onload=true>
             <div ng-repeat="photo in item.photos | limitTo:3">
-                <div ng-if="item.discount>0" class="text-uppercase sale-shape">@Resource.Discount</div>
+                <div ng-if="::item.discount>0" class="text-uppercase sale-shape">@Resource.Discount</div>
                 @*<zoom ng-src="{{::'/getPhoto/'+photo}}" alt="not img" class="primary-img"
                 style="width: 100%;" mark-height="100" mark-width="100" zoom-lvl="3"  />*@
                 @*<a href="{{::'/Home/GetDetails/'+item.goodId}}">
@@ -17,12 +17,12 @@
                          style="width: 100%; height: 385px;"/>
 
                 </a>*@
-                <div ng-style="{'background':'url(/Image/Products/{{photo}}) no-repeat center','background-size': 'cover'}"
+                <div ng-style="::{'background':'url(/Image/Products/{{::photo}}) no-repeat center','background-size': 'cover'}"
                      class="primary-img">
 
                 </div>
             </div>
-            <div ng-if="item.photos.length==0">
+            <div ng-if="::item.photos.length==0">
                 <a href="{{::'/Categories/GetDetails/'+item.goodId}}">
                     <div ng-style="{'background':'url(/Image/not-image.png) no-repeat center','background-size': 'contain'}"
                          class="primary-img"
@@ -56,14 +56,14 @@
     </div>
     <div class="description-prod col-md-12 col-sm-12">
         <div class="name-prod">{{::item.goodName}}</div>
-        <div class="price-prod" ng-class="item.discount>0?'old-price':''">{{::item.priceUsd | currencyExtend:0}}</div>
-        <div class="new-price" ng-if="item.discount>0">{{::(item.priceUsd - (item.discount/100*item.priceUsd)) | currencyExtend:0}}</div>
+        <div class="price-prod" ng-class="::item.discount>0?'old-price':''">{{::item.priceUsd | currencyExtend:0}}</div>
+        <div class="new-price" ng-if="::item.discount>0">{{::(item.priceUsd - (item.discount/100*item.priceUsd)) | currencyExtend:0}}</div>
     </div>
-    <div ng-if="item.goodCount>0" class="container-action-prod">
+    <div ng-if="::item.goodCount>0" class="container-action-prod">
         <a class="action-prod btn glyphicon glyphicon-shopping-cart" ng-click="item.goodCount=1;add(item)">
         </a>
     </div>
-    <div ng-if="item.goodCount==0" class="container-action-prod">
+    <div ng-if="::item.goodCount==0" class="container-action-prod">
         <h4>@Resource.NotInStock</h4>
     </div>
 </div>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>применить</value>
+  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>В корзину</value>
   </data>
@@ -154,6 +157,12 @@
   <data name="Categories" xml:space="preserve">
     <value>категории</value>
   </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>очистить фильтр</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>цвет</value>
+  </data>
   <data name="Count" xml:space="preserve">
     <value>Количество</value>
   </data>
@@ -177,6 +186,9 @@
   </data>
   <data name="English" xml:space="preserve">
     <value>Английский</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>фильтр</value>
   </data>
   <data name="FilterPriceMore" xml:space="preserve">
     <value> и более &lt;b class='color-h'&gt; {{{{(items|countPrice:{0}:{1}).length}}}}&lt;/b&gt;</value>
@@ -250,11 +262,26 @@
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
-  <data name="ShopBy" xml:space="preserve">
-    <value>Выбрать по</value>
-  </data>
   <data name="ShopOpt" xml:space="preserve">
     <value>Фильтр покупки</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>размер</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>сортировать по</value>
+  </data>
+  <data name="SortByNew" xml:space="preserve">
+    <value>Новинки</value>
+  </data>
+  <data name="SortByNone" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="SortByPriceAsc" xml:space="preserve">
+    <value>Цена по возрастанию</value>
+  </data>
+  <data name="SortByPriceDesc" xml:space="preserve">
+    <value>Цена по убыванию</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>до</value>

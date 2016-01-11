@@ -30,13 +30,13 @@ namespace WebShop.Controllers.Base
         [NonAction]
         protected string GetCurrentCurrency()
         {
-            return _storage.GetValueStorage(HttpContext, ValuesProvider.Currency)
-                   ?? ValuesProvider.CurrencyDefault;
+            return _storage.GetValueStorage(HttpContext, ValuesApp.Currency)
+                   ?? ValuesApp.CurrencyDefault;
         }
         [NonAction]
         protected string GetCurrentLanguage()
         {
-            return _storage.GetValueStorage(HttpContext, ValuesProvider.Language) ?? ValuesProvider.LanguageDefault;
+            return _storage.GetValueStorage(HttpContext, ValuesApp.Language) ?? ValuesApp.LanguageDefault;
         }
         #endregion
     }

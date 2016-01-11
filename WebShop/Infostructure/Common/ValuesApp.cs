@@ -5,7 +5,7 @@ using System.IO;
 namespace WebShop.Infostructure.Common
 {
 
-    public static class ValuesProvider
+    public static class ValuesApp
     {
         private const string _productsImagePath = "/Image/Products";
 

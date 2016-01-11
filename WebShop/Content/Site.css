@@ -4,6 +4,33 @@
     src: url('../fonts/Ubuntu-L.ttf') format('truetype');
 }
 
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+    color: #333333;
+    text-decoration: none;
+    outline: 0;
+    background-color: #ffffff;
+}
+/*.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus,
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,*/
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #333333;
+    background-color: #ffffff;
+    z-index: 1001;
+}
+
+a:active {
+    text-decoration: none;
+    background-color: transparent;
+}
+
 a {
     color: #333333;
     text-decoration: none;
@@ -16,29 +43,25 @@ a {
     }
 
 .section-category {
-    padding: 6px 5px;
     font-size: 12px;
     cursor: pointer;
     transition: background .5s;
+    position: relative;
 }
 
     .section-category:hover {
         color: #DBB879;
-        background: #FBFBFB;
     }
 
 .dropdown-menu-content div {
-    padding: 6px 0;
     font-size: 12px;
     cursor: pointer;
     transition: background .5s;
 }
 
     .dropdown-menu-content div:hover {
-        padding: 6px 0;
         font-size: 12px;
         color: #DBB879;
-        background: #FBFBFB;
     }
 
 .settings-culture .dropdown-menu li:not(:first-child) {
@@ -314,7 +337,13 @@ i.glyphicon:first-child::before {
 
 .paging a {
     margin: 0 1px;
+    min-width: 45px;
 }
+
+    .paging a:hover,
+    .paging .btn-primary.active {
+        background: #333333;
+    }
 
 .good-view .alert {
     font-size: 13pt;
@@ -637,8 +666,7 @@ i.glyphicon:first-child::before {
 }
 
 .row-nomargin {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0 -5px;
 }
 
 .row-nopadding {
@@ -703,19 +731,111 @@ blockquote {
 .loader-products {
     position: absolute;
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 5px;
+    left: 10px;
+    right: 10px;
     background: rgba(233, 233, 233, 0.45);
-   
 }
-.old-price {
-    
-    text-decoration: line-through;
 
+.old-price {
+    text-decoration: line-through;
 }
+
 .new-price {
     text-align: center;
     color: #8b0000;
+}
 
+.breadcrumb {
+    border: none;
+    font-size: 11px;
+    border-radius: 0;
+}
+
+    .breadcrumb > .active > span {
+        color: rgb(183, 183, 183);
+    }
+
+.filter-container {
+    padding-right: 5px;
+    font-size: 14px;
+}
+
+.accordion-toggle {
+    cursor: pointer;
+}
+
+.filter-container .panel {
+    margin-bottom: 21px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.filter-container .panel-group .panel-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .list-group {
+    border-top: none;
+}
+/* Underline From Center */
+@-webkit-keyframes hvr-pulse-grow-my {
+    to {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+    }
+}
+
+@keyframes hvr-pulse-grow-my {
+    to {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+    }
+}
+
+.filter-container .panel-heading {
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+    .filter-container .panel-heading:hover {
+        -webkit-animation-name: hvr-pulse-grow;
+        animation-name: hvr-pulse-grow-my;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: alternate;
+        animation-direction: alternate;
+    }
+
+.filter-container .panel-body {
+    padding: 0;
+}
+
+.sort-by {
+    display: inline-block;
+    min-width: 200px;
+}
+
+.btn-white {
+    margin-top: 1em;
+    background: #fff;
+    text-transform: uppercase;
+    color: #000000;
+    border: 1px #F1F1EF solid;
+    height: 3em;
+    width: 10em;
+    font-size: .8em;
+    transition: all .2s;
+}
+
+.product-fomater {
+    margin: 0 10px;
 }

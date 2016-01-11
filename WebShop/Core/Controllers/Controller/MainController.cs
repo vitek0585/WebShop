@@ -35,16 +35,16 @@ namespace WebShop.Controllers.Controller
         [Route("ChangeLanguage")]
         public ActionResult ChangeLanguage(string lang, string refUrl)
         {
-            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesProvider.Language, 
-                lang, ValuesProvider.Languages);
+            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Language, 
+                lang, ValuesApp.Languages);
 
             return Redirect(CheckValidReturnUrl(refUrl));
         }
         [Route("ChangeCurrency")]
         public ActionResult ChangeCurrency(string currency, string refUrl)
         {
-            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesProvider.Currency, 
-                currency, ValuesProvider.Currencies);
+            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Currency, 
+                currency, ValuesApp.Currencies);
 
             return Redirect(CheckValidReturnUrl(refUrl));
         }

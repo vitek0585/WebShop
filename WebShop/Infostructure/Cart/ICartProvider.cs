@@ -13,11 +13,11 @@ namespace WebShop.Infostructure.Cart
     {
         public ICart<UserOrder> GetCart()
         {
-            var cart = HttpContext.Current.Session[ValuesProvider.Cart];
+            var cart = HttpContext.Current.Session[ValuesApp.Cart];
             if (cart == null)
             {
                 cart = new UserCart();
-                HttpContext.Current.Session[ValuesProvider.Cart] = cart;
+                HttpContext.Current.Session[ValuesApp.Cart] = cart;
             }
             return (UserCart)cart;
         }

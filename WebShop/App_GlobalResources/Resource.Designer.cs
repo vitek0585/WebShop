@@ -61,6 +61,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to применить.
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to В корзину.
         /// </summary>
         public static string AddToCart {
@@ -170,6 +179,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to очистить фильтр.
+        /// </summary>
+        public static string ClearFilter {
+            get {
+                return ResourceManager.GetString("ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to цвет.
+        /// </summary>
+        public static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество.
         /// </summary>
         public static string Count {
@@ -238,6 +265,15 @@ namespace WebShop.App_GlobalResources {
         public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to фильтр.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
             }
         }
         
@@ -458,20 +494,65 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Выбрать по.
-        /// </summary>
-        public static string ShopBy {
-            get {
-                return ResourceManager.GetString("ShopBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Фильтр покупки.
         /// </summary>
         public static string ShopOpt {
             get {
                 return ResourceManager.GetString("ShopOpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to размер.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to сортировать по.
+        /// </summary>
+        public static string SortBy {
+            get {
+                return ResourceManager.GetString("SortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новинки.
+        /// </summary>
+        public static string SortByNew {
+            get {
+                return ResourceManager.GetString("SortByNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать.
+        /// </summary>
+        public static string SortByNone {
+            get {
+                return ResourceManager.GetString("SortByNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цена по возрастанию.
+        /// </summary>
+        public static string SortByPriceAsc {
+            get {
+                return ResourceManager.GetString("SortByPriceAsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цена по убыванию.
+        /// </summary>
+        public static string SortByPriceDesc {
+            get {
+                return ResourceManager.GetString("SortByPriceDesc", resourceCulture);
             }
         }
         

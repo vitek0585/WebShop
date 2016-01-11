@@ -53,7 +53,7 @@ angular.module("lazyLoadApp", ["httpApp"]).
 
             upButton.fadeOut("slow");
             upButton.on("click", function () {
-                console.log("UP");
+                //console.log("UP");
                 $("body").animate({ scrollTop: 0 }, "slow");
             });
 

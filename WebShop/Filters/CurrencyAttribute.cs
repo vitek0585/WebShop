@@ -14,10 +14,10 @@ namespace WebShop.Filters
             string currency = null;
             ICookieConsumer storage = new CookieConsumer();
 
-            if (storage.GetValueStorage(filterContext.HttpContext, ValuesProvider.Currency) != null)
-                currency = storage.GetValueStorage(filterContext.HttpContext, ValuesProvider.Currency);
+            if (storage.GetValueStorage(filterContext.HttpContext, ValuesApp.Currency) != null)
+                currency = storage.GetValueStorage(filterContext.HttpContext, ValuesApp.Currency);
             else
-                currency = ValuesProvider.CurrencyDefault;
+                currency = ValuesApp.CurrencyDefault;
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currency);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currency);

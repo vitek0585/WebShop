@@ -3,11 +3,12 @@
 @model ITypeCategoryModel<ICategoryModel>
 
 @{
-    ViewBag.Title = string.Concat(Resource.Categories.ToUpper(),"-",Model.TypeName);
+    ViewBag.Title = string.Concat(Resource.Categories.ToUpper(), "-", Model.TypeName);
 }
-@Html.GenerateBreadCrumbs(new BreadCrumbsCommon(), Model.TypeName)
 <div class="row home" ng-cloak id="container">
-    <div class="container prod-container">
+    <div class="container">
+        @Html.GenerateBreadCrumbs(new BreadCrumbsCommon(), Model.TypeName)
+
         <div class="row">
             <div class="col-md-9 sale-widg-prods ">
                 @if (ViewBag.Sale is ITypeCategoryModel<ICategoryModel>)
@@ -31,7 +32,7 @@
                 <div>
                     @foreach (var item in Model.Items)
                     {
-                        @Html.Partial("Partial/_CategoryWidget", item, new ViewDataDictionary {{"type", Model.TypeByHref}})
+                        @Html.Partial("Partial/_CategoryWidget", item, new ViewDataDictionary { { "type", Model.TypeByHref } })
 
                     }
                 </div>

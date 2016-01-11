@@ -155,8 +155,8 @@ namespace WebShop.Controllers.Controller
         [NonAction]
         private string GetCurrentCurrency()
         {
-            return _storage.GetValueStorage(ControllerContext.HttpContext, ValuesProvider.Currency)
-                   ?? ValuesProvider.CurrencyDefault;
+            return _storage.GetValueStorage(ControllerContext.HttpContext, ValuesApp.Currency)
+                   ?? ValuesApp.CurrencyDefault;
         }
         [NonAction]
         private ICart<UserOrder> GetCart()

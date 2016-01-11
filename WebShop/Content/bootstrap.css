@@ -207,9 +207,9 @@ th {
     text-shadow: none !important;
   }
   a,
-  a:visited {
+  /*a:visited {
     text-decoration: underline;
-  }
+  }*/
   a[href]:after {
     content: " (" attr(href) ")";
   }
@@ -1102,7 +1102,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
-a {
+/*a {
   color: #008cba;
   text-decoration: none;
 }
@@ -1110,7 +1110,7 @@ a:hover,
 a:focus {
   color: #008cba;
   text-decoration: underline;
-}
+}*/
 a:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -3623,14 +3623,14 @@ tbody.collapse.in {
   color: #262626;
   background-color: #eeeeee;
 }
-.dropdown-menu > .active > a,
+/*.dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
   color: #ffffff;
   text-decoration: none;
   outline: 0;
   background-color: #008cba;
-}
+}*/
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {

@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using System.Web.Services.Configuration;
 using WebShop.EFModel.Model;
 using WebShop.Filters.ModelValidate;
+using WebShop.Infostructure.Binder;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models;
@@ -83,22 +90,24 @@ namespace WebShop.Controllers.WebApi
             }
 
         }
-        [Route("GetByPage")]
-        public IHttpActionResult GetByPage(short category, int page)
+        [Route("GetByPage"), HttpGet]
+        public IHttpActionResult GetByPage(short category, int page, 
+            [ModelBinder(typeof(HttpFilterBinder))]Expression<Func<Good, bool>> pr)
         {
             Task.Delay(1500).GetAwaiter().GetResult();
             try
             {
-                var data = _goodService.GetByPage<dynamic>(page, _totalPerPage,category, GetCurrentCurrency(), GetCurrentLanguage());
-                return Ok(data);
+               var data = _goodService.GetByPage<dynamic>(page, _totalPerPage, category,
+                    GetCurrentCurrency(), GetCurrentLanguage(), pr);
+
+               return OkOrNoContent<dynamic>(data);
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
-
 
         [HttpPost]
         [Route("RemoveGood")]
@@ -163,14 +172,24 @@ namespace WebShop.Controllers.WebApi
         [NonAction]
         private string GetCurrentCurrency()
         {
-            return _storage.GetValueStorage(Request.Headers, ValuesProvider.Currency)
-                   ?? ValuesProvider.CurrencyDefault;
+            return _storage.GetValueStorage(Request.Headers, ValuesApp.Currency)
+                   ?? ValuesApp.CurrencyDefault;
         }
         [NonAction]
         private string GetCurrentLanguage()
         {
-            return _storage.GetValueStorage(Request.Headers, ValuesProvider.Language) ?? ValuesProvider.LanguageDefault;
+            return _storage.GetValueStorage(Request.Headers, ValuesApp.Language) ?? ValuesApp.LanguageDefault;
         }
+        [NonAction]
+        private IHttpActionResult OkOrNoContent<TResult>(TResult data)
+        {
+            if (data == null)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return Ok(data);
+        }
+
         #endregion
 
     }

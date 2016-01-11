@@ -11,25 +11,40 @@ namespace WebShop.Infostructure.Helpers
     {
         public static MvcHtmlString GenerateBreadCrumbs<T>(this HtmlHelper html, BreadCrumbsBase<T> crumbs, params string[] links)
         {
-            TagBuilder parent = new TagBuilder("div");
+            TagBuilder ol = new TagBuilder("ol");
+            ol.AddCssClass("breadcrumb");
+            
 
             try
             {
                 var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
                 Uri url = html.ViewContext.HttpContext.Request.Url;
                 var data = crumbs.GenerateBreadCrumbs(url, lang, links);
-                parent.InnerHtml += CreateTagLink(Resource.Main, new UriBuilder(url.Scheme,url.Host,url.Port).ToString());
 
+                TagBuilder li = new TagBuilder("li");
+                li.InnerHtml += CreateTagLink(Resource.Main, new UriBuilder(url.Scheme,url.Host,url.Port).ToString());
+                ol.InnerHtml += li.ToString();
                 for (var i = 0; i < data.Count(); i++)
                 {
-                    parent.InnerHtml += CreateTagLink(data.ElementAt(i).NameLink, data.ElementAt(i).Href);
+                
+                    li = new TagBuilder("li");
+                    if (i == data.Count() - 1)
+                    {
+                        li.AddCssClass("active");
+                        TagBuilder tb = new TagBuilder("span");
+                        tb.SetInnerText(data.ElementAt(i).NameLink);
+                        li.InnerHtml += tb.ToString();
+                    }else
+                    li.InnerHtml += CreateTagLink(data.ElementAt(i).NameLink, data.ElementAt(i).Href);
+
+                    ol.InnerHtml += li.ToString();
                 }
             }
             catch (Exception e)
             {
                 return MvcHtmlString.Create(e.Message + String.Empty);
             }
-            return MvcHtmlString.Create(parent.ToString());
+            return MvcHtmlString.Create(ol.ToString());
         }
 
         private static string CreateTagLink(string text,string href)

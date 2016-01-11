@@ -143,9 +143,10 @@ paging.directive("pagingSetup", [function () {
             scope.buttons = buttons;
             scope.click = function (item) {
 
-               // console.log(item.currentPage, item.isRefresh);
+                // console.log(item.currentPage, item.isRefresh);
                 if (info.currentPage == item.currentPage)
                     return;
+
                 info.currentPage = item.currentPage;
                 scope.clickPage(info.currentPage);
                 g.calculatePaging(item);
@@ -156,6 +157,9 @@ paging.directive("pagingSetup", [function () {
             }, function () {
                 g.calculatePaging();
             });
+
+            info.refresh = g.calculatePaging;
+
         },
         restrict: "A",
         scope: {

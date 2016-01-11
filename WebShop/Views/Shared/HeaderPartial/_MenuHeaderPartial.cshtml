@@ -15,8 +15,8 @@
                 <ul class="list-unstyled">
                     @for (var j = 0; j < itemsByColumn && i < Model.Items.Count(); j++, i++)
                     {
-                        <li class="text-uppercase ">
-                            <div class="section-category">
+                        <li class="text-uppercase hvr-bounce-to-right">
+                            <div class="section-category ">
                                 <a href="@Url.Action("CategoryGoods", "Catalog", new { type = Model.TypeByHref,id=Model.Items.ElementAt(i).CategoryId })" class="href-dropdown-header">
                                     @Model.Items.ElementAt(i).CategoryName
                                 </a>

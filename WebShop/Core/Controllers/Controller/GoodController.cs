@@ -53,10 +53,10 @@ namespace WebShop.Controllers.Controller
         [NonAction]
         private RecentlyViewedStorage GetRecentlyViewed(int? id)
         {
-            var viewed = (RecentlyViewedStorage)Session[ValuesProvider.RecentlyViewed];
+            var viewed = (RecentlyViewedStorage)Session[ValuesApp.RecentlyViewed];
             if (viewed == null)
             {
-                Session[ValuesProvider.RecentlyViewed] = viewed = new RecentlyViewedStorage(_sizeStorageViewed);
+                Session[ValuesApp.RecentlyViewed] = viewed = new RecentlyViewedStorage(_sizeStorageViewed);
             }
 
             if (id.HasValue)

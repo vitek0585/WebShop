@@ -12,11 +12,12 @@ http.service("httpService", ["$http", function (http) {
         return promise;
     }
     //post запрос
-    this.postRequest = function (item, url, headers) {
+    this.postRequest = function (paramUri,body,url,headers) {
         var config = {
-            headers: headers
+            headers: headers,
+            params: paramUri
         };
-        var promise = http.post(url, item, config);
+        var promise = http.post(url, body, config);
         return promise;
     }
     //запрос для данных которые находятся в теле запроса (принимает обычный объект)
