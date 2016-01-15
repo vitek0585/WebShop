@@ -1,0 +1,25 @@
+.fancymodal.fancymodal-theme-classic {
+  .fancymodal-content {
+    max-width: 420px;
+    background-color: #000;
+    color: #fff;
+  }
+
+  .fancymodal-content-opening, {
+    -webkit-animation: fancymodal-in 1s;
+    animation: fancymodal-in 1s;
+  }
+  .fancymodal-content-closing {
+    -webkit-animation: fancymodal-out 1s;
+    animation: fancymodal-out 1s;
+  }
+  .fancymodal-overlay-opening {
+    -webkit-animation: fancymodal-fadeIn 1s;
+    animation: fancymodal-fadeIn 1s;
+  }
+  .fancymodal-overlay-closing {
+    -webkit-animation: fancymodal-fadeOut 1s;
+    animation: fancymodal-fadeOut 1s;
+  }
+
+}

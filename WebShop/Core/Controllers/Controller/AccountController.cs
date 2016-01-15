@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
+using WebShop.Filters.Culture;
 using WebShop.Filters.ModelValidate;
+using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Models;
+using WebShop.Infostructure.Common;
 using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models.Account;
@@ -18,16 +25,20 @@ namespace WebShop.Core.Controllers.Controller
 {
     [RoutePrefix("Account")]
     [Authorize]
+    [TypeOfCulture]
     public class AccountController : AccountBaseController
     {
         // Used for XSRF protection when adding external logins
         protected const string XsrfKey = "XsrfId";
+        private IAccountService _account;
 
-        public AccountController(ICookieConsumer storage, IAuthenticationManager auth, UserManager manager,
-            RoleManager role) : base(storage, auth, manager, role)
+        public AccountController(ICookieConsumer storage, IAccountService account, IAuthenticationManager auth, UserManager manager,
+            RoleManager role)
+            : base(storage, auth, manager, role)
         {
+            _account = account;
         }
-
+        [Route("Login")]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -35,67 +46,60 @@ namespace WebShop.Core.Controllers.Controller
             return View();
         }
 
-        [HttpPost]
+        [Route("Login"), HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ModelValidationFilter]
         public async Task<JsonResult> Login(LoginViewModel model, string returnUrl)
         {
-            var user = await _userManager.FindAsync(model.UserName, model.Password);
-            if (user == null)
+            var result = await _account.LoginAsync(model.UserName, model.Password, model.RememberMe, Resource.InvalidLogin);
+            if (result.Succeeded)
             {
-                ModelState.AddModelError("", "Invalid login or password");
-                return new JsonResultCustom(ModelState.Select(s => s.Value.Errors), HttpStatusCode.BadRequest);
+                return Json(new { url = CheckValidReturnUrl(returnUrl) });
             }
-            if (!user.EmailConfirmed)
-            {
-                ModelState.AddModelError("", "Email not confirmed.");
-                return new JsonResultCustom(ModelState.Select(s => s.Value.Errors), HttpStatusCode.BadRequest);
-            }
-            var ident = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            if (user.UserName == "vitek")
-            {
-                ident.AddClaim(new ClaimsIdentity(ClaimTypes.Role, "Admin"));
-            }
-            _authentication.SignIn(new AuthenticationProperties() { IsPersistent = model.RememberMe }, ident);
-
-            return Json(new { url = CheckValidReturnUrl(returnUrl) });
+            return new JsonResultCustom(result.Errors, HttpStatusCode.BadRequest);
         }
 
         [AllowAnonymous]
+        [Route("Register")]
         public ActionResult Register()
         {
             return View();
         }
 
-        [HttpPost]
+        [Route("Register"), HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ModelValidationFilter]
+        [TypeOfCulture]
         public async Task<JsonResult> Register(RegisterViewModel model)
         {
-            User user = new User { UserName = model.UserName, Email = model.Email };
+            var result = IdentityResult.Success;
+           ICookieConsumer storage = DependencyResolver.Current.GetService<ICookieConsumer>();
 
-            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            var language = storage.GetValueStorage(HttpContext, ValuesApp.Language) ??
+                       ValuesApp.LanguageDefault;
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
+
+            var currency = storage.GetValueStorage(HttpContext, ValuesApp.Currency) ??
+                       ValuesApp.CurrencyDefault;
+
+            Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol = ValuesApp.GetCurrencySymbol(language,currency);
+            Thread.CurrentThread.CurrentUICulture.NumberFormat.CurrencySymbol = ValuesApp.GetCurrencySymbol(language, currency);
+            //User user = new User { UserName = model.UserName, Email = model.Email };
+            //var result = await _account.CreateUserAsync(user, model.Password);
             if (result.Succeeded)
             {
-                string code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
-                    Request.Url.Scheme);
-
-                await _userManager.SendEmailAsync(user.Id, "Confirm your account",
-                    "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>  in the my shop is Vitek prodaction");
-
-                return Json(new
-                {
-                    message = "To your e-mail was sent message to confirm your registration"
-                });
+              
+               // await _account.SendConfirmationTokenToEmailAsync(user.Id, Url.Action);
+                return Json(Resource.RegConfirmMessage);
             }
-
             AddErrors(result);
-            return new JsonResultCustom(ModelState.Values.Select(e => e.Errors), HttpStatusCode.BadRequest);
+            return Json(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage));
         }
-
+        [Route("ConfirmEmail")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
@@ -103,9 +107,10 @@ namespace WebShop.Core.Controllers.Controller
             {
                 return View("Error");
             }
-            var result = await _userManager.ConfirmEmailAsync(userId, code);
+            var result = await _account.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+        [Route("LogOff")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

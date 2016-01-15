@@ -13,8 +13,10 @@ using WebShop.Api.Storage;
 using WebShop.EFModel.Context;
 using WebShop.EFModel.Model;
 using WebShop.Identity.Context;
+using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Models;
+using WebShop.Identity.Services;
 using WebShop.Infostructure.Cart;
 using WebShop.Infostructure.Storage.Implements;
 using WebShop.Infostructure.Storage.Interfaces;
@@ -63,6 +65,7 @@ namespace WebShop.Core.Settings.Autofac
                 .As<IExchangeRatesService>().InstancePerLifetimeScope();
         }
     }
+    
     public class UnitModule : global::Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -77,13 +80,7 @@ namespace WebShop.Core.Settings.Autofac
             builder.RegisterType<CookieConsumer>().As<ICookieConsumer>().InstancePerLifetimeScope();
             builder.RegisterType<CartProvider>().As<ICartProvider<UserOrder>>().InstancePerLifetimeScope();
 
-            //UriBuilder uriBuilder = new UriBuilder();
-            //uriBuilder.Scheme = "https";
-            //uriBuilder.Host = "api.privatbank.ua";
-            //uriBuilder.Path = "p24api/pubinfo";
-            //uriBuilder.Query = "json&exchange&coursid=5";
-
-            //builder.Register((c) => new CurrencyApi(uriBuilder.Uri, new HttpCacheService())).As<ICurrencyConverter>().InstancePerLifetimeScope();
+            
         }
     }
     public class ContextModule : global::Autofac.Module
@@ -105,7 +102,10 @@ namespace WebShop.Core.Settings.Autofac
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType(typeof(AccountService)).As(typeof(IAccountService)).InstancePerLifetimeScope();
+            builder.RegisterType(typeof(DbContextIdentity)).AsSelf().InstancePerRequest();
             builder.RegisterType<DbContextIdentity>().As<DbContext>().InstancePerRequest();
+
             builder.RegisterType<UserStore<User, Role, int, UserExternLogin, UserRole, Claim>>().
                 As<IUserStore<User, int>>().InstancePerRequest();
             builder.RegisterType<RoleStore<Role, int, UserRole>>().As<IRoleStore<Role, int>>().InstancePerRequest();

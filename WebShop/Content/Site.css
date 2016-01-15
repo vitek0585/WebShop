@@ -184,7 +184,6 @@ div.toggle {
 
 .custom-invalid {
     color: #8b0000;
-    font-weight: bolder;
 }
 
 input.custom-invalid {
@@ -321,14 +320,19 @@ form h3 {
     text-align: center;
     z-index: 100;
 }
+.account-modal .form-horizontal .form-group {
+     margin-left: 0; 
+     margin-right: 0; 
+}
+    
 
 /*Admin/Index*/
-pre.label-error {
+.label-error {
     background-color: #FFB6C1;
     padding: 10px;
     color: white;
     text-align: center;
-    font-size: 12pt;
+ 
 }
 
 i.glyphicon:first-child::before {

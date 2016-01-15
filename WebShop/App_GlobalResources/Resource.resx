@@ -163,6 +163,12 @@
   <data name="Color" xml:space="preserve">
     <value>цвет</value>
   </data>
+  <data name="ConfirmPswd" xml:space="preserve">
+    <value>подтверждение пароля</value>
+  </data>
+  <data name="ConfirmPswdInValid" xml:space="preserve">
+    <value>пароли не совпадают</value>
+  </data>
   <data name="Count" xml:space="preserve">
     <value>Количество</value>
   </data>
@@ -183,6 +189,9 @@
   </data>
   <data name="DressFor" xml:space="preserve">
     <value>одежда для</value>
+  </data>
+  <data name="EmailInValid" xml:space="preserve">
+    <value>введите верно email</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>Английский</value>
@@ -211,6 +220,9 @@
   <data name="InStock" xml:space="preserve">
     <value>есть</value>
   </data>
+  <data name="InvalidLogin" xml:space="preserve">
+    <value>неправильный логин или пароль,электронный адрес не подтвержден</value>
+  </data>
   <data name="IsMan" xml:space="preserve">
     <value>мужское</value>
   </data>
@@ -235,11 +247,23 @@
   <data name="MoreUs" xml:space="preserve">
     <value>Больше о нас</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>имя</value>
+  </data>
+  <data name="NameInValid" xml:space="preserve">
+    <value>имя пользователя должно содержать от 2 и до 20 латинских символов, первый символ должен быть буквой</value>
+  </data>
   <data name="NewGoods" xml:space="preserve">
     <value>Новые поступления</value>
   </data>
   <data name="NotInStock" xml:space="preserve">
     <value>нет в наличии</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>пароль</value>
+  </data>
+  <data name="PaswdInValid" xml:space="preserve">
+    <value>пароль должен содержать от 6 до 20 латинских символов  начинаться с буквы</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Цена</value>
@@ -259,11 +283,17 @@
   <data name="RecentlyViewed" xml:space="preserve">
     <value>Последнии просмотренные товары</value>
   </data>
+  <data name="RegConfirmMessage" xml:space="preserve">
+    <value>на ваш электронный адрес было отправлено письмо, перейдите по ссылке указанной в нем и подтвердите регистрацию</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
+  </data>
+  <data name="s" xml:space="preserve">
+    <value />
   </data>
   <data name="Sale" xml:space="preserve">
     <value>Скидки</value>

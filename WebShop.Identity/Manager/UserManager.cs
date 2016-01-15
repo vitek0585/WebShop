@@ -30,7 +30,7 @@ namespace WebShop.Identity.Manager
                 if (user != null)
                 {
                     var errors = result.Errors.ToList();
-                    errors.Add("The user name is exists");
+                    errors.Add("The user name is exists My Error");
                     result = new IdentityResult(errors);
                 }
             }
@@ -47,7 +47,7 @@ namespace WebShop.Identity.Manager
             {
                 AllowOnlyAlphanumericUserNames = true,
                 RequireUniqueEmail = true,
-               
+
             };
 
             PasswordValidator = new PasswordValidator()

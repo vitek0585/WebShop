@@ -1,38 +1,44 @@
-﻿var reg = angular.module("regApp", ["httpApp", "confirmApp", "spinnerApp", "serializeApp"]);
-reg.controller("regCtrl", [
-    "$scope", "httpService", "formToObject", function (scope, http, ser) {
+﻿var global = angular.module("globalApp");
+global.injectRequires(["confirmApp", "spinnerApp", "serializeApp"]);
 
-        
-        scope.responseHandler = {
-            message: '',
-            isBusy: false,
-            isSuccededRegister:false
-        }
+global.controller("registerModalCtrl", ["$scope", '$fancyModal', function (scope, modal) {
 
-        var clear = function () {
-            scope.responseHandler.message = '';
-        };
-        var error = function (d) {
-          
-            var data = d.data;
-          
-            clear();
-            var newLine = '\n';
-            for (var i=0;i<data.length;i++) {
-                for (var j = 0; j < data[i].length; j++)
-                    scope.responseHandler.message += data[i][j].errorMessage + newLine;
-            }
-        };
-        scope.submit = function () {
-            scope.responseHandler.isBusy = true;
-            var form = ser.serializeObject(registerForm);
-            var url = "/Account/Register";
-            http.formRequest(url, form).then(function (d) {
-                    scope.responseHandler.isSuccededRegister = true;
-                }, error)
-                .finally(function() {
-                    scope.responseHandler.isBusy = false;
-                });
-        };
+    scope.openRegisterModal = function () {
+        modal.open({
+            template: angular.element(document.querySelector("#registerTmpl")).html(),
+            //openingClass: 'animated zoomIn',
+            //closingClass: 'animated hinge',
+            //openingOverlayClass: 'animated fadeIn',
+            //closingOverlayClass: 'animated fadeOut',
+            //plain: true,
+            //closeByEscape: false,
+            controller: 'regCtrl'
+        });
     }
+}]);
+global.controller("regCtrl", ["$scope", "httpService", "formToObject", function (scope, http, ser) {
+
+
+    scope.responseHandler = {
+        errorMessages: [],
+        succesMessage: undefined,
+        isBusy: false,
+        isSuccededRegister: false
+    }
+
+    scope.submit = function () {
+        scope.responseHandler.isBusy = true;
+        var form = ser.serializeObject(registerForm);
+        var url = "/Account/Register";
+        http.formRequest(url, form).then(function (d) {
+            scope.responseHandler.isSuccededRegister = true;
+            scope.responseHandler.succesMessage = d.data;
+        }, function (d) {
+            scope.responseHandler.errorMessages = d.data;
+        })
+            .finally(function () {
+                scope.responseHandler.isBusy = false;
+            });
+    };
+}
 ]);

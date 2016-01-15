@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using WebShop.Identity.Interfaces;
@@ -8,10 +11,11 @@ using WebShop.Identity.Models;
 
 namespace WebShop.Identity.Services
 {
-    public class AccountService:AccountGlobalService,IAccountService
+    public class AccountService : AccountGlobalService, IAccountService
     {
-        public AccountService(RoleManager roleManager, UserManager userManager, 
-            IAuthenticationManager authentication) : base(roleManager, userManager, authentication)
+        public AccountService(RoleManager roleManager, UserManager userManager,
+            IAuthenticationManager authentication)
+            : base(roleManager, userManager, authentication)
         {
         }
 
@@ -23,10 +27,32 @@ namespace WebShop.Identity.Services
         public async Task SendConfirmationTokenToEmailAsync(int userId, Func<string, string, object, string, string> urlHelper, string protocol = "http")
         {
             string code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
-            var callbackUrl = urlHelper("ConfirmEmail", "Account", new { userId = userId, code = code },protocol);
+            var callbackUrl = urlHelper("ConfirmEmail", "Account", new { userId = userId, code = code }, protocol);
 
             await _userManager.SendEmailAsync(userId, "Confirm your account",
                 "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>  in the my shop is Vitek prodaction");
+        }
+
+        public Task<IdentityResult> ConfirmEmailAsync(int userId, string code)
+        {
+            return _userManager.ConfirmEmailAsync(userId, code);
+        }
+
+        public async Task<IdentityResult> LoginAsync(string userName, string password, bool rememberMe = false, params string[] errors)
+        {
+            var user = await _userManager.FindAsync(userName, password);
+            if (user == null)
+            {
+                return new IdentityResult(errors[0]);
+            }
+            if (!user.EmailConfirmed)
+            {
+                return new IdentityResult(errors[0]);
+            }
+            var ident = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            _authentication.SignIn(new AuthenticationProperties() { IsPersistent = rememberMe }, ident);
+
+            return IdentityResult.Success;
         }
     }
 }

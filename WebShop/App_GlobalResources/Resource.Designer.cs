@@ -197,6 +197,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to подтверждение пароля.
+        /// </summary>
+        public static string ConfirmPswd {
+            get {
+                return ResourceManager.GetString("ConfirmPswd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to пароли не совпадают.
+        /// </summary>
+        public static string ConfirmPswdInValid {
+            get {
+                return ResourceManager.GetString("ConfirmPswdInValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество.
         /// </summary>
         public static string Count {
@@ -256,6 +274,15 @@ namespace WebShop.App_GlobalResources {
         public static string DressFor {
             get {
                 return ResourceManager.GetString("DressFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to введите верно email.
+        /// </summary>
+        public static string EmailInValid {
+            get {
+                return ResourceManager.GetString("EmailInValid", resourceCulture);
             }
         }
         
@@ -341,6 +368,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to неправильный логин или пароль,электронный адрес не подтвержден.
+        /// </summary>
+        public static string InvalidLogin {
+            get {
+                return ResourceManager.GetString("InvalidLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to мужское.
         /// </summary>
         public static string IsMan {
@@ -413,6 +449,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to имя.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to имя пользователя должно содержать от 2 и до 20 латинских символов, первый символ должен быть буквой.
+        /// </summary>
+        public static string NameInValid {
+            get {
+                return ResourceManager.GetString("NameInValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Новые поступления.
         /// </summary>
         public static string NewGoods {
@@ -427,6 +481,24 @@ namespace WebShop.App_GlobalResources {
         public static string NotInStock {
             get {
                 return ResourceManager.GetString("NotInStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to пароль.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to пароль должен содержать от 6 до 20 латинских символов  начинаться с буквы.
+        /// </summary>
+        public static string PaswdInValid {
+            get {
+                return ResourceManager.GetString("PaswdInValid", resourceCulture);
             }
         }
         
@@ -485,6 +557,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to на ваш электронный адрес было отправлено письмо, перейдите по ссылке указанной в нем и подтвердите регистрацию.
+        /// </summary>
+        public static string RegConfirmMessage {
+            get {
+                return ResourceManager.GetString("RegConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Регистрация.
         /// </summary>
         public static string Register {
@@ -499,6 +580,15 @@ namespace WebShop.App_GlobalResources {
         public static string Russian {
             get {
                 return ResourceManager.GetString("Russian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string s {
+            get {
+                return ResourceManager.GetString("s", resourceCulture);
             }
         }
         

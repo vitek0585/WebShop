@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using WebShop.App_GlobalResources;
 using WebShop.Infostructure.BreadCrumsService;
+
 
 namespace WebShop.Infostructure.Helpers
 {
@@ -16,7 +18,7 @@ namespace WebShop.Infostructure.Helpers
         {
             TagBuilder ol = new TagBuilder("ol");
             ol.AddCssClass("breadcrumb");
-            
+
             try
             {
                 var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
@@ -24,11 +26,11 @@ namespace WebShop.Infostructure.Helpers
                 var data = crumbs.GenerateBreadCrumbs(url, lang, links);
 
                 TagBuilder li = new TagBuilder("li");
-                li.InnerHtml += CreateTagLink(Resource.Main, new UriBuilder(url.Scheme,url.Host,url.Port).ToString());
+                li.InnerHtml += CreateTagLink(Resource.Main, new UriBuilder(url.Scheme, url.Host, url.Port).ToString());
                 ol.InnerHtml += li.ToString();
                 for (var i = 0; i < data.Count(); i++)
                 {
-                
+
                     li = new TagBuilder("li");
                     if (i == data.Count() - 1)
                     {
@@ -36,8 +38,9 @@ namespace WebShop.Infostructure.Helpers
                         TagBuilder tb = new TagBuilder("span");
                         tb.SetInnerText(data.ElementAt(i).NameLink);
                         li.InnerHtml += tb.ToString();
-                    }else
-                    li.InnerHtml += CreateTagLink(data.ElementAt(i).NameLink, data.ElementAt(i).Href);
+                    }
+                    else
+                        li.InnerHtml += CreateTagLink(data.ElementAt(i).NameLink, data.ElementAt(i).Href);
 
                     ol.InnerHtml += li.ToString();
                 }
@@ -49,7 +52,7 @@ namespace WebShop.Infostructure.Helpers
             return MvcHtmlString.Create(ol.ToString());
         }
 
-        private static string CreateTagLink(string text,string href)
+        private static string CreateTagLink(string text, string href)
         {
             TagBuilder tb = new TagBuilder("a");
             tb.MergeAttribute("href", href);
@@ -67,6 +70,14 @@ namespace WebShop.Infostructure.Helpers
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
             return JsonConvert.SerializeObject(item, settings);
+        }
+
+    }
+    public static class ExpressionToString
+    {
+        public static string GetName<T>(this HtmlHelper<T> html,Expression<Func<T,object>> exp)
+        {
+            return ExpressionHelper.GetExpressionText(exp);
         }
        
     }

@@ -1,23 +1,22 @@
 ﻿@model WebShop.Models.Account.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = Resource.Register;
 }
 
-<div ng-app="regApp">
+
 
     <div class="row" ng-controller="regCtrl">
 
         <div class="col-md-6" ng-if="!responseHandler.isSuccededRegister">
             <h2 class="text-center">@ViewBag.Title</h2>
-            @Html.Partial("_RegisterPartial")
+            @Html.Partial("Partial/_RegisterPartial")
             <spin-wait show-when="responseHandler.isBusy" />
         </div>
         <div class="col-md-6" ng-if="responseHandler.isSuccededRegister" ng-cloak>
-            <h2 class="text-center">@ViewBag.Title</h2>
-            <p>You are register succeded. Please confirm your register and go to link into the letter was sended your email</p>
+           <p>You are register succeded. Please confirm your register and go to link into the letter was sended your email</p>
         </div>
     </div>
-</div>
+
 
 @section Scripts {
     <script src="~/Scripts/Angular/Common/SerializeToObject.js"></script>

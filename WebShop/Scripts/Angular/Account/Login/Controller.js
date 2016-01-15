@@ -1,5 +1,4 @@
-﻿//angular.module("loginApp", ["httpApp", "spinnerApp","serializeApp"]).
-var m = angular.module("globalApp");
+﻿var m = angular.module("globalApp");
 var arr = ["httpApp", "spinnerApp", "serializeApp"];
 Array.prototype.push.apply(m.requires, arr);
 m.controller("loginCtrl", ["$scope", "httpService", "formToObject", function (scope, http, ser) {

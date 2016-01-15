@@ -1,4 +1,8 @@
-﻿var global = angular.module("globalApp", ["lazyLoadApp"]);
+﻿var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal"]);
+global.injectRequires = function (arr) {
+    Array.prototype.push.apply(this.requires, arr);
+}
+
 global.value("culture", {
     symbol: ""
 });
@@ -13,6 +17,8 @@ global.config([
 
 
     }]);
+
+
 global.controller("globalCtrl", ["$scope", "culture", 'lazyService', function (scope, culture, lazyLoad) {
 
     lazyLoad.setupElement("up");

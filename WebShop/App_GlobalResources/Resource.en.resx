@@ -163,6 +163,12 @@ UNDER THE SAME ROOF</value>
   <data name="Color" xml:space="preserve">
     <value>color</value>
   </data>
+  <data name="ConfirmPswd" xml:space="preserve">
+    <value>confirm password</value>
+  </data>
+  <data name="ConfirmPswdInValid" xml:space="preserve">
+    <value>password is not confirm</value>
+  </data>
   <data name="Count" xml:space="preserve">
     <value>Count</value>
   </data>
@@ -183,6 +189,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="DressFor" xml:space="preserve">
     <value>dress for</value>
+  </data>
+  <data name="EmailInValid" xml:space="preserve">
+    <value>Email is required</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
@@ -211,6 +220,9 @@ UNDER THE SAME ROOF</value>
   <data name="InStock" xml:space="preserve">
     <value>In stock</value>
   </data>
+  <data name="InvalidLogin" xml:space="preserve">
+    <value>invalid login or password,email not confirmed,</value>
+  </data>
   <data name="IsMan" xml:space="preserve">
     <value>Man</value>
   </data>
@@ -235,11 +247,23 @@ UNDER THE SAME ROOF</value>
   <data name="MoreUs" xml:space="preserve">
     <value>More about us</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>name</value>
+  </data>
+  <data name="NameInValid" xml:space="preserve">
+    <value>the user name should be minimum 3 and maximum 20 of latin characters, and first character must be a letter</value>
+  </data>
   <data name="NewGoods" xml:space="preserve">
     <value>New Arrivals</value>
   </data>
   <data name="NotInStock" xml:space="preserve">
     <value>Not in stock</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>password</value>
+  </data>
+  <data name="PaswdInValid" xml:space="preserve">
+    <value>Password is required (min 6 and max 20 latin characters) and start the latter</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
@@ -258,6 +282,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="RecentlyViewed" xml:space="preserve">
     <value>Recently Viewed Products</value>
+  </data>
+  <data name="RegConfirmMessage" xml:space="preserve">
+    <value>your email has been sent a letter , click on the link above it and confirm registration</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registration</value>

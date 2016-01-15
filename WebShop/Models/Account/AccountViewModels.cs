@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebShop.App_GlobalResources;
 
 namespace WebShop.Models.Account
 {
@@ -48,7 +49,7 @@ namespace WebShop.Models.Account
 
     public class LoginViewModel
     {
-       
+
         [Required]
         [Display(Name = "User Name")]
         [RegularExpression(@"^[A-Za-z]+\w{2,20}",
@@ -59,31 +60,30 @@ namespace WebShop.Models.Account
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        
+
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [RegularExpression(@"^[A-Za-z]+\w{2,20}", 
-            ErrorMessage = "The user name should be minimum 3 and maximum 20 characters, and first character must be a letter")]
+        [Required(ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^[A-Za-z]+\w{2,20}",
+            ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
         public string UserName { get; set; }
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+
+        [Required(ErrorMessageResourceName = "EmailInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$",
+            ErrorMessageResourceName = "EmailInValid", ErrorMessageResourceType = typeof(Resource))]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Required(ErrorMessageResourceName = "PaswdInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^(?=[a-zA-Z])(?=[a-zA-Z0-9]*)(?!.*\s).{6,20}$",
+           ErrorMessageResourceName = "PaswdInValid", ErrorMessageResourceType = typeof(Resource))]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Required(ErrorMessageResourceName = "ConfirmPswdInValid", ErrorMessageResourceType = typeof(Resource))]
+        [Compare("Password", ErrorMessageResourceName = "ConfirmPswdInValid", ErrorMessageResourceType = typeof(Resource))]
         public string ConfirmPassword { get; set; }
     }
 

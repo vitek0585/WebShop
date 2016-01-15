@@ -5,6 +5,7 @@
     var password = Html.GetName(m => m.Password);
     var remember = Html.GetName(m => m.RememberMe);
 }
+
 <form method="POST" class="form-horizontal" role="form" novalidate name="loginForm" id="loginForm" ng-submit="submit(loginForm)">
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.ReturnUrl" />

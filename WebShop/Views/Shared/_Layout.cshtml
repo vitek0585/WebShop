@@ -16,7 +16,8 @@
     <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/Scripts/angular.js"></script>
 
-    <link href="~/Content/slick.css" rel="stylesheet"/>
+    <link href="~/Content/angular-fancy-modal.css" rel="stylesheet" />
+    <link href="~/Content/slick.css" rel="stylesheet" />
     <link href="~/Content/AdditionalView.css" rel="stylesheet" />
 
     @*<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css" />*@
@@ -57,10 +58,15 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     <script src="~/Scripts/slick.min.js"></script>
-
+    <script src="~/Scripts/Angular/Common/angular-fancy-modal.js"></script>
     <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
     <script src="~/Scripts/Angular/Common/LazyLoadService.js"></script>
+    <script src="~/Scripts/Angular/Common/SerializeToObject.js"></script>
+    <script src="~/Scripts/Angular/Common/DirectiveLoading.js"></script>
+    <script src="~/Scripts/Angular/Common/DirectiveCompareTo.js"></script>
+
     <script src="~/Scripts/Angular/Global/GlobalApp.js"></script>
+    <script src="~/Scripts/Angular/Account/Register/Controller.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
