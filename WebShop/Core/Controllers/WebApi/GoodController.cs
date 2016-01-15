@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using System.Web.Services.Configuration;
+using WebShop.Api.FilterBinder;
 using WebShop.EFModel.Model;
 using WebShop.Filters.ModelValidate;
 using WebShop.Infostructure.Binder;
@@ -44,7 +45,7 @@ namespace WebShop.Controllers.WebApi
 
             try
             {
-                var data = _goodService.GetDetailsGood<dynamic>(id, GetCurrentCurrency(), GetCurrentLanguage());
+                var data = _goodService.GetGood<dynamic>(id, GetCurrentCurrency(), GetCurrentLanguage());
                 return Ok(data);
             }
             catch (Exception e)
@@ -57,19 +58,18 @@ namespace WebShop.Controllers.WebApi
 
         [HttpGet]
         [Route("RandomGood")]
-        public IHttpActionResult RandomGood()
+        public IHttpActionResult RandomGood(int count = 4)
         {
             Task.Delay(1500).GetAwaiter().GetResult();
 
             try
             {
-                var toShowCount = 4;
-                var data = _goodService.GetRandomGoods<dynamic>(toShowCount, GetCurrentCurrency(), GetCurrentLanguage());
+                var data = _goodService.GetRandomGoods<dynamic>(count, GetCurrentCurrency(), GetCurrentLanguage());
                 return Ok(data);
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -91,16 +91,17 @@ namespace WebShop.Controllers.WebApi
 
         }
         [Route("GetByPage"), HttpGet]
-        public IHttpActionResult GetByPage(short category, int page, 
-            [ModelBinder(typeof(HttpFilterBinder))]Expression<Func<Good, bool>> pr)
+        public IHttpActionResult GetByPage(short category, int page,
+            [ModelBinder(typeof(HttpFilterBinder))]Expression<Func<Good, bool>> pr,
+            [ModelBinder(typeof(HttpOrderBinder))]string sort)
         {
             Task.Delay(1500).GetAwaiter().GetResult();
             try
             {
-               var data = _goodService.GetByPage<dynamic>(page, _totalPerPage, category,
-                    GetCurrentCurrency(), GetCurrentLanguage(), pr);
+                var data = _goodService.GetByPage<dynamic>(page, _totalPerPage, category,
+                     GetCurrentCurrency(), GetCurrentLanguage(), pr, sort);
 
-               return OkOrNoContent<dynamic>(data);
+                return OkOrNoContent<dynamic>(data);
             }
             catch (Exception e)
             {

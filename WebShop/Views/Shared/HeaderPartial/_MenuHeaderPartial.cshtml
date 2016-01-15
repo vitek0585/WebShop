@@ -5,7 +5,7 @@
 }
 
 <li class="dropdown menu-dropdown-header">
-    <a href="@Url.Action("Categories","Catalog",new {type = Model.TypeByHref})" class="href-dropd class="href-dropdown-header">
+    <a href="@Url.Action("Categories","Catalog",new {type = Model.TypeByHref})" class="href-dropd href-dropdown-header">
         @Model.TypeName<i class="glyphicon glyphicon-menu-down"></i>
     </a>
     <ul class="dropdown-menu list-inline" style="width: @(Math.Ceiling(Model.Items.Count() / itemsByColumn) * 185)px">
@@ -17,7 +17,7 @@
                     {
                         <li class="text-uppercase hvr-bounce-to-right">
                             <div class="section-category ">
-                                <a href="@Url.Action("CategoryGoods", "Catalog", new { type = Model.TypeByHref,id=Model.Items.ElementAt(i).CategoryId })" class="href-dropdown-header">
+                                <a href="@Url.Action("Category", "Catalog", new { type = Model.TypeByHref,id=Model.Items.ElementAt(i).CategoryId })" class="href-dropdown-header">
                                     @Model.Items.ElementAt(i).CategoryName
                                 </a>
                             </div>

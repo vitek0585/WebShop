@@ -269,6 +269,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to эксклюзив.
+        /// </summary>
+        public static string Exclusive {
+            get {
+                return ResourceManager.GetString("Exclusive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to фильтр.
         /// </summary>
         public static string Filter {
@@ -494,6 +503,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Скидки.
+        /// </summary>
+        public static string Sale {
+            get {
+                return ResourceManager.GetString("Sale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фильтр покупки.
         /// </summary>
         public static string ShopOpt {
@@ -553,6 +571,15 @@ namespace WebShop.App_GlobalResources {
         public static string SortByPriceDesc {
             get {
                 return ResourceManager.GetString("SortByPriceDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to подкатегории.
+        /// </summary>
+        public static string SubCategory {
+            get {
+                return ResourceManager.GetString("SubCategory", resourceCulture);
             }
         }
         

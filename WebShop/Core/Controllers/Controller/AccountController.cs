@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using WebShop.Controllers.Base;
+using WebShop.Core.Controllers.Base;
 using WebShop.Filters.ModelValidate;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Models;
@@ -14,21 +14,18 @@ using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models.Account;
 using ClaimsIdentity = System.Security.Claims.Claim;
-namespace WebShop.Controllers.Controller
+namespace WebShop.Core.Controllers.Controller
 {
+    [RoutePrefix("Account")]
     [Authorize]
-    public class AccountController : ShopBaseController
+    public class AccountController : AccountBaseController
     {
-        private SignInManager _signInManager;
-        private UserManager _userManager;
-        private IAuthenticationManager _authentication;
+        // Used for XSRF protection when adding external logins
+        protected const string XsrfKey = "XsrfId";
 
-        public AccountController(UserManager userManager, SignInManager signInManager, IAuthenticationManager auth, ICookieConsumer storage)
-            : base(storage)
+        public AccountController(ICookieConsumer storage, IAuthenticationManager auth, UserManager manager,
+            RoleManager role) : base(storage, auth, manager, role)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _authentication = auth;
         }
 
         [AllowAnonymous]
@@ -62,7 +59,7 @@ namespace WebShop.Controllers.Controller
             }
             _authentication.SignIn(new AuthenticationProperties() { IsPersistent = model.RememberMe }, ident);
 
-            return Json(new { url = GetCheckReturnUrl(returnUrl) });
+            return Json(new { url = CheckValidReturnUrl(returnUrl) });
         }
 
         [AllowAnonymous]
@@ -84,7 +81,7 @@ namespace WebShop.Controllers.Controller
             {
                 string code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
-                    protocol: Request.Url.Scheme);
+                    Request.Url.Scheme);
 
                 await _userManager.SendEmailAsync(user.Id, "Confirm your account",
                     "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>  in the my shop is Vitek prodaction");
@@ -120,35 +117,9 @@ namespace WebShop.Controllers.Controller
         [HttpPost]
         public async Task<JsonResult> UserInfo(string name)
         {
-
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var roles = await _userManager.GetRolesAsync(user.Id);
-            return new JsonResultCustom(new { user.UserName, user.Email, roles = roles });
+            return Json(new { user.UserName, user.Email, roles = roles });
         }
-
-
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private string GetCheckReturnUrl(string returnUrl)
-        {
-            if (!string.IsNullOrEmpty(returnUrl))
-            {
-                Uri uri = new Uri(returnUrl);
-                if(Url.IsLocalUrl(uri.AbsolutePath))
-                return returnUrl;
-            }
-            return Url.Action("Index", "Main");
-        }
-
-
     }
 }

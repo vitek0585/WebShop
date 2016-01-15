@@ -18,7 +18,7 @@ namespace WebShop.EFModel.Test
             var context = new ShopContext();
             var color = context.Colors;
             Assert.AreEqual(7, color.Count());
-            Assert.AreEqual("red",color.FirstOrDefault().ColorName);
+            Assert.AreEqual("red",color.FirstOrDefault().ColorNameEn);
         }
 
         

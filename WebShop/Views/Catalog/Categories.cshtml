@@ -1,27 +1,16 @@
 ﻿@using WebShop.Infostructure.BreadCrumsService
-@using WebShop.Infostructure.Helpers
 @model ITypeCategoryModel<ICategoryModel>
 
 @{
     ViewBag.Title = string.Concat(Resource.Categories.ToUpper(), "-", Model.TypeName);
+    var hreffCss = string.Format(@"/Content/Categories-{0}.css", Model.TypeByHref);
 }
 <div class="row home" ng-cloak id="container">
     <div class="container">
-        @Html.GenerateBreadCrumbs(new BreadCrumbsCommon(), Model.TypeName)
+        @Html.GenerateBreadCrumbs(new BreadCrumbsCommon(Url), Model.TypeName)
 
+        @*Categories*@
         <div class="row">
-            <div class="col-md-9 sale-widg-prods ">
-                @if (ViewBag.Sale is ITypeCategoryModel<ICategoryModel>)
-                {
-                    foreach (var item in (ViewBag.Sale as ITypeCategoryModel<ICategoryModel>).Items)
-                    {
-                        @Html.Partial("Partial/_CategoryWidget", item, new ViewDataDictionary { { "type", Model.TypeByHref } })
-                    }
-                }
-            </div>
-        </div>
-        <div class="row">
-            @*right side*@
             <div class="col-md-12 all-product">
                 <div class="row">
                     <div class="text-center">
@@ -36,10 +25,27 @@
 
                     }
                 </div>
-
-
-
             </div>
         </div>
+        @*End Categories*@
+        @*Sales*@
+        <div class="row">
+            <div class="sale-widg-prods">
+                @Html.Action("Sale", new { type = Model.TypeByHref })
+            </div>
+        </div>
+        @*End Sales*@
     </div>
 </div>
+
+@section scripts
+{
+    @*<link href="~/Content/DetailItem.css" rel="stylesheet" />*@
+    @*<link href="~/Content/ItemProd.css" rel="stylesheet" />
+        <link href="~/Content/DetailItem.css" rel="stylesheet" />
+        <link href="~/Content/WidgetRandom.css" rel="stylesheet" />*@
+    <link href="~/Content/Categories.css" rel="stylesheet" />
+    <link href="@hreffCss" rel="stylesheet" />
+    <script src="~/Scripts/Angular/Common/Slick.js"></script>
+    <script src="~/Scripts/Angular/Catalog/Controller/Categories.js"></script>
+}

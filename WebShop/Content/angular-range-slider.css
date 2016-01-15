@@ -2,9 +2,11 @@
     display: inline-block;
     position: relative;
     height: 10px;
-    width: 100%;
+    width: 98%;
        margin: 20px 0 20px 0;
     vertical-align: middle;
+    right: 1px;
+     left: 1px;
 }
 
     .angular-range-slider div {

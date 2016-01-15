@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using WebShop.Controllers.Base;
+using WebShop.Core.Controllers.Base;
 using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
@@ -48,5 +48,7 @@ namespace WebShop.Controllers.Controller
 
             return Redirect(CheckValidReturnUrl(refUrl));
         }
+      
+       
     }
 }

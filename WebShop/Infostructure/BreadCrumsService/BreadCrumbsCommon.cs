@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
 using WebShop.EFModel.Model;
@@ -15,20 +16,25 @@ using WebShop.Repo.Interfaces;
 namespace WebShop.Infostructure.BreadCrumsService
 {
 
-    public class BreadCrumbsCommon : BreadCrumbsBase<BreadCrumbsModel>
+    public class BreadCrumbsCommon : BreadCrumbsBase
     {
+        private UrlHelper _urlHelper;
+
+        public BreadCrumbsCommon(UrlHelper urlHelper)
+        {
+            _urlHelper = urlHelper;
+        }
 
         public override IEnumerable<IBreadCrumbsModel> GenerateBreadCrumbs(Uri url, string lang, params string[] links)
         {
-            var list = MatchRoute(url, links.Select(l => new BreadCrumbsModel { NameLink = l }));
-            return list;
+            
+            yield return new BreadCrumbsModel()
+            {
+                Href = _urlHelper.Action("Categories","Catalog",new {type = url.Segments[1]}),
+                NameLink = links[0]
+            };
         }
 
-        protected override IBreadCrumbsModel CreateLink(UriBuilder uriBuilder, IEnumerable<BreadCrumbsModel> link, RouteData route, int i)
-        {
-            link.ElementAt(i).Href = uriBuilder.ToString();
         
-            return link.ElementAt(i);
-        }
     }
 }

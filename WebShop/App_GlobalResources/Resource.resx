@@ -187,6 +187,9 @@
   <data name="English" xml:space="preserve">
     <value>Английский</value>
   </data>
+  <data name="Exclusive" xml:space="preserve">
+    <value>эксклюзив</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>фильтр</value>
   </data>
@@ -262,6 +265,9 @@
   <data name="Russian" xml:space="preserve">
     <value>Русский</value>
   </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Скидки</value>
+  </data>
   <data name="ShopOpt" xml:space="preserve">
     <value>Фильтр покупки</value>
   </data>
@@ -282,6 +288,9 @@
   </data>
   <data name="SortByPriceDesc" xml:space="preserve">
     <value>Цена по убыванию</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>подкатегории</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>до</value>

@@ -25,9 +25,9 @@
      height: 471px;
      width: 100%;
 }
-.image-prod {
+.item-detail .image-prod {
     margin-top: 5px;
-    /*height: 471px;*/
+    height: 471px;
     
 }
 .image-slider {
@@ -53,6 +53,6 @@
     float: left;
     position: relative;
     overflow: hidden;
-    left: 336px;
+    left: 360px;
     z-index: 1000;
 }

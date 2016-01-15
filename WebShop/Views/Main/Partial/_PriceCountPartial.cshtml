@@ -1,9 +1,0 @@
-﻿@using WebShop.Infostructure.Extenssions
-
-<p ng-click="filter.priceFrom=@ViewBag.From;filter.priceTo=@(ViewBag.To??int.MaxValue);updateSlick()">
-    <i class="glyphicon glyphicon-chevron-right text-muted"></i>
-    <span class="hover-text cursor-href">
-        @ViewBag.From.ToString("F2") - @(ViewBag.To != null ?
-Html.Raw(ViewBag.To.ToString("F2") + "<b class='color-h'> {{(items|countPrice:" + ViewBag.From + ":" + ViewBag.To + ").length}}</b>") : Html.Raw(Resource.FilterPriceMore.F((object)ViewBag.From, int.MaxValue)))
-    </span>
-</p>

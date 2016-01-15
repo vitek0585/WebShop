@@ -1,0 +1,23 @@
+﻿@{
+    var hrefImage = "/Image/Products/";
+    var hrefProduct = "/Fashion/Good/";
+
+}
+<div class="col-md-12 widget-random" ng-cloak>
+
+    <div class="col-md-6">
+        <a href="{{::'@hrefProduct'+item.goodId}}">
+            <div ng-if="item.photos[0]" class="img" ng-style="{'background-image':'url({{::'@hrefImage'+item.photos[0]}})'}"></div>
+            <div ng-if="!item.photos[0]" class="img" style="background-image:url(/Image/not-image.png)"></div>
+        </a>
+    </div>
+    <div class="col-md-6">
+        <div ng-if="::item.discount>0" class="text-uppercase sale-shape small">@Resource.Discount</div>
+        <div class="text-uppercase small-very">{{::item.goodName}}</div>
+        <div class="price-prod small" ng-class="::item.discount>0?'old-price':''">{{::item.priceUsd | currencyExtend:0}}</div>
+        <div class="new-price small text-left" ng-if="::item.discount>0">{{::item.priceWithDiscount | currencyExtend:0}}</div>
+        <div class="text-lowercase small">
+            <a class="color-h" href="{{::'@hrefProduct'+item.goodId}}">@Resource.GoView</a>
+        </div>
+    </div>
+</div>

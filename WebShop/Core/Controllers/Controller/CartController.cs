@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Web.Mvc;
-using WebShop.Controllers.Base;
+using WebShop.Core.Controllers.Base;
 using WebShop.EFModel.Model;
 using WebShop.Filters.Culture;
 using WebShop.Infostructure.Cart;
@@ -61,7 +61,7 @@ namespace WebShop.Controllers.Controller
                     {
                         c.Size.SizeName,
                         c.ClassificationId,
-                        c.Color.ColorName,
+                        c.Color.ColorNameEn,
                         GoodName = c.Good.GoodNameRu,
                         Photos = c.Good.Image.Select(p => p.ImageId)
                     }, (c) => c.Color, (c) => c.Size, (c) => c.Good, (c) => c.Good.Image);

@@ -13,13 +13,14 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
         }
 
         scope.cart = [];
-        scope.colors = [{ name: 'red' }, { name: 'blue' }, { name: 'green' }, { name: 'red' }, { name: 'blue' }, { name: 'green' }, { name: 'red' }, { name: 'blue' }, { name: 'green' }];
-        scope.sizes = [{ name: '14' }, { name: '24' }, { name: '12' }, { name: '3' }, { name: '4' }, { name: '5' }, { name: '34' }, { name: '5' }, { name: '7' }];
-
+        scope.colors = [];
+        scope.sizes = [];
         scope.filter = {
             colorsSelect: [],
             sizesSelect: [],
-            sortBySelect: []
+            sortBySelect: [],
+            priceMin: null,
+            priceMax: null
         };
 
         var getCart = function () {
@@ -27,7 +28,12 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
                 scope.cart = d.data;
             });
         };
-
+        scope.initFilterData = function (min, max, colors, sizes) {
+            scope.colors = colors;
+            scope.sizes = sizes;
+            scope.filter.priceMin = min;
+            scope.filter.priceMax = max;
+        }
         scope.add = function (item) {
 
             http.postRequest(item, url).then(function (d) {
@@ -46,8 +52,10 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
 
             scope.$broadcast("acceptFilterEvent",
             {
-                c: scope.filter.colorsSelect.map(function (e) { return e.name; }),
-                s: scope.filter.sizesSelect.map(function (e) { return e.name; })
+                c: scope.filter.colorsSelect.map(function (e) { return e.id; }),
+                s: scope.filter.sizesSelect.map(function (e) { return e.id; }),
+                min: scope.filter.priceMin,
+                max: scope.filter.priceMax
 
             });
         }
@@ -55,15 +63,21 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
 
             scope.$broadcast("filterSortByEvent",
                 {
-                    sortBy: scope.filter.sortBySelect.map(function (e) { return e.name; })
+                    sortBy: scope.filter.sortBySelect.map(function (e) { return e.sort; })
                 });
 
-        },true);
+        }, true);
         //getCart();
 
     }
 ]);
-
+var actionExclusiveWidget = function (scope,http) {
+    scope.exclusiveGoods=[];
+    http.getRequest({ count: 10 }, "/api/Good/RandomGood").then(function (d) {
+        scope.exclusiveGoods = d.data;
+    });
+}
+prod.controller("exclusiveCtrl", ["$scope", 'httpService', actionExclusiveWidget]);
 //paging goods
 prod.controller("pageCtrl", ["$scope", "routeService", "httpService", "$timeout", function (s, route, http, timeout) {
     s.items = [];
@@ -71,6 +85,10 @@ prod.controller("pageCtrl", ["$scope", "routeService", "httpService", "$timeout"
     var colorsSelect = [];
     var sizesSelect = [];
     var sortBySelect = [];
+    var price = {
+        min: '',
+        max: ''
+    };
     //wait load
     s.isWait = false;
     //for paging
@@ -84,11 +102,7 @@ prod.controller("pageCtrl", ["$scope", "routeService", "httpService", "$timeout"
         leftPrev: '<<',
     };
 
-    s.filterFormatter = function () {
-        console.log(colorsSelect);
-        console.log(sizesSelect);
-        console.log(sortBySelect);
-    }
+
     var path = location.href.split('/').filter(function (e, i) { if (i > 2 && i < 7) return e; }).join('/');
 
     s.clickPage = function (page) {
@@ -101,26 +115,30 @@ prod.controller("pageCtrl", ["$scope", "routeService", "httpService", "$timeout"
         route.route(url, false);
         s.isWait = true;
 
-        s.filterFormatter();
 
-        http.getRequest({ page: page, category: s.category, colors: colorsSelect.toString(), sizes: sizesSelect, sort: sortBySelect },
-            "/api/Good/GetByPage").then(function (d) {
-            timeout(function () {
-                s.info.totalPages = d.data.totalPagesCount;
+        http.getRequest(
+            {
+                page: page,
+                category: s.category,
+                colors: colorsSelect.toString(),
+                sizes: sizesSelect.toString(),
+                sort: sortBySelect.toString(),
+                priceMin: price.min,
+                priceMax: price.max
+            }, "/api/Good/GetByPage").then(function (d) {
 
-                s.isWait = false;
                 s.items = d.data.items;
+                s.info.totalPages = d.data.totalPagesCount;
+                s.isWait = false;
 
-            }, 0, true);
-        }, function () {
-            timeout(function () {
+
+            }, function () {
+
                 s.info.totalPages = 0;
                 s.items.length = 0;
                 s.isWait = false;
 
-
-            }, 0, true);
-        });
+            });
     };
     var refreshPage = function () {
 
@@ -132,13 +150,15 @@ prod.controller("pageCtrl", ["$scope", "routeService", "httpService", "$timeout"
     };
     s.$on("filterSortByEvent", function (event, args) {
         sortBySelect = args.sortBy;
-   
+
         refreshPage();
     });
 
     s.$on("acceptFilterEvent", function (event, args) {
         colorsSelect = args.c;
         sizesSelect = args.s;
+        price.min = args.min;
+        price.max = args.max;
 
         refreshPage();
     });

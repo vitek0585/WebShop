@@ -1,0 +1,112 @@
+﻿@using WebShop.Infostructure.BreadCrumsService
+@using WebShop.Infostructure.Helpers
+@model IGoodModel
+@{
+    ViewBag.Title = string.Concat("fashion".ToUpper(), " - ", Model.GoodName);
+}
+<div id="notifyWin" class="success-notify notify"></div>
+<div class="container details">
+    <div class="row" ng-controller="ctrlDetail">
+        <div class="col-md-12">
+            @Html.GenerateBreadCrumbs(new BreadCrumbsGood(Model.CategoryId, Model.GoodName, Url))
+        </div>
+        <div ng-init="initialize(@Html.SerializeToJson(Model))"></div>
+        @*left side*@
+        <div class="col-md-3">
+            <h4 class="text-center text-uppercase">@Resource.RandProd</h4>
+            <hr />
+            <div class="rand-crod-carousel">
+                <slick infinite="true" slides-to-show="3" slides-to-scroll="1" arrows="false" autoplay-speed="2000"
+                       speed="500" vertical="true" data="randomItem" init-onload="true" autoplay="true"
+                       id="carousel-base">
+                    <div ng-repeat="item in randomItem" class="clearfix anim-show">
+                        @Html.Partial("Partial/_RandomGoodsPartial")
+                    </div>
+                </slick>
+            </div>
+
+        </div>
+        @*right side*@
+        <div class="col-md-9">
+            <div class="col-md-12" class="container-good-detail" style="min-height: 625px">
+                <div class="col-md-5 right">
+                    @Html.Partial("Partial/_DetailsPartial")
+                </div>
+                <div class="col-md-7" ng-cloak>
+                    <h4 class="color-h text-uppercase">{{::item.goodName}}</h4>
+                    <div>
+                        <b class="text-uppercase">@Resource.Availability:&nbsp;</b><span ng-class="item.goodCount>0?'success-text':'warning-text'">
+                            {{item.goodCount > 0?'@Resource.InStock':'@Resource.NotInStock'}}
+                        </span>
+                    </div>
+                    <hr />
+                    <div ng-cloak ng-if="item.goodCount>0">
+                        <div>
+                            <b class="text-uppercase">@Resource.Count:&nbsp;</b><span>{{(item.types|filterBy:['colorId']:current.colorId)[0].countGood}}</span>
+                        </div>
+                        <div>
+                            <b class="text-uppercase">@Resource.Price:&nbsp;</b><span>{{::item.priceUsd|currencyExtend:0}}</span>
+                        </div>
+                        <hr />
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary" ng-repeat="(key,value) in item.types|groupBy : 'colorId'"
+                                   ng-class="$first==true?'active':''"
+                                   ng-style="::{'background-color':value[0].colorName}"
+                                   ng-click="initCurrent(value[0])">
+                                <input type="radio" name="options">
+                            </label>
+                        </div>
+                        <hr />
+                        <div select-bootstr item="item" ng-cloak="true" class="selectpicker" current="current"></div>
+                        <hr />
+                    </div>
+                    <p>
+                        {{::item.description}}
+                    </p>
+                    <hr />
+                    <div class="clearfix">
+                        <div class="row row-nomargin">
+                            <div class="col-md-12" ng-init="count=1">
+                                <b class="text-uppercase">@Resource.Qty:&nbsp;</b>
+                                <input type="number" ng-disabled="item.goodCount==0" ng-model="count" class="form-control" min="1"
+                                       ng-max="(item.types|filterBy:['colorId']:current.colorId)[0].countGood"
+                                       ng-class="count!=undefined?'':'custom-invalid'" />
+                                <button class="btn btn-primary btn-buy " ng-disabled="item.goodCount==0||count==undefined"
+                                        ng-click="add(count)">
+                                    @Resource.AddToCart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        @*End Right side*@
+    </div>
+    @*Additional*@
+    @Html.Action("RecentlyViewedUser")
+</div>
+@section scripts
+{
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Content/Select-picker.css" rel="stylesheet" />
+    @*<link href="~/Content/ItemProd.css" rel="stylesheet" />*@
+    <link href="~/Content/DetailItem.css" rel="stylesheet" />
+    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/Angular/Home/Detail/Select.js"></script>
+    <script src="~/Scripts/Angular/Common/angular-filter.js"></script>
+    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    <script src="~/Scripts/Angular/Common/Image-zoom.js"></script>
+    <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
+    <script src="~/Scripts/Angular/Common/DirectiveLoading.js"></script>
+    <script src="~/Scripts/Angular/Common/Slick.js"></script>
+
+
+    <script src="~/Scripts/Angular/Home/Detail/Controller.js"></script>
+}

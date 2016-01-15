@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using WebShop.Controllers.Base;
+using WebShop.Core.Controllers.Base;
 using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
@@ -7,11 +7,9 @@ using WebShop.Models;
 using WebShop.Models.InterfacesModel;
 using WebShop.Repo.Interfaces;
 
-namespace WebShop.Controllers.Controller
+namespace WebShop.Core.Controllers.Controller
 {
-    using IExtendModel = ITypeCategoryModel<ICategoryModel>;
-
-    [RoutePrefix("Category")]
+    [RoutePrefix("Fashion")]
     [TypeOfCulture]
     public class GoodController : ShopBaseController
     {
@@ -24,34 +22,29 @@ namespace WebShop.Controllers.Controller
         {
             _goodService = goodService;
             _categoryService = categoryService;
-            _sizeStorageViewed = 5;
+            _sizeStorageViewed = 20;
         }
-     
-        //[Route("{type:string}/Name{id:int}")]
-        //public ActionResult CategoryByType(string type, int id)
-        //{
-        //    var data = _categoryService.GetCategoryByType<IExtendModel>(type, GetCurrentLanguage());
-
-        //    return View(data);
-        //}
-        //[Route("{gender:int}/Details/{id:int}")]
-        //public ActionResult GetDetails(int id)
-        //{
-        //    var rv = GetRecentlyViewed(id);
-        //    var data = _goodService.GetOrdersById(rv.GetAll(), GetCurrentCurrency(), GetCurrentLanguage());
-        //    TempData[ValuesProvider.RecentlyViewed] = data;
-        //    return View(id);
-        //}
-        [Route("AllCategory")]
-        public ActionResult AllCategory()
+        [Route("Good/{id:min(1):max(10000000)}")]
+        public ActionResult GetDetails(int id)
         {
-
-            return Json(_categoryService.GetCategoryByTypeSale<dynamic>(1, GetCurrentLanguage(), 50), JsonRequestBehavior.AllowGet);
+            RecentlyViewed(id);
+            var data = _goodService.GetGood<IGoodModel>(id, GetCurrentCurrency(), GetCurrentLanguage());
+            
+            return View(data);
         }
 
+        [ChildActionOnly, Route("RecentlyViewedUser")]
+        public ActionResult RecentlyViewedUser()
+        {
+            var ids = RecentlyViewed(null).GetAll();
+            var data = _goodService.GetGoods<IGoodModel>(ids, GetCurrentLanguage());
+            return PartialView(data);
+
+        }
+       
         #region Helper
         [NonAction]
-        private RecentlyViewedStorage GetRecentlyViewed(int? id)
+        private RecentlyViewedStorage RecentlyViewed(int? id)
         {
             var viewed = (RecentlyViewedStorage)Session[ValuesApp.RecentlyViewed];
             if (viewed == null)

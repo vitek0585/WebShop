@@ -4,10 +4,10 @@
     <div style="position: relative;">
         <div class="fast-info flexbox-container">
             <div class="text-center">
-                <a href="@Url.Action("CategoryGoods", "Catalog", new {type = ViewBag.type})" class="btn btn-primary btn-buy">@Resource.GoView</a>
+                <a href="@Url.Action("Category", "Catalog", new { type = ViewBag.type, id = Model.CategoryId })" class="btn btn-primary btn-buy">@Resource.GoView</a>
             </div>
         </div>
-        <img src="/Image/Categories/@Model.Photo" alt="No foto" style="height: 250px; width: 100%"/>
+        <img src="/Image/Categories/@Model.Photo" alt="No foto" style="height: 250px; width: 100%" />
         <div class="text-center speed-info-title title-text-sale category-text-widg">@Model.CategoryName</div>
 
     </div>

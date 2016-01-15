@@ -15,6 +15,7 @@ namespace WebShop.Areas.Administration.Controllers
 
     [Authorize(Roles = "Admin")]
     [RouteArea("Administration")]
+    [RoutePrefix("")]
     public class AdminController : Controller
     {
         private IGoodsRepository _goods;

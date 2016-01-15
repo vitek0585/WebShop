@@ -26,6 +26,7 @@ namespace WebShop.EFModel.Context
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SalePos> SalePos { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<ExchangeRates> Rates { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

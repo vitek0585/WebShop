@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using WebShop.App_GlobalResources;
 using WebShop.Infostructure.BreadCrumsService;
 
@@ -9,12 +12,11 @@ namespace WebShop.Infostructure.Helpers
 {
     public static class HtmlExtensionsBreadCrumbs
     {
-        public static MvcHtmlString GenerateBreadCrumbs<T>(this HtmlHelper html, BreadCrumbsBase<T> crumbs, params string[] links)
+        public static MvcHtmlString GenerateBreadCrumbs(this HtmlHelper html, BreadCrumbsBase crumbs, params string[] links)
         {
             TagBuilder ol = new TagBuilder("ol");
             ol.AddCssClass("breadcrumb");
             
-
             try
             {
                 var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
@@ -54,5 +56,18 @@ namespace WebShop.Infostructure.Helpers
             tb.SetInnerText(text.ToUpper());
             return tb.ToString();
         }
+    }
+
+    public static class HtmlExtensionsMapToJson
+    {
+        public static string SerializeToJson<TItem>(this HtmlHelper html, TItem item)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            return JsonConvert.SerializeObject(item, settings);
+        }
+       
     }
 }

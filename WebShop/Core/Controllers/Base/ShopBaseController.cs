@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebShop.Infostructure.Common;
-
 using WebShop.Infostructure.Storage.Interfaces;
 
-namespace WebShop.Controllers.Base
+namespace WebShop.Core.Controllers.Base
 {
-    public class ShopBaseController : System.Web.Mvc.Controller
+    public abstract class ShopBaseController : System.Web.Mvc.Controller
     {
         protected ICookieConsumer _storage;
 

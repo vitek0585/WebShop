@@ -25,25 +25,31 @@ m.controller("ctrlDetail", [
 
         };
         scope.initialize = function (item) {
+            scope.item = item;
 
-            http.getRequest({ id: item }, "/api/Good/GetGood").then(function (d) {
+            if (angular.isDefined(scope.item.types) && scope.item.types.length > 0) {
+                scope.current.colorId = scope.item.types[0].colorId;
+                scope.current.sizeId = scope.item.types[0].sizeId;
+            }
+            scope.current.goodId = scope.item.goodId;
+            //http.getRequest({ id: item }, "/api/Good/GetGood").then(function (d) {
 
-                scope.item = JSON.parse(d.data);
-                if (angular.isDefined(scope.item.types) && scope.item.types.length>0) {
-                    scope.current.colorId = scope.item.types[0].colorId;
-                    scope.current.sizeId = scope.item.types[0].sizeId;
-                }
-                scope.current.goodId = scope.item.goodId;
+            //    scope.item = JSON.parse(d.data);
+            //    if (angular.isDefined(scope.item.types) && scope.item.types.length>0) {
+            //        scope.current.colorId = scope.item.types[0].colorId;
+            //        scope.current.sizeId = scope.item.types[0].sizeId;
+            //    }
+            //    scope.current.goodId = scope.item.goodId;
+            //});
+            http.getRequest({count:10}, "/api/Good/RandomGood").then(function (d) {
+
+                scope.randomItem = d.data;
+
             });
-            http.getRequest({}, "/api/Good/RandomGood").then(function (d) {
+            //http.postRequest({}, "/Cart/UserCart").then(function (d) {
 
-                scope.randomItem = JSON.parse(d.data);
-
-            });
-            http.postRequest({}, "/Cart/UserCart").then(function (d) {
-
-                scope.cart = d.data;
-            });
+            //    scope.cart = d.data;
+            //});
         };
         scope.add = function (count) {
             var item = scope.current;

@@ -42,11 +42,9 @@
         }
         else
         {
-            <li>@Html.ActionLink(Resource.LogIn, "Login", "Account")</li>
-            <li>@Html.ActionLink(Resource.LogIn, "Register", "Account")</li>
+            <li>@Html.ActionLink(Resource.LogIn, "Login", new { controller = "Account", area = "Administration" })</li>
+            <li>@Html.ActionLink(Resource.Register, "Register", new { controller = "Account", area = "Administration" })</li>
         }
-
-        <li>@Html.ActionLink(Resource.Cart, "ShowCart", "Cart")</li>
         @*Menu ICON*@
         <li class="icon-menu">
             <i class="menu-option glyphicon glyphicon-search"></i>

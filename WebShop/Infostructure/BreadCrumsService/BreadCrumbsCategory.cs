@@ -10,22 +10,23 @@ using WebShop.Repo.Interfaces;
 
 namespace WebShop.Infostructure.BreadCrumsService
 {
-    public class BreadCrumbsCategory : BreadCrumbsBase<IBreadCrumbsCategoryModel>
+    public class BreadCrumbsCategory : BreadCrumbsBase
     {
         private ICategoryRepository _categoryRepository;
-
+        private UrlHelper _urlHelper;
         private int _categoryId;
-        public BreadCrumbsCategory(int id)
+        public BreadCrumbsCategory(int id, UrlHelper urlHelper)
         {
+            _urlHelper = urlHelper;
             _categoryId = id;
             _categoryRepository = DependencyResolver.Current.GetService<ICategoryRepository>();
         }
 
-        private IEnumerable<IBreadCrumbsCategoryModel> CategoryWithChild(int id, string lang, params string[] links)
+        protected IEnumerable<IBreadCrumbsCategoryModel> CategoryWithChild(int id, string lang, params string[] links)
         {
             var data = _categoryRepository.EnableProxy<ICategoryRepository>().GetAll()
                 .Where(c => c.CategoryId == id).Include(c => c.Parent).Include(c => c.Name)
-                .Include(c => c.Parent.Name).Include(c => c.Parent.Parent)
+                .Include(c => c.Parent.Name).Include(c => c.Parent.Parent).Include(c => c.Type)
                 .FirstOrDefault();
 
             if (data == null)
@@ -36,9 +37,14 @@ namespace WebShop.Infostructure.BreadCrumsService
                 c.CategoryId,
                 NameLink =
                     GetPropertyName<CategoryName>(lang, cn => cn.CategoryNameRu).GetValue(c.Name),
+                TypeName = GetPropertyName<CategoryType>(lang, cn => cn.TypeNameRu).GetValue(c.Type),
+                TypeHref = c.Type.TypeNameEn
             });
-            var linksMutable = links.Select(l => new { NameLink = l, CategoryId = 0 })
-                .Concat<dynamic>(result.Reverse()).Select(l => new { l.NameLink, l.CategoryId });
+
+            var linksMutable = links
+                .Concat(Enumerable.Repeat(result.First().TypeName.ToString(), 1))
+                .Select(l => new { NameLink = l, CategoryId = 0, TypeName = result.First().TypeName, TypeHref = result.First().TypeHref })
+                .Concat<dynamic>(result.Reverse()).Select(l => new { l.NameLink, l.CategoryId, l.TypeName,l.TypeHref });
 
             return AutoMapper.Mapper.DynamicMap<IEnumerable<IBreadCrumbsCategoryModel>>(linksMutable);
 
@@ -58,29 +64,29 @@ namespace WebShop.Infostructure.BreadCrumsService
         public override IEnumerable<IBreadCrumbsModel> GenerateBreadCrumbs(Uri url, string lang, params string[] links)
         {
             var newLinks = CategoryWithChild(_categoryId, lang, links);
-            return MatchRoute(url, newLinks);
+            return CreateLinks(newLinks.ToArray()); 
         }
-
-        protected override IBreadCrumbsModel CreateLink(UriBuilder uriBuilder, IEnumerable<IBreadCrumbsCategoryModel> link,
-            RouteData route, int i)
+        protected IEnumerable<IBreadCrumbsModel> CreateLinks(IBreadCrumbsCategoryModel[] links)
         {
-            var model = new BreadCrumbsModel();
-            model.NameLink = link.ElementAt(i).NameLink;
-            var list = ((List<RouteData>)route.Values["MS_DirectRouteMatches"])[0].Values;
-
-            if (string.Equals(list["controller"].ToString(), "Catalog", StringComparison.OrdinalIgnoreCase)
-                && string.Equals(list["action"].ToString(), "CategoryGoods", StringComparison.OrdinalIgnoreCase))
+            int i = 0;
+           
+            yield return new BreadCrumbsModel()
             {
-                var s = uriBuilder.Uri.Segments.Take(uriBuilder.Uri.Segments.Length - 1);
-                uriBuilder.Path = string.Join("", s) + link.ElementAt(i).CategoryId.ToString().TrimStart('/');
-                model.Href = uriBuilder.ToString();
-
+                NameLink = links[i].NameLink,
+                Href = _urlHelper.Action("Categories", "Catalog", new { type = links[i].TypeHref })
+            };
+            i++;
+            foreach (var model in links.Skip(i))
+            {
+                yield return new BreadCrumbsModel()
+                {
+                    NameLink = model.NameLink,
+                    Href = _urlHelper.Action("Category", "Catalog", new { type = model.TypeHref, id = model.CategoryId })
+                };
             }
-            else
-                model.Href = uriBuilder.ToString();
-
-            return model;
+            
         }
+       
 
     }
 }

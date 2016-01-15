@@ -547,7 +547,7 @@ i.glyphicon:first-child::before {
 
 .anim-show {
     animation-name: create;
-    animation-duration: 1s;
+    animation-duration: 3s;
 }
 
 @keyframes create {
@@ -695,9 +695,20 @@ blockquote {
 }
 
 .sale-widg-prods {
-    background: url(/Image/sale-of-furniture.jpg) repeat;
+  
+    padding: 100px 0;
 }
-
+.sale-widg-prods::after {
+  content: "";
+  background: url(/Image/sale-of-furniture.jpg) repeat;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
 .margin-top {
     margin-top: 10px;
 }
@@ -838,4 +849,39 @@ blockquote {
 
 .product-fomater {
     margin: 0 10px;
+}
+
+.small-very {
+    font-size: 70%;
+}
+
+@keyframes carousel {
+
+    from {
+        -webkit-transform: scaleX(2) scaleY(2) translateX(100px) translateY(50px);
+        transform: scaleX(2) scaleY(2) translateX(100px) translateY(50px);
+        -webkit-transform-origin: 50% 50% 0;
+        transform-origin: 50% 50% 0;
+    }
+
+    to {
+        -webkit-transform: none;
+        transform: none;
+        -webkit-transform-origin: 50% 50% 0;
+        transform-origin: 50% 50% 0;
+    }
+}
+
+
+.carousel-anim {
+    animation-name: carousel;
+    animation-iteration-count: infinite;
+    -webkit-transition: all 10s cubic-bezier(0.645, 0.045, 0.355, 1) 10ms;
+    -moz-transition: all 10s cubic-bezier(0.645, 0.045, 0.355, 1) 10ms;
+    -o-transition: all 10s cubic-bezier(0.645, 0.045, 0.355, 1) 10ms;
+    transition: all 10s cubic-bezier(0.645, 0.045, 0.355, 1) 10ms;
+}
+
+.padding-5 {
+    padding: 5px;
 }

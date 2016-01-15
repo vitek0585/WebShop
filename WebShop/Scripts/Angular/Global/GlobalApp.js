@@ -1,9 +1,17 @@
 ﻿var global = angular.module("globalApp", ["lazyLoadApp"]);
-global.value("culture", { symbol: "" });
+global.value("culture", {
+    symbol: ""
+});
+global.value("kindsRate", {
+    ukr: {
+        en:"grn.",
+        ru:"грн."
+    }
+});
 global.config([
-    "$locationProvider", function ( $locationProvider) {
-    
-  
+    "$locationProvider", function ($locationProvider) {
+
+
     }]);
 global.controller("globalCtrl", ["$scope", "culture", 'lazyService', function (scope, culture, lazyLoad) {
 
@@ -35,6 +43,17 @@ global.controller('collapseCtrl', [
 global.filter("currencyExtend", ["$filter", "culture", function (filter, culture) {
 
     return function (data, num) {
+
+        var res = filter("number")(data, num);
+        return res + " " + culture.symbol;
+    }
+}]);
+
+global.filter("currencyExtendConvertToGrn", ["$filter", "culture", "kindsRate", function (filter, culture, rate) {
+
+    return function (data, curs, num) {
+        if (culture.symbol == rate.ukr.en || culture.symbol == rate.ukr.ru)
+            data = data * curs;
 
         var res = filter("number")(data, num);
         return res + " " + culture.symbol;

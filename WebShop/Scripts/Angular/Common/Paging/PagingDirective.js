@@ -96,6 +96,9 @@ paging.directive("pagingSetup", [function () {
                 }
                 //скрывает кнопки которые не используются
                 var hideButtons = function (opjForButton) {
+                    if (opjForButton.currentItem == 1) {
+                        opjForButton.currentItem = 0;
+                    }
                     while (opjForButton.currentItem < buttons.length) {
                         buttons[opjForButton.currentItem++].display = visibility.nonVisible;
                     }

@@ -187,6 +187,9 @@ UNDER THE SAME ROOF</value>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="Exclusive" xml:space="preserve">
+    <value>exclusive</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>filter</value>
   </data>
@@ -262,6 +265,9 @@ UNDER THE SAME ROOF</value>
   <data name="Russian" xml:space="preserve">
     <value>Russian</value>
   </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
   <data name="ShopOpt" xml:space="preserve">
     <value>Shopping Options</value>
   </data>
@@ -282,6 +288,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="SortByPriceDesc" xml:space="preserve">
     <value>Price descending </value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>Subcategory</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>
