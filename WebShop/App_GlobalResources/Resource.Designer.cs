@@ -305,6 +305,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to страница подтврждения внешней авторизации.
+        /// </summary>
+        public static string ExtLgConf {
+            get {
+                return ResourceManager.GetString("ExtLgConf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to фильтр.
         /// </summary>
         public static string Filter {

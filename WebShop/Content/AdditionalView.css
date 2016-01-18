@@ -17,7 +17,7 @@
     color: #222222;
     text-align: center;
 }
-
+  .scd-content-social li button span,
     .scd-content-social li a span {
         margin: 0 auto;
         width: 41px;
@@ -26,7 +26,7 @@
         background: url('/Image/icons-social.png') 0 0 no-repeat;
         transition: .0s ease-in-out;
     }
-
+  .scd-content-social li button span,
     .scd-content-social li a:hover span {
         -webkit-transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);
         -moz-transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);

@@ -10,7 +10,7 @@ using WebShop.Repo.Interfaces;
 namespace WebShop.Core.Controllers.Controller
 {
     [RoutePrefix("Fashion")]
-    [TypeOfCulture]
+  
     public class GoodController : ShopBaseController
     {
         private ICategoryService _categoryService;

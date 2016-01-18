@@ -320,20 +320,24 @@ form h3 {
     text-align: center;
     z-index: 100;
 }
+
 .account-modal .form-horizontal .form-group {
-     margin-left: 0; 
-     margin-right: 0; 
+    margin-left: 0;
+    margin-right: 0;
 }
-    
+
 
 /*Admin/Index*/
 .label-error {
-    background-color: #FFB6C1;
+    /*background-color: rgba(255, 182, 193, 0.69);*/
     padding: 10px;
     color: white;
-    text-align: center;
- 
 }
+
+    .errro-input:first-letter,
+    .label-error:first-letter {
+        text-transform: uppercase;
+    }
 
 i.glyphicon:first-child::before {
     padding-left: 10px;
@@ -699,20 +703,21 @@ blockquote {
 }
 
 .sale-widg-prods {
-  
     padding: 100px 0;
 }
-.sale-widg-prods::after {
-  content: "";
-  background: url(/Image/sale-of-furniture.jpg) repeat;
-  opacity: 0.3;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;   
-}
+
+    .sale-widg-prods::after {
+        content: "";
+        background: url(/Image/sale-of-furniture.jpg) repeat;
+        opacity: 0.3;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
 .margin-top {
     margin-top: 10px;
 }
@@ -888,4 +893,13 @@ blockquote {
 
 .padding-5 {
     padding: 5px;
+}
+.register-bg {
+    background: url(/Image/bg-login.gif) no-repeat;
+    background-size: cover;
+    padding: 10px;
+}
+.conf-lg-bg.register-bg {
+    min-height: 280px;
+    border: 1px solid #e7e7e6;
 }

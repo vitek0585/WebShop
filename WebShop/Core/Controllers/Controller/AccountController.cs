@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
@@ -25,11 +26,9 @@ namespace WebShop.Core.Controllers.Controller
 {
     [RoutePrefix("Account")]
     [Authorize]
-    [TypeOfCulture]
     public class AccountController : AccountBaseController
     {
-        // Used for XSRF protection when adding external logins
-        protected const string XsrfKey = "XsrfId";
+
         private IAccountService _account;
 
         public AccountController(ICookieConsumer storage, IAccountService account, IAuthenticationManager auth, UserManager manager,
@@ -38,6 +37,9 @@ namespace WebShop.Core.Controllers.Controller
         {
             _account = account;
         }
+
+        #region Login
+
         [Route("Login")]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -52,13 +54,18 @@ namespace WebShop.Core.Controllers.Controller
         [ModelValidationFilter]
         public async Task<JsonResult> Login(LoginViewModel model, string returnUrl)
         {
-            var result = await _account.LoginAsync(model.UserName, model.Password, model.RememberMe, Resource.InvalidLogin);
+            var result =
+                await _account.LoginAsync(model.UserName, model.Password, model.RememberMe, Resource.InvalidLogin);
             if (result.Succeeded)
             {
                 return Json(new { url = CheckValidReturnUrl(returnUrl) });
             }
             return new JsonResultCustom(result.Errors, HttpStatusCode.BadRequest);
         }
+
+        #endregion
+
+        #region Register
 
         [AllowAnonymous]
         [Route("Register")]
@@ -71,34 +78,19 @@ namespace WebShop.Core.Controllers.Controller
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [ModelValidationFilter]
-        [TypeOfCulture]
         public async Task<JsonResult> Register(RegisterViewModel model)
         {
-            var result = IdentityResult.Success;
-           ICookieConsumer storage = DependencyResolver.Current.GetService<ICookieConsumer>();
-
-            var language = storage.GetValueStorage(HttpContext, ValuesApp.Language) ??
-                       ValuesApp.LanguageDefault;
-
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
-
-            var currency = storage.GetValueStorage(HttpContext, ValuesApp.Currency) ??
-                       ValuesApp.CurrencyDefault;
-
-            Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencySymbol = ValuesApp.GetCurrencySymbol(language,currency);
-            Thread.CurrentThread.CurrentUICulture.NumberFormat.CurrencySymbol = ValuesApp.GetCurrencySymbol(language, currency);
-            //User user = new User { UserName = model.UserName, Email = model.Email };
-            //var result = await _account.CreateUserAsync(user, model.Password);
+            User user = new User { UserName = model.UserName, Email = model.Email };
+            var result = await _account.CreateUserAsync(user, model.Password);
             if (result.Succeeded)
             {
-              
-               // await _account.SendConfirmationTokenToEmailAsync(user.Id, Url.Action);
+                await _account.SendConfirmationTokenToEmailAsync(user.Id, Url.Action);
                 return Json(Resource.RegConfirmMessage);
             }
             AddErrors(result);
             return Json(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage));
         }
+
         [Route("ConfirmEmail")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
@@ -110,6 +102,84 @@ namespace WebShop.Core.Controllers.Controller
             var result = await _account.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
+        #endregion
+
+        //POST: /Account/ExternalLogin
+        [Route("ExternalLogin")]
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            // Request a redirect to the external login provider
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { returnUrl }));
+        }
+        //
+        // GET: /Account/ExternalLoginCallback
+        [Route("ExternalLoginCallback")]
+        [AllowAnonymous]
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        {
+            var loginInfo = await _account.GetExternalLoginInfoAsync();
+            if (loginInfo == null)
+            {
+                return RedirectToAction("Login",new {returnUrl});
+            }
+
+            var result = await _account.ExternalSignInAsync(loginInfo);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return Redirect(CheckValidReturnUrl(returnUrl));
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    // If the user does not have an account, then prompt the user to create an account
+                    ViewBag.ReturnUrl = returnUrl;
+                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+            }
+        }
+        [Route("ExternalLoginConfirmation")]
+        [AllowAnonymous]
+        public ActionResult ExternalLoginConfirmation()
+        {
+            
+            return View(new ExternalLoginConfirmationViewModel());
+        }
+
+        [Route("ExternalLoginConfirmation")]
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [ModelValidationFilter]
+        public async Task<JsonResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Json(Url.Action("Index", "Main"));
+            }
+            var user = new User()
+            {
+                Email = model.Email,
+                UserName = model.UserName
+            };
+            var result = await _account.CreateExternalUserAsync(user);
+
+            if (result.Succeeded)
+            {
+                var url = CheckValidReturnUrl(returnUrl);
+                return Json(url);
+            }
+            AddErrors(result);
+            return Json(ModelState.Values.SelectMany(e => e.Errors, (m, e) => new {field = m.Value,error=e.ErrorMessage}));
+        }
+        #region Log off
+
         [Route("LogOff")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,6 +188,9 @@ namespace WebShop.Core.Controllers.Controller
             _authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Main");
         }
+
+        #endregion
+
 
         [HttpPost]
         public async Task<JsonResult> UserInfo(string name)

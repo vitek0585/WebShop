@@ -7,13 +7,13 @@ using WebShop.Infostructure.Storage.Interfaces;
 
 namespace WebShop.Infostructure.Storage.Implements
 {
-   
+
     public class CookieConsumer : ICookieConsumer
     {
 
-        public void SetValueStorage(HttpContextBase context, string key, string value,string[]itemsContains)
+        public void SetValueStorage(HttpContextBase context, string key, string value, string[] itemsContains)
         {
-            if (itemsContains.Contains(value,StringComparer.OrdinalIgnoreCase))
+            if (itemsContains.Contains(value))
             {
                 HttpCookie cookie = new HttpCookie(key, value);
                 cookie.HttpOnly = true;
@@ -38,5 +38,14 @@ namespace WebShop.Infostructure.Storage.Implements
             return null;
         }
 
+        public string GetValueStorage(HttpCookieCollection cookies, string key)
+        {
+            var isComntain = cookies.AllKeys.Contains(key);
+            if (isComntain)
+            {
+                return cookies[key].Value;
+            }
+            return null;
+        }
     }
 }

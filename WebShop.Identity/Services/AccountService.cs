@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.ModelBinding;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
@@ -13,9 +14,9 @@ namespace WebShop.Identity.Services
 {
     public class AccountService : AccountGlobalService, IAccountService
     {
-        public AccountService(RoleManager roleManager, UserManager userManager,
+        public AccountService(RoleManager roleManager, UserManager userManager, SignInManager singInManager,
             IAuthenticationManager authentication)
-            : base(roleManager, userManager, authentication)
+            : base(roleManager, userManager, singInManager, authentication)
         {
         }
 
@@ -54,5 +55,36 @@ namespace WebShop.Identity.Services
 
             return IdentityResult.Success;
         }
+
+        public Task<ExternalLoginInfo> GetExternalLoginInfoAsync()
+        {
+            return _authentication.GetExternalLoginInfoAsync();
+        }
+
+        public Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent = false)
+        {
+            return _singInManager.ExternalSignInAsync(loginInfo, isPersistent);
+        }
+
+        public async Task<IdentityResult> CreateExternalUserAsync(User user)
+        {
+            var info = await _authentication.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return null;
+            }
+
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddLoginAsync(user.Id, info.Login);
+                if (result.Succeeded)
+                {
+                    await _singInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+            }
+            return result;
+        }
+
     }
 }

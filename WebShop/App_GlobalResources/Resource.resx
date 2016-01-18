@@ -325,4 +325,7 @@
   <data name="ToUp" xml:space="preserve">
     <value>до</value>
   </data>
+  <data name="ExtLgConf" xml:space="preserve">
+    <value>страница подтврждения внешней авторизации</value>
+  </data>
 </root>

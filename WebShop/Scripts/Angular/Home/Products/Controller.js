@@ -1,8 +1,8 @@
 ﻿//var prod = angular.module("prodApp", ["httpApp", "notifyApp", 'slick', 'lazyLoadApp']);
 
 var prod = angular.module("globalApp");
-var arr = ["httpApp", "httpRouteApp", "pagingApp", "notifyApp", 'slick', 'ngAnimate', 'ui.bootstrap', 'angularRangeSlider'
-, 'azSuggestBox', 'ngTooltips'];
+var arr = ["httpApp", "httpRouteApp", "pagingApp", "notifyApp", 'slick', 'ui.bootstrap', 'angularRangeSlider'
+, 'azSuggestBox'];
 Array.prototype.push.apply(prod.requires, arr);
 
 prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow",

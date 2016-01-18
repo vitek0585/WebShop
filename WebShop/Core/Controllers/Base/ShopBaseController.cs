@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading;
 using System.Web.Mvc;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 
 namespace WebShop.Core.Controllers.Base
 {
-    public abstract class ShopBaseController : System.Web.Mvc.Controller
+    public class ShopBaseController : System.Web.Mvc.Controller
     {
         protected ICookieConsumer _storage;
 
@@ -35,7 +36,7 @@ namespace WebShop.Core.Controllers.Base
         [NonAction]
         protected string GetCurrentLanguage()
         {
-            return _storage.GetValueStorage(HttpContext, ValuesApp.Language) ?? ValuesApp.LanguageDefault;
+            return Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
         }
         #endregion
     }

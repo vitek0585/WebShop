@@ -1,11 +1,12 @@
 ﻿@using WebShop.Infostructure.Extenssions
-@model WebShop.Models.Account.RegisterViewModel
+@using WebShop.Models.Account
+@*@model WebShop.Models.Account.RegisterViewModel*@
 @{
-    var name = Html.GetName(m => m.UserName);
-    var email = Html.GetName(m => m.Email);
-    var password = Html.GetName(m => m.Password);
-    var confirmPassw = Html.GetName(m => m.ConfirmPassword);
-    var predicate = "blur&&registerForm.{0}.$dirty&&registerForm.{0}.$invalid";
+    var name = Html.GetName<RegisterViewModel>(m => m.UserName);
+    var email = Html.GetName<RegisterViewModel>(m => m.Email);
+    var password = Html.GetName<RegisterViewModel>(m => m.Password);
+    var confirmPassw = Html.GetName<RegisterViewModel>(m => m.ConfirmPassword);
+    var predicate = "blur_{0}&&registerForm.{0}.$invalid";
 
     var namePredicate = predicate.F(name);
     var emailPredicate = predicate.F(email);
@@ -15,7 +16,7 @@
 <form method="POST" class="form-horizontal" role="form" novalidate name="registerForm" id="registerForm">
     @Html.AntiForgeryToken()
     @*Name user*@
-    <div class="form-group" ng-init="blur=false">
+    <div class="form-group" ng-init="blurs(blur_@name=false)">
         @*<label class="col-sm-4 control-label" for="">@Resource.Name</label>*@
         <div class="col-sm-12">
             <input type="text"
@@ -25,18 +26,18 @@
                    name="@name"
                    ng-model="user.@name"
                    ng-pattern="/^[A-Za-z]\w{2,20}$/"
-                   ng-blur="blur=true"
+                   ng-blur="blur_@name=true"
                    ng-required="true"
                    ng-class="@namePredicate?'custom-invalid':'custom-valid'">
         </div>
-        <div class="col-sm-12"
+        <div class="col-sm-12 errro-input"
              ng-class="@namePredicate?'custom-invalid':'custom-valid'"
              ng-cloak>
             <span ng-show="@namePredicate">@Resource.NameInValid</span>
         </div>
     </div>
     @*Email*@
-    <div class="form-group" ng-init="blur=false">
+    <div class="form-group" ng-init="blurs(blur_@email=false)">
         <div class="col-sm-12">
             <input ng-pattern="/^\w+&#64[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
                    class="form-control"
@@ -45,18 +46,18 @@
                    name="@email"
                    ng-model="user.@email"
                    ng-required="true"
-                   ng-blur="blur=true"
+                   ng-blur="blur_@email=true"
                    ng-class="@emailPredicate?'custom-invalid':''">
         </div>
-        <div class="col-sm-12"
+        <div class="col-sm-12 errro-input"
              ng-class="@emailPredicate?'custom-invalid':'custom-valid'"
              ng-cloak>
             <span ng-show="@emailPredicate">@Resource.EmailInValid</span>
         </div>
     </div>
     @*Password*@
-    <div class="form-group" ng-init="blur=false">
-        <div class="col-sm-12">
+    <div class="form-group" ng-init="blurs(blur_@password=false)">
+        <div class="col-sm-12 ">
             <input type="password"
                    ng-pattern="/^(?=[a-zA-Z])(?=[a-zA-Z0-9]*)(?!.*\s).{6,20}$/"
                    class="form-control"
@@ -65,18 +66,17 @@
                    name="@password"
                    ng-model="user.@password"
                    ng-required="true"
-                   ng-blur="blur=true"
+                   ng-blur="blur_@password=true"
                    ng-class="@pswdPredicate?'custom-invalid':''">
         </div>
-        <div class="col-sm-12"
+        <div class="col-sm-12 errro-input"
              ng-class="@pswdPredicate?'custom-invalid':'custom-valid'"
              ng-cloak>
             <span ng-show="@pswdPredicate">@Resource.PaswdInValid</span>
         </div>
     </div>
     @*Confirm password*@
-    <div class="form-group" ng-init="blur=false">
-        @*<label class="col-sm-4 control-label" for="">@Resource.ConfirmPswd</label>*@
+    <div class="form-group" ng-init="blurs(blur_@confirmPassw=false)">
         <div class="col-sm-12">
             <input compare-to source="user.@password"
                    type="password"
@@ -88,15 +88,16 @@
                    ng-minlength="6"
                    ng-maxlength="20"
                    ng-required="true"
+                   ng-blur="blur_@confirmPassw=true"
                    ng-class="@confPswdPredicate?'custom-invalid':''">
         </div>
-        <div class="col-sm-12"
+        <div class="col-sm-12 errro-input"
              ng-class="@confPswdPredicate?'custom-invalid':'custom-valid'"
              ng-cloak>
             <span ng-show="@confPswdPredicate">@Resource.ConfirmPswdInValid</span>
         </div>
     </div>
-    <div ng-if="responseHandler.errorMessages.length>0" class="col-md-12 form-group" ng-cloak>
+    <div ng-if="responseHandler.errorMessages.length>0" class="col-md-12 form-group anim-show" ng-cloak>
         <div class="label-error" ng-repeat="mess in responseHandler.errorMessages">
             {{::mess}}
         </div>

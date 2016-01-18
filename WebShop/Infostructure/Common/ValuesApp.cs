@@ -29,8 +29,8 @@ namespace WebShop.Infostructure.Common
 
         public static ListDictionary CurrencySymbol = new ListDictionary(StringComparer.InvariantCultureIgnoreCase)
         {
-            {new Tuple<string,string>(Languages[0],Currencies[0]),"грн."},
-            {new Tuple<string,string>(Languages[1],Currencies[0]),"grn."},
+            {new Tuple<string,string>(Languages[0],Currencies[0]),"грн"},
+            {new Tuple<string,string>(Languages[1],Currencies[0]),"grn"},
 
             {new Tuple<string,string>(Languages[0],Currencies[1]),"$"},
             {new Tuple<string,string>(Languages[1],Currencies[1]),"$"}

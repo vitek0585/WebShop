@@ -1,4 +1,4 @@
-﻿var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal"]);
+﻿var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal", 'ngAnimate', 'ngTooltips', 'toaster']);
 global.injectRequires = function (arr) {
     Array.prototype.push.apply(this.requires, arr);
 }

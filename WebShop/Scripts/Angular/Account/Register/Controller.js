@@ -30,6 +30,7 @@ global.controller("regCtrl", ["$scope", "httpService", "formToObject", function 
         scope.responseHandler.isBusy = true;
         var form = ser.serializeObject(registerForm);
         var url = "/Account/Register";
+
         http.formRequest(url, form).then(function (d) {
             scope.responseHandler.isSuccededRegister = true;
             scope.responseHandler.succesMessage = d.data;

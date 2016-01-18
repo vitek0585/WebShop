@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using System.Threading
+@using Microsoft.AspNet.Identity
 @using WebShop.Models.InterfacesModel
 @{
     var banners = new Dictionary<int, Tuple<string, string>>()
@@ -33,7 +34,7 @@
                 @Html.ActionLink("Hello " + User.Identity.GetUserName(), "", "")
             </li>
             <li>
-                @using (Html.BeginForm(Resource.LogOff, "Account", new { action = "LogOff", area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
                 }
@@ -65,11 +66,27 @@
             <h2 class="text-center">@Resource.Register</h2>
             @Html.Partial("/Views/Account/Partial/_RegisterPartial.cshtml")
             <spin-wait show-when="responseHandler.isBusy" />
-            <div class="col-md-12" ng-if="responseHandler.isSuccededRegister" ng-cloak>
-                <div>{{responseHandler.succesMessage}}</div>
-            </div>
         </div>
+        <div class="col-md-12" ng-if="responseHandler.isSuccededRegister" ng-cloak>
+            <div>{{responseHandler.succesMessage}}</div>
+        </div>
+        <div class="col-md-12 scd-content-social">
+            <ul class="list-inline list-social">
+                <li class="fb">
+                    @using (Html.BeginForm("ExternalLogin", "Account", new { returnUrl = Request.Url.AbsoluteUri }, FormMethod.Post, new { id = "account-submit" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('sub-twitter').click()" target="_blank" >
+                            <span style="background-position: 0 -41px;"></span><strong>
+                                Twitter
+                            </strong>
+                        </a>
+                        <button ng-hide="true" id="sub-twitter" class="btn rtn-primary" type="submit" name="provider" value="Twitter"></button>
 
-</div>
+                    }
+
+                </li>
+            </ul>
+        </div>
+    </div>
 </script>
-

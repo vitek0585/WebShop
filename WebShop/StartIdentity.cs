@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Security.Claims;
+using System.Web.Helpers;
+using System.Web.Http;
 using System.Web.Mvc;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -22,7 +24,7 @@ namespace WebShop
             DependencyResolver.SetResolver(new AutofacDependencyResolver(scope));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(scope);
 
-
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

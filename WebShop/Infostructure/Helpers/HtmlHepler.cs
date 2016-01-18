@@ -79,6 +79,9 @@ namespace WebShop.Infostructure.Helpers
         {
             return ExpressionHelper.GetExpressionText(exp);
         }
-       
+        public static string GetName<T>(this HtmlHelper html, Expression<Func<T, object>> exp)
+        {
+            return ExpressionHelper.GetExpressionText(exp);
+        }
     }
 }

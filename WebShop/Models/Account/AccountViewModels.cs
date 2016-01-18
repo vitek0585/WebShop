@@ -6,8 +6,14 @@ namespace WebShop.Models.Account
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^[A-Za-z]+\w{2,20}",
+            ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessageResourceName = "EmailInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$",
+            ErrorMessageResourceName = "EmailInValid", ErrorMessageResourceType = typeof(Resource))]
         public string Email { get; set; }
     }
 
