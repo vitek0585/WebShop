@@ -4,20 +4,18 @@ var confirmRegister = function (scope, http, ser, compile, toaster, t) {
     var tmpl = "<div >" +
         "<div class='label-error' ng-repeat='mess in responseHandler.errorMessages'>{{::mess}}</div>" +
         "</div>";
-    var test = "<div>! am {{ipBlur}}</div>";
+
     scope.responseHandler = {
         errorMessages: [],
         succesMessage: undefined,
         isBusy: false,
         isSuccededRegister: false
     }
-    scope.ipBlur = {
 
-    };
     var blursArray = [];
 
     scope.blurs = function (e) {
-        scope.ipBlur[e] = false;
+        scope[e] = false;
         blursArray.push(e);
     }
     scope.submit = function () {
@@ -28,6 +26,7 @@ var confirmRegister = function (scope, http, ser, compile, toaster, t) {
         http.formRequest(url, form).then(function (d) {
             window.location(d);
         }, function (d) {
+
             scope.responseHandler.errorMessages = d.data;
             var element = angular.element(tmpl);
             var fn = compile(element);
@@ -37,9 +36,9 @@ var confirmRegister = function (scope, http, ser, compile, toaster, t) {
             }, 0, true);
 
             angular.forEach(blursArray, function (value) {
-                scope.ipBlur[value] = true;
+                scope[value] = true;
             });
-        })
+            })
             .finally(function () {
                 scope.responseHandler.isBusy = false;
             });

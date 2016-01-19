@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using WebShop.Infostructure.Common;
@@ -16,7 +18,7 @@ namespace WebShop.Core.Controllers.Base
         }
 
         #region Helper methods
-         [NonAction]
+        [NonAction]
         protected string CheckValidReturnUrl(string returnUrl)
         {
             if (!string.IsNullOrEmpty(returnUrl))
@@ -26,6 +28,17 @@ namespace WebShop.Core.Controllers.Base
                     return returnUrl;
             }
             return Url.Action("Index", "Main");
+        }
+        [NonAction]
+        protected string CheckValidReturnUrlAjax(string returnUrl)
+        {
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                Uri uri = new Uri(returnUrl);
+                if (Url.IsLocalUrl(uri.AbsolutePath))
+                    return returnUrl;
+            }
+            return Url.Action("Index", "Main", null, "http");
         }
         [NonAction]
         protected string GetCurrentCurrency()
@@ -38,6 +51,13 @@ namespace WebShop.Core.Controllers.Base
         {
             return Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
         }
+        [NonAction]
+        protected IEnumerable<string> ReturnErrorModelState()
+        {
+            return ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage).ToArray();
+        }
+
         #endregion
+
     }
 }

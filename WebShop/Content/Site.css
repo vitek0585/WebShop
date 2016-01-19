@@ -450,16 +450,11 @@ i.glyphicon:first-child::before {
     }
 }
 
-.remember-me {
-    height: 39px;
-    display: flex;
-    align-items: center;
+.message-info {
+    font-size: 24px;
+    text-align: center;
 }
 
-    .remember-me input {
-        height: 25px;
-        width: 8%;
-    }
 
 .navbar-nav > li > form > a {
     padding-top: 10px;
@@ -894,12 +889,76 @@ blockquote {
 .padding-5 {
     padding: 5px;
 }
+.padding-top-10 {
+    padding-top: 10px;
+}
 .register-bg {
     background: url(/Image/bg-login.gif) no-repeat;
     background-size: cover;
     padding: 10px;
 }
+
 .conf-lg-bg.register-bg {
     min-height: 280px;
     border: 1px solid #e7e7e6;
+}
+
+.account-modal .form-control {
+    height: 50px;
+    font-size: 23px;
+    line-height: 1.4;
+}
+
+.account-title {
+    padding-bottom: 40px;
+}
+
+.remember-me {
+    /*height: 39px;*/
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+    .remember-me input {
+        height: 26px;
+        width: 5%;
+    }
+
+.confirm-email-cont {
+    min-height: 400px;
+}
+
+.widget-categ-rd-size-desc {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+     color: #F7F7F7;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: 50% 100% 0;
+    transform-origin: 50% 100% 0;
+    transition: all .5s;
+    height: 100px;
+    background: rgba(184, 184, 182, 0.56);
+    padding: 14px;
+    font-size: 18px;
+    text-align: center;
+    text-shadow: 3px 2px 5px rgba(76,76,76,1);
+    font-weight: bold;
+}
+.widget-categ-rd-size > a:hover {
+    color: #F7F7F7;
+}
+.widget-categ-rd-size:hover .widget-categ-rd-size-desc {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-osx-font-smoothing: grayscale;
+}
+
+.widget-categ-rd-size:hover img {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
 }

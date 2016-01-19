@@ -9,7 +9,7 @@
     var name = Html.GetName(m => m.UserName);
     var email = Html.GetName(m => m.Email);
 
-    var predicate = "ipBlur.{0}&&confirmForm.{0}.$invalid";
+    var predicate = "{0}&&confirmForm.{0}.$invalid";
 
     var namePredicate = predicate.F(name);
     var emailPredicate = predicate.F(email);
@@ -38,7 +38,7 @@
                                    name="@name"
                                    ng-model="user.@name"
                                    ng-pattern="/^[A-Za-z]\w{2,20}$/"
-                                   ng-blur="ipBlur.@name=true"
+                                   ng-blur="@name=true"
                                    ng-required="true"
                                    ng-class="@namePredicate?'custom-invalid':'custom-valid'">
                         </div>
@@ -58,7 +58,6 @@
                                    name="@email"
                                    ng-model="user.@email"
                                    ng-required="true"
-                                   tooltip="@Resource.ClearFilter" tooltip-pos="top"
                                    ng-class="@emailPredicate?'custom-invalid':''">
                         </div>
                         <div class="col-sm-12 errro-input"

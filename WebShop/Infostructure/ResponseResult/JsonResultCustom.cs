@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace WebShop.Infostructure.ResponseResult
 {
@@ -9,7 +10,7 @@ namespace WebShop.Infostructure.ResponseResult
         public JsonResultCustom(object data, HttpStatusCode status)
         {
             _status = status;
-            Data = data;
+            Data = JsonConvert.SerializeObject(data);
         }
         public JsonResultCustom(object data)
         {
@@ -20,9 +21,8 @@ namespace WebShop.Infostructure.ResponseResult
         {
             
             var response = context.HttpContext.Response;
-            response.ContentType = "application/json";
             response.StatusCode = (int) _status;
-            response.Write(Data);
+            response.Output.Write(Data);
         }
 
     }

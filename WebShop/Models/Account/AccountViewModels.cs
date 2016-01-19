@@ -22,29 +22,7 @@ namespace WebShop.Models.Account
         public string ReturnUrl { get; set; }
     }
 
-    public class SendCodeViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
-    }
-
-    public class VerifyCodeViewModel
-    {
-        [Required]
-        public string Provider { get; set; }
-
-        [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
-        public string ReturnUrl { get; set; }
-
-        [Display(Name = "Remember this browser?")]
-        public bool RememberBrowser { get; set; }
-
-        public bool RememberMe { get; set; }
-    }
+  
 
     public class ForgotViewModel
     {
@@ -56,18 +34,16 @@ namespace WebShop.Models.Account
     public class LoginViewModel
     {
 
-        [Required]
-        [Display(Name = "User Name")]
+        [Required(ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
         [RegularExpression(@"^[A-Za-z]+\w{2,20}",
-            ErrorMessage = "The user name should be minimum 3 and maximum 20 characters, and first character must be a letter")]
+           ErrorMessageResourceName = "NameInValid", ErrorMessageResourceType = typeof(Resource))]
         public string UserName { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Required(ErrorMessageResourceName = "PaswdInValid", ErrorMessageResourceType = typeof(Resource))]
+        [RegularExpression(@"^(?=[a-zA-Z])(?=[a-zA-Z0-9]*)(?!.*\s).{6,20}$",
+           ErrorMessageResourceName = "PaswdInValid", ErrorMessageResourceType = typeof(Resource))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
 

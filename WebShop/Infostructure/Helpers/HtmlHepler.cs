@@ -75,13 +75,20 @@ namespace WebShop.Infostructure.Helpers
     }
     public static class ExpressionToString
     {
-        public static string GetName<T>(this HtmlHelper<T> html,Expression<Func<T,object>> exp)
+        public static string GetName<T>(this HtmlHelper<T> html, Expression<Func<T, object>> exp)
         {
             return ExpressionHelper.GetExpressionText(exp);
         }
         public static string GetName<T>(this HtmlHelper html, Expression<Func<T, object>> exp)
         {
+            if (exp.Body.NodeType == ExpressionType.Convert || exp.Body.NodeType == ExpressionType.ConvertChecked)
+            {
+                var uexp = (UnaryExpression)exp.Body;
+                return ((MemberExpression)uexp.Operand).Member.Name;
+            }
+
             return ExpressionHelper.GetExpressionText(exp);
         }
+
     }
 }

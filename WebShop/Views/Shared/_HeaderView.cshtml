@@ -43,10 +43,11 @@
         }
         else
         {
-            <li>@Html.ActionLink(Resource.LogIn, "Login", "Account")</li>
-            <li>@*@Html.ActionLink(Resource.Register, "Register", "Account")*@</li>
-            <li ng-controller="registerModalCtrl">
-                <a class="cursor-href" ng-click="openRegisterModal()">@Resource.Register</a>
+            <li ng-controller="modalCtrl">
+                <a class="cursor-href" ng-click="openModal('loginTmpl','loginCtrl')">@Resource.LogIn</a>
+            </li>
+            <li ng-controller="modalCtrl">
+                <a class="cursor-href" ng-click="openModal('registerTmpl','regCtrl')">@Resource.Register</a>
             </li>
 
         }
@@ -61,32 +62,8 @@
     </ul>
 </div>
 <script type="text/template" id="registerTmpl">
-    <div class="row row-nomargin account-modal">
-        <div class="col-md-8 col-md-push-2" ng-if="!responseHandler.isSuccededRegister">
-            <h2 class="text-center">@Resource.Register</h2>
-            @Html.Partial("/Views/Account/Partial/_RegisterPartial.cshtml")
-            <spin-wait show-when="responseHandler.isBusy" />
-        </div>
-        <div class="col-md-12" ng-if="responseHandler.isSuccededRegister" ng-cloak>
-            <div>{{responseHandler.succesMessage}}</div>
-        </div>
-        <div class="col-md-12 scd-content-social">
-            <ul class="list-inline list-social">
-                <li class="fb">
-                    @using (Html.BeginForm("ExternalLogin", "Account", new { returnUrl = Request.Url.AbsoluteUri }, FormMethod.Post, new { id = "account-submit" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('sub-twitter').click()" target="_blank" >
-                            <span style="background-position: 0 -41px;"></span><strong>
-                                Twitter
-                            </strong>
-                        </a>
-                        <button ng-hide="true" id="sub-twitter" class="btn rtn-primary" type="submit" name="provider" value="Twitter"></button>
-
-                    }
-
-                </li>
-            </ul>
-        </div>
-    </div>
+    @Html.Partial("/Views/Account/Template/RegisterTmpl.cshtml")
+</script>
+<script type="text/template" id="loginTmpl">
+    @Html.Partial("/Views/Account/Template/LoginTmpl.cshtml")
 </script>

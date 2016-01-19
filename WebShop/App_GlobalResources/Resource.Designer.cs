@@ -197,6 +197,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to подтверждение email.
+        /// </summary>
+        public static string ConfEmailPage {
+            get {
+                return ResourceManager.GetString("ConfEmailPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваш email успешно подтвержден.
+        /// </summary>
+        public static string ConfEmailSucces {
+            get {
+                return ResourceManager.GetString("ConfEmailSucces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to подтверждение пароля.
         /// </summary>
         public static string ConfirmPswd {
@@ -278,6 +296,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to указанный вами email уже существует.
+        /// </summary>
+        public static string EmailDuplicat {
+            get {
+                return ResourceManager.GetString("EmailDuplicat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to введите верно email.
         /// </summary>
         public static string EmailInValid {
@@ -328,6 +355,15 @@ namespace WebShop.App_GlobalResources {
         public static string FilterPriceMore {
             get {
                 return ResourceManager.GetString("FilterPriceMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Женская обувь предназначенная для элегантной одежды, работы, и отдыха.
+        /// </summary>
+        public static string FootWearW {
+            get {
+                return ResourceManager.GetString("FootWearW", resourceCulture);
             }
         }
         
@@ -467,6 +503,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to указанное вами имя уже существует.
+        /// </summary>
+        public static string NameDuplicat {
+            get {
+                return ResourceManager.GetString("NameDuplicat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to имя пользователя должно содержать от 2 и до 20 латинских символов, первый символ должен быть буквой.
         /// </summary>
         public static string NameInValid {
@@ -580,6 +625,15 @@ namespace WebShop.App_GlobalResources {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Запомнить меня?.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
             }
         }
         

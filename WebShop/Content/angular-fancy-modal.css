@@ -48,7 +48,7 @@ body.fancymodal-open {
     -o-border-radius: 5px;*/
     padding: 2em 1em;
     /*border-radius: 5px;*/
-    background: #eee;
+    background: #e7e7e6;
     color: #000;
     position: relative;
     margin: 0 auto; }
@@ -62,10 +62,10 @@ body.fancymodal-open {
     /*border-radius: 3px;*/
     position: absolute;
     content: "\00D7";
-    font-size: 26px;
+    font-size: 80px;
     line-height: 30px;
-    height: 30px;
-    width: 30px;
+    /*height: 30px;
+    width: 30px;*/
     text-align: center;
     top: 3px;
     right: 3px;
@@ -73,7 +73,7 @@ body.fancymodal-open {
   .fancymodal .fancymodal-close:hover:before,
   .fancymodal .fancymodal-close:active:before {
     color: #777;
-    background: #e0e0e0; }
+     }
   .fancymodal .fancymodal-content-opening {
     -webkit-animation: fancymodal-in 0.5s;
     animation: fancymodal-in 0.5s; }

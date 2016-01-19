@@ -30,23 +30,16 @@ namespace WebShop.Core.Controllers.Controller
     {
 
         private IAccountService _account;
-
+        private IUnitOfWorkIdentity _unit;
         public AccountController(ICookieConsumer storage, IAccountService account, IAuthenticationManager auth, UserManager manager,
-            RoleManager role)
+            RoleManager role,IUnitOfWorkIdentity unit)
             : base(storage, auth, manager, role)
         {
+            _unit = unit;
             _account = account;
         }
 
         #region Login
-
-        [Route("Login")]
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl ?? Request.UrlReferrer.AbsolutePath;
-            return View();
-        }
 
         [Route("Login"), HttpPost]
         [AllowAnonymous]
@@ -55,24 +48,20 @@ namespace WebShop.Core.Controllers.Controller
         public async Task<JsonResult> Login(LoginViewModel model, string returnUrl)
         {
             var result =
-                await _account.LoginAsync(model.UserName, model.Password, model.RememberMe, Resource.InvalidLogin);
+                await _account.LoginAsync(model.UserName, model.Password, model.RememberMe, Resource.InvalidLogin.Split(','));
             if (result.Succeeded)
             {
-                return Json(new { url = CheckValidReturnUrl(returnUrl) });
+                return Json(CheckValidReturnUrl(returnUrl));
             }
-            return new JsonResultCustom(result.Errors, HttpStatusCode.BadRequest);
+            AddErrors(result);
+            return JsonResultCustom(ReturnErrorModelState(), HttpStatusCode.BadRequest);
         }
+
+        
 
         #endregion
 
         #region Register
-
-        [AllowAnonymous]
-        [Route("Register")]
-        public ActionResult Register()
-        {
-            return View();
-        }
 
         [Route("Register"), HttpPost]
         [AllowAnonymous]
@@ -81,20 +70,32 @@ namespace WebShop.Core.Controllers.Controller
         public async Task<JsonResult> Register(RegisterViewModel model)
         {
             User user = new User { UserName = model.UserName, Email = model.Email };
+            _unit.StartTransaction();
             var result = await _account.CreateUserAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _account.SendConfirmationTokenToEmailAsync(user.Id, Url.Action);
+                try
+                {
+                    await _account.SendConfirmationTokenToEmailAsync(user.Id, Url.Action);
+                }
+                catch (Exception e)
+                {
+                    _unit.Rollback();
+                    return JsonResultCustom("Error send message", HttpStatusCode.InternalServerError); 
+                }
+                _unit.Commit();
+
                 return Json(Resource.RegConfirmMessage);
             }
             AddErrors(result);
-            return Json(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage));
+            return JsonResultCustom(ReturnErrorModelState(),HttpStatusCode.BadRequest);
         }
 
         [Route("ConfirmEmail")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
+            return View();
             if (code == null)
             {
                 return View("Error");
@@ -132,13 +133,7 @@ namespace WebShop.Core.Controllers.Controller
             {
                 case SignInStatus.Success:
                     return Redirect(CheckValidReturnUrl(returnUrl));
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
                 default:
-                    // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });

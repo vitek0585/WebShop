@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
@@ -10,11 +11,13 @@ using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using WebShop.Api.CalculatePrice;
 using WebShop.Api.Storage;
+using WebShop.App_GlobalResources;
 using WebShop.EFModel.Context;
 using WebShop.EFModel.Model;
 using WebShop.Identity.Context;
 using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
+using WebShop.Identity.Manager.CustomValidation;
 using WebShop.Identity.Models;
 using WebShop.Identity.Services;
 using WebShop.Infostructure.Cart;
@@ -60,12 +63,12 @@ namespace WebShop.Core.Settings.Autofac
             uriBuilder.Path = "p24api/pubinfo";
             uriBuilder.Query = "json&exchange&coursid=5";
 
-            builder.Register(i=>new ExchangeRatesService(DependencyResolver.Current.GetService<IUnitOfWork>(),
-                DependencyResolver.Current.GetService<IExchangeRatesRepository>(),uriBuilder.ToString()))
+            builder.Register(i => new ExchangeRatesService(DependencyResolver.Current.GetService<IUnitOfWork>(),
+                DependencyResolver.Current.GetService<IExchangeRatesRepository>(), uriBuilder.ToString()))
                 .As<IExchangeRatesService>().InstancePerLifetimeScope();
         }
     }
-    
+
     public class UnitModule : global::Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -80,7 +83,7 @@ namespace WebShop.Core.Settings.Autofac
             builder.RegisterType<CookieConsumer>().As<ICookieConsumer>().InstancePerLifetimeScope();
             builder.RegisterType<CartProvider>().As<ICartProvider<UserOrder>>().InstancePerLifetimeScope();
 
-            
+
         }
     }
     public class ContextModule : global::Autofac.Module
@@ -114,6 +117,17 @@ namespace WebShop.Core.Settings.Autofac
 
             builder.RegisterType<RoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<SignInManager>().AsSelf().InstancePerRequest();
+            builder.Register(i => new IdentityErrors()
+            {
+                NameInValid = Resource.NameInValid,
+                NameDuplicat = Resource.NameDuplicat,
+                EmailInValid = Resource.EmailInValid,
+                EmailDuplicat = Resource.EmailDuplicat
+
+            }).As<IIdentityErrros>().InstancePerRequest();
+
+            builder.RegisterType<UnitOfWorkIdentity>().As<IUnitOfWorkIdentity>().InstancePerRequest();
+
             builder.Register<IDataProtectionProvider>(c => _app.GetDataProtectionProvider()).InstancePerRequest();
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
         }

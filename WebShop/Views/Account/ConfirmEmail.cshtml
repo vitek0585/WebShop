@@ -1,10 +1,52 @@
 ﻿@{
-    ViewBag.Title = "Confirm Email";
+    ViewBag.Title = Resource.ConfEmailPage.ToUpper();
 }
 
-<h2>@ViewBag.Title</h2>
-<div>
-    <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-    </p>
+
+<div class="container confirm-email-cont">
+    <div class="row row-nomargin" ng-controller="modalCtrl">
+        <div class="row row-nomargin">
+            <div class="text-center">
+                <p class="separator"></p>
+                <span class="separator-text">@Resource.ConfEmailPage</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <p>
+                @Resource.ConfEmailSucces &rArr;
+                <a class="cursor-href" ng-click="openModal('loginTmpl','loginCtrl')">@Resource.LogIn</a>
+            </p>
+        </div>
+            <div class="col-md-12 padding-top-10 row-nomargin">
+                <div class="col-md-8">
+                    @Html.Partial("/Views/Catalog/Partial/_CategoryWidgetBlur.cshtml", new ViewDataDictionary()
+                    {
+                        {"imgPath", "/Image/womanfootwear.jpg"},
+                        {"text", Resource.FootWearW},
+                        {"urlPath", Url.Action("Category", "Catalog", new {type = "Women", id = "10"})},
+                        {"height", 300}
+                    })
+                    <div class="col-md-6 padding-top-10" style="margin-left: -5px;">
+                        @Html.Partial("/Views/Catalog/Partial/_CategoryWidgetBlur.cshtml", new ViewDataDictionary()
+                    {
+                        {"imgPath", "/Image/jackets-men-banner.jpg"},
+                        {"text", Resource.FootWearW},
+                        {"urlPath", Url.Action("Category", "Catalog", new {type = "Men", id = "37"})},
+                        {"height", 600}
+                    })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.Partial("/Views/Catalog/Partial/_CategoryWidgetBlur.cshtml", new ViewDataDictionary()
+                    {
+                        {"imgPath", "/Image/jackets-men-banner.jpg"},
+                        {"text", Resource.FootWearW},
+                        {"urlPath", Url.Action("Category", "Catalog", new {type = "Men", id = "37"})},
+                        {"height", 600}
+                    })
+                </div>
+
+            </div>
+ 
+    </div>
 </div>

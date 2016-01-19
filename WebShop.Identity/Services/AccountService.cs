@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace WebShop.Identity.Services
             : base(roleManager, userManager, singInManager, authentication)
         {
         }
-
+        
         public Task<IdentityResult> CreateUserAsync(User user, string password)
         {
             return _userManager.CreateAsync(user, password);
@@ -41,6 +42,7 @@ namespace WebShop.Identity.Services
 
         public async Task<IdentityResult> LoginAsync(string userName, string password, bool rememberMe = false, params string[] errors)
         {
+         
             var user = await _userManager.FindAsync(userName, password);
             if (user == null)
             {
@@ -48,7 +50,7 @@ namespace WebShop.Identity.Services
             }
             if (!user.EmailConfirmed)
             {
-                return new IdentityResult(errors[0]);
+                return new IdentityResult(errors[1]);
             }
             var ident = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             _authentication.SignIn(new AuthenticationProperties() { IsPersistent = rememberMe }, ident);

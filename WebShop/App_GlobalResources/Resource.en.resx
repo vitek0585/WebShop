@@ -163,6 +163,12 @@ UNDER THE SAME ROOF</value>
   <data name="Color" xml:space="preserve">
     <value>color</value>
   </data>
+  <data name="ConfEmailPage" xml:space="preserve">
+    <value>Confirm Email</value>
+  </data>
+  <data name="ConfEmailSucces" xml:space="preserve">
+    <value>Thank you for confirming your email</value>
+  </data>
   <data name="ConfirmPswd" xml:space="preserve">
     <value>confirm password</value>
   </data>
@@ -190,6 +196,9 @@ UNDER THE SAME ROOF</value>
   <data name="DressFor" xml:space="preserve">
     <value>dress for</value>
   </data>
+  <data name="EmailDuplicat" xml:space="preserve">
+    <value>specified email already exists</value>
+  </data>
   <data name="EmailInValid" xml:space="preserve">
     <value>Email is required</value>
   </data>
@@ -207,6 +216,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="FilterPriceMore" xml:space="preserve">
     <value>and more &lt;b class='color-h'&gt; {{{{(items|countPrice:{0}:{1}).length}}}}&lt;/b&gt;</value>
+  </data>
+  <data name="FootWearW" xml:space="preserve">
+    <value>women's shoes designed for casual wear , work, and recreation</value>
   </data>
   <data name="ForMan" xml:space="preserve">
     <value>man</value>
@@ -253,6 +265,9 @@ UNDER THE SAME ROOF</value>
   <data name="Name" xml:space="preserve">
     <value>name</value>
   </data>
+  <data name="NameDuplicat" xml:space="preserve">
+    <value>specified name already exists</value>
+  </data>
   <data name="NameInValid" xml:space="preserve">
     <value>the user name should be minimum 3 and maximum 20 of latin characters, and first character must be a letter</value>
   </data>
@@ -291,6 +306,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registration</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Russian</value>

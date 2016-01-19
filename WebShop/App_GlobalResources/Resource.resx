@@ -328,4 +328,22 @@
   <data name="ExtLgConf" xml:space="preserve">
     <value>страница подтврждения внешней авторизации</value>
   </data>
+  <data name="ConfEmailPage" xml:space="preserve">
+    <value>подтверждение email</value>
+  </data>
+  <data name="ConfEmailSucces" xml:space="preserve">
+    <value>Ваш email успешно подтвержден</value>
+  </data>
+  <data name="EmailDuplicat" xml:space="preserve">
+    <value>указанный вами email уже существует</value>
+  </data>
+  <data name="FootWearW" xml:space="preserve">
+    <value>Женская обувь предназначенная для элегантной одежды, работы, и отдыха</value>
+  </data>
+  <data name="NameDuplicat" xml:space="preserve">
+    <value>указанное вами имя уже существует</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня?</value>
+  </data>
 </root>

@@ -1,8 +1,10 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using WebShop.Identity.Manager;
+using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Repo.Interfaces;
 
@@ -65,6 +67,10 @@ namespace WebShop.Core.Controllers.Base
             }
         }
 
+        protected JsonResult JsonResultCustom(object data,HttpStatusCode statusCode)
+        {
+            return new JsonResultCustom(data, statusCode);
+        }
         #endregion
 
     }
