@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebShop.Models.UserOrder>
 @{
-    ViewBag.Title = "My Cart";
+    ViewBag.Title = Resource.Cart;
 }
-<div class="container container-fluid" ng-controller="ctrl">
-    <section ng-controller="views">
-        <h3 class="color-h text-uppercase">Shopping Cart</h3>
+<div class="container" ng-controller="ctrl">
+    <div class="row" ng-controller="views">
+        <h3 class="color-h text-uppercase">@Resource.Cart</h3>
         <hr />
 
         <div class="col-md-3">
@@ -12,6 +12,11 @@
             {
                 <div ng-init="getHistory('@User.Identity.Name');getUserInfo('@User.Identity.Name')"></div>
                 @Html.Partial("_MenuUserPartial")
+            }
+            else
+            {
+                <h4 class="text-center text-uppercase">@Resource.NewGoods</h4>
+                @Html.Partial("/Views/Catalog/Partial/_ExclusiveGood.cshtml")
             }
         </div>
         <div class="col-md-9 cart" ng-switch on="view.current">
@@ -52,10 +57,10 @@
                 @Html.Partial("_UserInfoPartial")
             </div>
         </div>
-    </section>
+    </div>
 </div>
 @section scripts
 {
-    <script src="~/Scripts/Angular/Common/HttpServices.js"></script>
+    
     <script src="~/Scripts/Angular/Cart/Show/Controller.js"></script>
 }

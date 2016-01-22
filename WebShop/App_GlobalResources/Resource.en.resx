@@ -123,11 +123,20 @@
   <data name="AddToCart" xml:space="preserve">
     <value>Add to cart</value>
   </data>
+  <data name="AddToCartError" xml:space="preserve">
+    <value>the product has not been  added to the cart</value>
+  </data>
+  <data name="AddToCartSuccess" xml:space="preserve">
+    <value>the product has been successfully added to the cart</value>
+  </data>
   <data name="Admin" xml:space="preserve">
     <value>Administration</value>
   </data>
   <data name="AllProducts" xml:space="preserve">
     <value>All products</value>
+  </data>
+  <data name="AnotherError" xml:space="preserve">
+    <value>An error occurred</value>
   </data>
   <data name="Availability" xml:space="preserve">
     <value>Availability</value>
@@ -141,6 +150,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="BuyNow" xml:space="preserve">
     <value>buy now</value>
+  </data>
+  <data name="BuySuccess" xml:space="preserve">
+    <value>your order is accepted, in the near time our employee of shop will contact with you!</value>
   </data>
   <data name="CarouselTitle" xml:space="preserve">
     <value>A collection of stylish dresses</value>
@@ -189,6 +201,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="CurrentLang" xml:space="preserve">
     <value>en</value>
+  </data>
+  <data name="DataError" xml:space="preserve">
+    <value>data are not correct</value>
   </data>
   <data name="Discount" xml:space="preserve">
     <value>Discount</value>
@@ -274,6 +289,9 @@ UNDER THE SAME ROOF</value>
   <data name="NewGoods" xml:space="preserve">
     <value>New Arrivals</value>
   </data>
+  <data name="NoEnoughtGoods" xml:space="preserve">
+    <value>Not enough goods {0} in stock (left {1})</value>
+  </data>
   <data name="NotInStock" xml:space="preserve">
     <value>Not in stock</value>
   </data>
@@ -339,6 +357,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="SubCategory" xml:space="preserve">
     <value>Subcategory</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>action executed successfully</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>

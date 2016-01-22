@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Resources;
-using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -12,16 +8,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
-using WebShop.Filters.Culture;
 using WebShop.Filters.ModelValidate;
 using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Models;
-using WebShop.Infostructure.Common;
-using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models.Account;
-using ClaimsIdentity = System.Security.Claims.Claim;
+
 namespace WebShop.Core.Controllers.Controller
 {
     [RoutePrefix("Account")]
@@ -31,9 +24,8 @@ namespace WebShop.Core.Controllers.Controller
 
         private IAccountService _account;
         private IUnitOfWorkIdentity _unit;
-        public AccountController(ICookieConsumer storage, IAccountService account, IAuthenticationManager auth, UserManager manager,
-            RoleManager role,IUnitOfWorkIdentity unit)
-            : base(storage, auth, manager, role)
+        public AccountController(ICookieConsumer storage, IAccountService account, IUnitOfWorkIdentity unit)
+            : base(storage)
         {
             _unit = unit;
             _account = account;
@@ -95,7 +87,7 @@ namespace WebShop.Core.Controllers.Controller
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            return View();
+            
             if (code == null)
             {
                 return View("Error");
@@ -180,19 +172,20 @@ namespace WebShop.Core.Controllers.Controller
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            _authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            _account.SingOut();
+           
             return RedirectToAction("Index", "Main");
         }
 
         #endregion
 
 
-        [HttpPost]
-        public async Task<JsonResult> UserInfo(string name)
-        {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var roles = await _userManager.GetRolesAsync(user.Id);
-            return Json(new { user.UserName, user.Email, roles = roles });
-        }
+        //[HttpPost]
+        //public async Task<JsonResult> UserInfo(string name)
+        //{
+        //    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    var roles = await _userManager.GetRolesAsync(user.Id);
+        //    return Json(new { user.UserName, user.Email, roles = roles });
+        //}
     }
 }

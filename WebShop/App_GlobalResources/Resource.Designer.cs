@@ -79,6 +79,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to товар не был добавлен в корзину.
+        /// </summary>
+        public static string AddToCartError {
+            get {
+                return ResourceManager.GetString("AddToCartError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to товар был успешно добавлен в корзину.
+        /// </summary>
+        public static string AddToCartSuccess {
+            get {
+                return ResourceManager.GetString("AddToCartSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Администрация.
         /// </summary>
         public static string Admin {
@@ -93,6 +111,15 @@ namespace WebShop.App_GlobalResources {
         public static string AllProducts {
             get {
                 return ResourceManager.GetString("AllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка.
+        /// </summary>
+        public static string AnotherError {
+            get {
+                return ResourceManager.GetString("AnotherError", resourceCulture);
             }
         }
         
@@ -130,6 +157,15 @@ namespace WebShop.App_GlobalResources {
         public static string BuyNow {
             get {
                 return ResourceManager.GetString("BuyNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ваш заказ принят, в ближайшее время с вами свяжется наш сотрудник магазина!.
+        /// </summary>
+        public static string BuySuccess {
+            get {
+                return ResourceManager.GetString("BuySuccess", resourceCulture);
             }
         }
         
@@ -274,6 +310,15 @@ namespace WebShop.App_GlobalResources {
         public static string CurrentLang {
             get {
                 return ResourceManager.GetString("CurrentLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to данные не коректны.
+        /// </summary>
+        public static string DataError {
+            get {
+                return ResourceManager.GetString("DataError", resourceCulture);
             }
         }
         
@@ -530,6 +575,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to не достаточно товара {0}, выберите количество не более {1}.
+        /// </summary>
+        public static string NoEnoughtGoods {
+            get {
+                return ResourceManager.GetString("NoEnoughtGoods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to нет в наличии.
         /// </summary>
         public static string NotInStock {
@@ -733,6 +787,15 @@ namespace WebShop.App_GlobalResources {
         public static string SubCategory {
             get {
                 return ResourceManager.GetString("SubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to выполнено успешно.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
         

@@ -16,5 +16,6 @@ namespace WebShop.Identity.Interfaces
         Task<SignInStatus> ExternalSignInAsync(ExternalLoginInfo loginInfo, bool isPersistent = false);
 
         Task<IdentityResult> CreateExternalUserAsync(User user);
+        void SingOut();
     }
 }

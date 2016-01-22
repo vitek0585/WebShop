@@ -12,7 +12,7 @@
 }
 
 <form method="POST" class="form-horizontal" role="form" novalidate name="loginForm" id="loginForm" ng-submit="submit()">
-    <toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>
+    @*<toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>*@
     @Html.AntiForgeryToken()
     <input type="hidden" value="@ViewBag.ReturnUrl"/>
     @*Name user*@

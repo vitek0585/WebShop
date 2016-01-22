@@ -11,7 +11,7 @@ namespace WebShop
     {
         protected void Application_Start()
         {
-            MapperConfiguration.ConfigSetup();
+            MapperConfiguration.SetupMap();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

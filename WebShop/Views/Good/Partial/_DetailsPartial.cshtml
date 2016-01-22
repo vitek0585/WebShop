@@ -1,9 +1,9 @@
 ﻿<div class="col-md-12" ng-cloak>
     <div class="item-detail">
-        <input type="hidden" ng-bind="::item.goodId" />
+        <input type="hidden" ng-bind="::item.goodId"/>
         <div class="image-prod col-md-12 col-sm-12">
             @*основная картинка*@
-        
+
             <slick class="slider-for{{$index}}"
                    as-nav-for='.slider-nav{{$index}}'
                    fade="true"
@@ -12,14 +12,15 @@
                    init-onload=true lazy-load="true">
                 <div ng-repeat="photo in item.photos">
                     <zoom ng-src="{{::'/Image/Products/'+photo}}" al alt="not img" class="primary-img"
-                          style="width: 100%;" mark-height="120" mark-width="120" zoom-lvl="3" />
+                          style="width: 100%;" mark-height="120" mark-width="120" zoom-lvl="3"/>
                 </div>
                 <div ng-if="item.photos.length==0">
                     <img ng-src="{{::'/Image/not-image.png'}}" alt="not img" class="primary-img"
-                         style="width: 100%;" />
+                         style="width: 100%;"/>
                 </div>
             </slick>
         </div>
+
         <div class="description-prod col-md-12 col-sm-12">
             @*картинки выбора*@
             <div class="image-slider">
@@ -27,21 +28,22 @@
                     <slick class="slider-nav{{$index}}"
                            as-nav-for='.slider-for{{$index}}'
                            infinite="true" dots=false
-                          
+
                            slides-to-show=3
                            slides-to-scroll=1
                            swipe="true"
                            focus-on-select="true"
-                           data="item.photos" init-onload=true 
+                           data="item.photos" init-onload=true
                            arrows="false">
                         <div ng-repeat="photo in item.photos">
                             <img class="image-item cursor-href" ng-src="{{::'/Image/Products/'+photo}}" al alt="not img"
-                                 style="height: 130px; width: 100%;" />
+                                 style="height: 130px; width: 100%;"/>
                         </div>
                     </slick>
                 </div>
             </div>
         </div>
+        <div ng-if="::item.discount>0" class="text-uppercase sale-shape">@Resource.Discount</div>
     </div>
 </div>
 

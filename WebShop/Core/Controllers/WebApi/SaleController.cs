@@ -3,7 +3,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using WebShop.Repo.Interfaces;
 
-namespace WebShop.Controllers.WebApi
+namespace WebShop.Core.Controllers.WebApi
 {
     [RoutePrefix("api/Sale")]
     public class SaleController : ApiController
@@ -22,7 +22,7 @@ namespace WebShop.Controllers.WebApi
             {
                 count = i.SalePos.Count,
                 date = i.DateSale,
-                summa = i.Summa,
+                //summa = i.Summa,
                 orders = i.SalePos.Select(p => p.ClassificationGood.Good.GoodNameRu)
             }).ToList();
 

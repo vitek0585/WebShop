@@ -328,6 +328,15 @@
   <data name="ExtLgConf" xml:space="preserve">
     <value>страница подтврждения внешней авторизации</value>
   </data>
+  <data name="AddToCartError" xml:space="preserve">
+    <value>товар не был добавлен в корзину</value>
+  </data>
+  <data name="AddToCartSuccess" xml:space="preserve">
+    <value>товар был успешно добавлен в корзину</value>
+  </data>
+  <data name="AnotherError" xml:space="preserve">
+    <value>Произошла ошибка</value>
+  </data>
   <data name="ConfEmailPage" xml:space="preserve">
     <value>подтверждение email</value>
   </data>
@@ -343,7 +352,19 @@
   <data name="NameDuplicat" xml:space="preserve">
     <value>указанное вами имя уже существует</value>
   </data>
+  <data name="NoEnoughtGoods" xml:space="preserve">
+    <value>не достаточно товара {0}, выберите количество не более {1}</value>
+  </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Запомнить меня?</value>
+  </data>
+  <data name="BuySuccess" xml:space="preserve">
+    <value>ваш заказ принят, в ближайшее время с вами свяжется наш сотрудник магазина!</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>выполнено успешно</value>
+  </data>
+  <data name="DataError" xml:space="preserve">
+    <value>данные не коректны</value>
   </data>
 </root>

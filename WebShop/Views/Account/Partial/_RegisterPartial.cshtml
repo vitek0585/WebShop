@@ -14,7 +14,7 @@
     var confPswdPredicate = predicate.F(confirmPassw);
 }
 <form method="POST" class="form-horizontal" role="form" novalidate name="registerForm" id="registerForm">
-    <toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>
+    @*<toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>*@
     @Html.AntiForgeryToken()
     @*Name user*@
     <div class="form-group" ng-init="blurs('@name')">

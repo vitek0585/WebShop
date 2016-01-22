@@ -1,16 +1,13 @@
 ﻿//var prod = angular.module("prodApp", ["httpApp", "notifyApp", 'slick', 'lazyLoadApp']);
 
 var prod = angular.module("globalApp");
-var arr = ["httpApp", "httpRouteApp", "pagingApp", "notifyApp", 'slick', 'ui.bootstrap', 'angularRangeSlider'
+var arr = ["httpApp", "httpRouteApp", "pagingApp",'slick', 'ui.bootstrap', 'angularRangeSlider'
 , 'azSuggestBox'];
-Array.prototype.push.apply(prod.requires, arr);
+prod.injectRequires(arr);
+//Array.prototype.push.apply(prod.requires, arr);
 
-prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow",
-    function (scope, timeout, http, notifyWindow) {
-        var url = "/Cart/Add";
-        var contains = function (arr, id) {
-            return arr.filter(function (elem) { return elem.goodId == id }).length > 0;
-        }
+prod.controller("prodCtrl", ["$scope","cartSvc", 
+    function (scope,cart) {
 
         scope.cart = [];
         scope.colors = [];
@@ -23,31 +20,16 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
             priceMax: null
         };
 
-        var getCart = function () {
-            http.postRequest({}, "/Cart/UserCart").then(function (d) {
-                scope.cart = d.data;
-            });
-        };
+        scope.add = cart.add;
+    
+
         scope.initFilterData = function (min, max, colors, sizes) {
             scope.colors = colors;
             scope.sizes = sizes;
             scope.filter.priceMin = min;
             scope.filter.priceMax = max;
         }
-        scope.add = function (item) {
 
-            http.postRequest(item, url).then(function (d) {
-                notifyWindow.notifySuccess(d.statusText, "notifyWin");
-
-                if (!contains(scope.cart, item.goodId))
-                    scope.cart.push(item);
-
-            }, function (d) {
-                notifyWindow.notifyError(d.statusText, "notifyWin");
-            }).finally(function () {
-                item.isActive = true;
-            });
-        };
         scope.filterAccept = function () {
 
             scope.$broadcast("acceptFilterEvent",
@@ -67,12 +49,12 @@ prod.controller("prodCtrl", ["$scope", "$timeout", "httpService", "notifyWindow"
                 });
 
         }, true);
-        //getCart();
+
 
     }
 ]);
-var actionExclusiveWidget = function (scope,http) {
-    scope.exclusiveGoods=[];
+var actionExclusiveWidget = function (scope, http) {
+    scope.exclusiveGoods = [];
     http.getRequest({ count: 10 }, "/api/Good/RandomGood").then(function (d) {
         scope.exclusiveGoods = d.data;
     });

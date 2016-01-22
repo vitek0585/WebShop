@@ -14,7 +14,7 @@ namespace WebShop.Identity.Manager
         public UserManager(IUserStore<User, int> store, IDataProtectionProvider provider, IIdentityErrros identity)
             : base(store)
         {
-
+            
             //UserValidator = new UserValidator<User, int>(this)
             //{
             //    AllowOnlyAlphanumericUserNames = true,

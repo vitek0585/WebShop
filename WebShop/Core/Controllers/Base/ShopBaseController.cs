@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Web.Mvc;
 using WebShop.Infostructure.Common;
+using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 
 namespace WebShop.Core.Controllers.Base
@@ -58,6 +60,19 @@ namespace WebShop.Core.Controllers.Base
         }
 
         #endregion
-
+        #region custom result
+        protected JsonResult JsonResultCustom(object data, HttpStatusCode statusCode)
+        {
+            return new JsonResultCustom(data, statusCode);
+        }
+        protected JsonResult JsonResultCustom(object data)
+        {
+            return new JsonResultCustom(data);
+        }
+        protected JsonResult JsonResultCustom(string data)
+        {
+            return new JsonResultCustom(data);
+        }
+        #endregion
     }
 }

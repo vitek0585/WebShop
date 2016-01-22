@@ -7,10 +7,7 @@ namespace WebShop.EFModel.Model
     [Table("Brand")]
     public partial class Brand
     {
-        public Brand()
-        {
-            Goods = new HashSet<Good>();
-        }
+        
 
         public int BrandId { get; set; }
 
@@ -18,6 +15,5 @@ namespace WebShop.EFModel.Model
         [StringLength(100)]
         public string BrandName { get; set; }
 
-        public virtual ICollection<Good> Goods { get; set; }
     }
 }

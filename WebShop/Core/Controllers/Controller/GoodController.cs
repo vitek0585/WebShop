@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using WebShop.Core.Controllers.Base;
-using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models;
@@ -13,15 +12,13 @@ namespace WebShop.Core.Controllers.Controller
   
     public class GoodController : ShopBaseController
     {
-        private ICategoryService _categoryService;
         private IGoodService _goodService;
         private short _sizeStorageViewed;
 
-        public GoodController(IGoodService goodService, ICategoryService categoryService, ICookieConsumer storage)
+        public GoodController(IGoodService goodService,ICookieConsumer storage)
             : base(storage)
         {
             _goodService = goodService;
-            _categoryService = categoryService;
             _sizeStorageViewed = 20;
         }
         [Route("Good/{id:min(1):max(10000000)}")]
@@ -33,6 +30,8 @@ namespace WebShop.Core.Controllers.Controller
             return View(data);
         }
 
+        #region Child action
+
         [ChildActionOnly, Route("RecentlyViewedUser")]
         public ActionResult RecentlyViewedUser()
         {
@@ -41,10 +40,11 @@ namespace WebShop.Core.Controllers.Controller
             return PartialView(data);
 
         }
-       
+
+        #endregion
         #region Helper
         [NonAction]
-        private RecentlyViewedStorage RecentlyViewed(int? id)
+        protected RecentlyViewedStorage RecentlyViewed(int? id)
         {
             var viewed = (RecentlyViewedStorage)Session[ValuesApp.RecentlyViewed];
             if (viewed == null)

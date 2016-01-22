@@ -33,14 +33,10 @@ namespace WebShop.EFModel.Model
 
         [Column(TypeName = "date")]
         public DateTime? DateCreate { get; set; }
-        //TODO delete field after removed in db
-        public int? GenderId { get; set; }
 
-        public int? BrandId { get; set; }
 
         public int? CategoryId { get; set; }
    
-        public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
 
         public virtual ICollection<ClassificationGood> ClassificationGoods { get; set; }

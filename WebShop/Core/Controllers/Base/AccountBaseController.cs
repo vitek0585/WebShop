@@ -12,15 +12,11 @@ namespace WebShop.Core.Controllers.Base
 {
     public abstract class AccountBaseController : ShopBaseController
     {
-        protected RoleManager _roleManager;
-        protected UserManager _userManager;
-        protected IAuthenticationManager _authentication;
-        public AccountBaseController(ICookieConsumer storage, IAuthenticationManager auth, UserManager manager, RoleManager role)
+        
+        protected AccountBaseController(ICookieConsumer storage)
             : base(storage)
         {
-            _roleManager = role;
-            _userManager = manager;
-            _authentication = auth;
+            
 
         }
         #region Helpers method
@@ -67,10 +63,7 @@ namespace WebShop.Core.Controllers.Base
             }
         }
 
-        protected JsonResult JsonResultCustom(object data,HttpStatusCode statusCode)
-        {
-            return new JsonResultCustom(data, statusCode);
-        }
+       
         #endregion
 
     }

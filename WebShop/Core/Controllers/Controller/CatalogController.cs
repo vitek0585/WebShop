@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using WebShop.Core.Controllers.Base;
-using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models;
 using WebShop.Models.InterfacesModel;
 using WebShop.Repo.Interfaces;
 
-namespace WebShop.Controllers.Controller
+namespace WebShop.Core.Controllers.Controller
 {
     using ICatModel = ITypeCategoryModel<ICategoryModel>;
 
     [RoutePrefix("Catalog")]
-    [TypeOfCulture]
     public class CatalogController : ShopBaseController
     {
         private ICategoryService _categoryService;
@@ -32,14 +29,10 @@ namespace WebShop.Controllers.Controller
         [Route("{type}")]
         public ActionResult Categories(string type)
         {
-
-            //var id = _categoryService.GetTypeIdByName(type);
             var data = _categoryService.GetCategoriesByType<ICatModel>(type, GetCurrentLanguage());
 
             if (data != null)
             {
-                //ViewBag.Sale = _categoryService.GetCategoryByTypeSale<ICatModel>(id.Value, GetCurrentLanguage(), discount);
-
                 return View(data);
             }
 
@@ -74,20 +67,26 @@ namespace WebShop.Controllers.Controller
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        #region Child action
+
         [ChildActionOnly, Route("Filter")]
         public ActionResult Filter(int id)
         {
-            var data = _categoryService.GetInformationAboutCategory<IFilterModel>(id, GetCurrentCurrency(), GetCurrentLanguage());
+            var data = _categoryService.GetInformationAboutCategory<IFilterModel>(id, GetCurrentCurrency(),
+                GetCurrentLanguage());
             return PartialView(data);
         }
 
         [ChildActionOnly, Route("Sale/{type}/{discount:min(0):max(100):int?}")]
-        public ActionResult Sale(string type, int discount=50)
+        public ActionResult Sale(string type, int discount = 50)
         {
             var data = _categoryService.GetCategoriesSale<ICatModel>(type, GetCurrentLanguage(), discount);
 
             return PartialView(data);
         }
+
+        #endregion
+
         #region Helper
         [NonAction]
         private RecentlyViewedStorage GetRecentlyViewed(int? id)

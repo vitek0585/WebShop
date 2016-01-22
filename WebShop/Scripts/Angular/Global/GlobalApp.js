@@ -1,69 +1,79 @@
-﻿var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal", 'ngAnimate', 'ngTooltips',
-    'toaster', "confirmApp", "spinnerApp", "serializeApp"]);
+﻿(function () {
+    'use strict';
 
-global.injectRequires = function (arr) {
-    Array.prototype.push.apply(this.requires, arr);
-}
+    var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal", 'ngAnimate', 'ngTooltips',
+    'toaster', "confirmApp", "spinnerApp", "serializeApp", "httpApp", "cartApp","slick"]);
 
-global.value("culture", {
-    symbol: ""
-});
-global.value("kindsRate", {
-    ukr: {
-        en:"grn.",
-        ru:"грн."
+    global.injectRequires = function (arr) {
+        Array.prototype.push.apply(this.requires, arr);
     }
-});
-global.config([
-    "$locationProvider", function ($locationProvider) {
+    global.value("culture", {
+        symbol: ""
+    });
+    global.value("kindsRate", {
+        ukr: {
+            en: "grn.",
+            ru: "грн."
+        }
+    });
+ 
+    global.config(configCart);
+    configCart.$inject = ["cartSvcProvider"];
 
-
-    }]);
-
-
-global.controller("globalCtrl", ["$scope", "culture", 'lazyService', function (scope, culture, lazyLoad) {
-
-    lazyLoad.setupElement("up");
-    scope.initSymbol = function (value) {
-        culture.symbol = value;
+    function configCart(cartSvcProvider) {
+        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart");
     };
-}]);
-global.controller('collapseCtrl', [
-    "$scope", function (scope) {
-        scope.collapse = {
-            lang: true,
-            curr: true
-        };
-        scope.collapseLang = function (e) {
 
-            scope.collapse.lang = !scope.collapse.lang;
-            e.stopPropagation();
+    global.controller("globalCtrl", [
+        "$scope", "culture", 'lazyService', function (scope, culture, lazyLoad) {
 
+            lazyLoad.setupElement("up");
+            scope.initSymbol = function (value) {
+                culture.symbol = value;
+            };
         }
-        scope.collapseCurr = function (e) {
+    ]);
+    global.controller('collapseCtrl', [
+        "$scope", function (scope) {
+            scope.collapse = {
+                lang: true,
+                curr: true
+            };
+            scope.collapseLang = function (e) {
 
-            scope.collapse.curr = !scope.collapse.curr;
-            e.stopPropagation();
+                scope.collapse.lang = !scope.collapse.lang;
+                e.stopPropagation();
 
+            }
+            scope.collapseCurr = function (e) {
+
+                scope.collapse.curr = !scope.collapse.curr;
+                e.stopPropagation();
+
+            }
         }
-    }
-]);
-global.filter("currencyExtend", ["$filter", "culture", function (filter, culture) {
+    ]);
+    global.filter("currencyExtend", [
+        "$filter", "culture", function (filter, culture) {
 
-    return function (data, num) {
+            return function (data, num) {
 
-        var res = filter("number")(data, num);
-        return res + " " + culture.symbol;
-    }
-}]);
+                var res = filter("number")(data, num);
+                return res + " " + culture.symbol;
+            }
+        }
+    ]);
 
-global.filter("currencyExtendConvertToGrn", ["$filter", "culture", "kindsRate", function (filter, culture, rate) {
+    global.filter("currencyExtendConvertToGrn", [
+        "$filter", "culture", "kindsRate", function (filter, culture, rate) {
 
-    return function (data, curs, num) {
-        if (culture.symbol == rate.ukr.en || culture.symbol == rate.ukr.ru)
-            data = data * curs;
+            return function (data, curs, num) {
+                if (culture.symbol == rate.ukr.en || culture.symbol == rate.ukr.ru)
+                    data = data * curs;
 
-        var res = filter("number")(data, num);
-        return res + " " + culture.symbol;
-    }
-}]);
+                var res = filter("number")(data, num);
+                return res + " " + culture.symbol;
+            }
+        }
+    ]);
+})();

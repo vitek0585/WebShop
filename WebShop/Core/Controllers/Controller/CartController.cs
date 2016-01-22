@@ -1,176 +1,153 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using Microsoft.Owin.Security;
+using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
 using WebShop.EFModel.Model;
-using WebShop.Filters.Culture;
+using WebShop.Filters.ModelValidate;
 using WebShop.Infostructure.Cart;
-using WebShop.Infostructure.Common;
 using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models;
 using WebShop.Repo.Interfaces;
+using WebShop.Repo.Model;
 
-namespace WebShop.Controllers.Controller
+namespace WebShop.Core.Controllers.Controller
 {
-    [TypeOfCulture]
+    [RoutePrefix("Cart")]
     public class CartController : ShopBaseController
     {
-        private ISalePosRepository _salePos;
-        private IGoodsRepository _goods;
-        private ISaleRepository _sale;
-        private IUnitOfWork _unit;
-        private IClassificationGoodRepository _typeGood;
-
-      
-        private ICartProvider<UserOrder> _provider; 
-        public CartController(ISalePosRepository salePos, ISaleRepository sale, IGoodsRepository good, IUnitOfWork unit,
-            IClassificationGoodRepository typeGood, ICookieConsumer storage, ICartProvider<UserOrder> provider)
+        private IPurchaseService _purchaseService;
+        private ICartProvider<UserOrder> _cartProvider;
+        private IAuthenticationManager _authenticationManager;
+        public CartController(ICookieConsumer storage, ICartProvider<UserOrder> cartProvider, IPurchaseService purchaseService,
+            IAuthenticationManager authenticationManager)
             : base(storage)
         {
-            _provider = provider;
-
-  
-            _typeGood = typeGood;
-            _goods = good;
-            _unit = unit;
-            _salePos = salePos;
-            _sale = sale;
+            _authenticationManager = authenticationManager;
+            _cartProvider = cartProvider;
+            _purchaseService = purchaseService;
         }
-        public ActionResult ShowCart()
+        [Route("")]
+        public ActionResult Cart()
         {
             var cart = GetCart();
-            var orders = cart.GetAllGoodsId();
-            cart.RenewPriceGoods(_goods.FindBy(g => orders.Contains(g.GoodId)));
-            return View(cart.GetAll());
+            var orders = cart.GetAll();
+            var data = _purchaseService.GetGoodsByOrder<UserOrder>(MapToClassificationGoods(orders), GetCurrentCurrency(), GetCurrentLanguage());
+            return View(data);
         }
 
         [HttpPost]
-        public ActionResult Add([Bind(Include = "GoodId,SizeId,ColorId,CountGood")]UserOrder data)
+        [Route("Add")]
+        [ModelValidationFilter]
+        public JsonResult Add([Bind(Include = "GoodId,SizeId,ColorId,CountGood")]UserOrder order)
         {
             try
             {
-                Expression<Func<ClassificationGood, bool>> predicat = (g) => g.GoodId == data.GoodId && g.SizeId == data.SizeId &&
-                    g.ColorId == data.ColorId;
+                if (_purchaseService.IfExistsGood(Mapper.Map<ClassificationGood>(order)))
+                {
+                    var cart = GetCart();
+                    cart.AddGood(order);
+                    return JsonResultCustom(Resource.AddToCartSuccess, HttpStatusCode.Created);
+                }
+            }
+            catch (Exception e)
+            {
+                //TODO log
+                return JsonResultCustom(e.Message, HttpStatusCode.BadRequest);
 
-                var originType = _typeGood.GetByExpressionSelect(predicat,
-                    (c) => new
-                    {
-                        c.Size.SizeName,
-                        c.ClassificationId,
-                        c.Color.ColorNameEn,
-                        GoodName = c.Good.GoodNameRu,
-                        Photos = c.Good.Image.Select(p => p.ImageId)
-                    }, (c) => c.Color, (c) => c.Size, (c) => c.Good, (c) => c.Good.Image);
+            }
 
-                if (originType == null)
-                    throw new ArgumentException();
+            return JsonResultCustom(Resource.AddToCartError, HttpStatusCode.BadRequest);
 
+        }
+        [Route("DoOrder")]
+        [HttpPost]
+        public JsonResult DoOrder()
+        {
+            PurchaseResult result;
+            try
+            {
+                var user = GetUserName();
                 var cart = GetCart();
-                cart.AddGood(data, originType);
-
-                return new HttpStatusCodeResult(HttpStatusCode.Created,
-                    String.Format("Product id:{0} was added to cart!", data.GoodId));
+                var orders = cart.GetAll();
+                result = _purchaseService.MakeAnOrder(Mapper.Map<IEnumerable<ClassificationGood>>(orders), user, new ErrorBuy()
+                {
+                    NoEnoughtGoods = Resource.NoEnoughtGoods,
+                    AnotherError = Resource.AnotherError
+                });
+                if (result.Success)
+                    return JsonResultCustom(Resource.BuySuccess, HttpStatusCode.Accepted);
             }
             catch (Exception e)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
-                    String.Format("Product id:{0} not was added to cart!", data.GoodId));
+                return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
             }
+            if (result.Exception != null)
+            {
+                //TODO log
+            }
+            return JsonResultCustom(result.Error, HttpStatusCode.BadRequest);
         }
-
+        [Route("Remove")]
         [HttpPost]
-        public ActionResult Buy(ICollection<UserOrder> data, string userName)
+        [ModelValidationFilter]
+        public JsonResult Remove(UserOrder order)
         {
-            var cart = GetCart();
-            cart.SetCountGoods(data);
-            var orders = cart.GetAllGoodsId();
-            cart.RenewPriceGoods(_goods.FindBy(g => orders.Contains(g.GoodId)));
             try
             {
-                _unit.StartTransaction();
-                var sale = _sale.Add(cart.GetSale(userName));
-                _salePos.Add(cart.GetSalePoses(), sale);
-                _unit.Save();
-                _unit.Commit();
-            }
-            catch (ArgumentException e)
-            {
-                _unit.Rollback();
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, e.Message);
+                var cart = GetCart();
+                var isDrop = cart.Remove(order);
+
+                if (isDrop)
+                    return JsonResultCustom(Resource.Success);
             }
             catch (Exception e)
             {
-                _unit.Rollback();
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Your order has not been added");
-
+                //TODO log
             }
-            return new HttpStatusCodeResult(HttpStatusCode.Accepted, "Your order has been successfully added");
+            return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
+
         }
-        [HttpPost]
-        public JsonResult Remove(UserOrder id)
+        [Route("GetCart")]
+        public JsonResult CartGoods()
         {
-            UserOrder good = null;
             var cart = GetCart();
-            try
-            {
-                good = cart.Remove(id);
-            }
-            catch (ArgumentException e)
-            {
-                SetStatusResponse(HttpStatusCode.BadRequest, e.Message);
-                return null;
-            }
+            return JsonResultCustom(cart.GetAll());
 
-            SetStatusResponse(HttpStatusCode.Accepted, String.Format("{0} has been removed", good.GoodName));
-            return Json(cart.GetAll().Count());
         }
-        [HttpPost]
-        public JsonResult UserCart()
+        [Route("Test")]
+        public JsonResult Test()
         {
-            var currency = GetCurrentCurrency();
-            return new JsonResultCustom(GetCart().GetAll().Select(g => new
-            {
-                photos = g.Photos,
-                goodCount = g.CountGood,
-                goodId = g.GoodId,
-                goodName = g.GoodName,
-                //priceUsd = _converter.ConvertWithCeiling(g.PriceUsd, currency),
-                size = new { g.SizeId, g.SizeName },
-                color = new { g.ColorId, g.ColorName },
-                currencyExtend = currency
-            }));
-
+            var cart = GetCart();
+            return Json(cart.GetAll(), JsonRequestBehavior.AllowGet);
         }
         #region Helpers method
+
         [NonAction]
-        private void SetStatusResponse(HttpStatusCode status, string description)
+        private string GetUserName()
         {
-            Response.StatusCode = (int)status;
-            Response.StatusDescription = description;
-        }
-        [NonAction]
-        private string GetCurrentCurrency()
-        {
-            return _storage.GetValueStorage(ControllerContext.HttpContext, ValuesApp.Currency)
-                   ?? ValuesApp.CurrencyDefault;
+            if (_authenticationManager.User.Identity.IsAuthenticated)
+            {
+                return _authenticationManager.User.Identity.Name;
+            }
+            return null;
         }
         [NonAction]
         private ICart<UserOrder> GetCart()
         {
-            return _provider.GetCart();
+            return _cartProvider.GetCart();
         }
-
         [NonAction]
-        protected override void Dispose(bool disposing)
+        private static IEnumerable<ClassificationGood> MapToClassificationGoods(IEnumerable<UserOrder> orders)
         {
-            _unit.Dispose();
-            base.Dispose(disposing);
+            return Mapper.Map<IEnumerable<ClassificationGood>>(orders);
         }
-
         #endregion
 
     }

@@ -46,9 +46,7 @@ namespace WebShop.EFModel.Context
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Sale>()
-                .Property(e => e.Summa)
-                .HasPrecision(18, 0);
+   
 
             modelBuilder.Entity<Sale>()
                 .HasMany(e => e.SalePos)

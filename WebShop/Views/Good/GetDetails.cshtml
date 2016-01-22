@@ -4,13 +4,13 @@
 @{
     ViewBag.Title = string.Concat("fashion".ToUpper(), " - ", Model.GoodName);
 }
-<div id="notifyWin" class="success-notify notify"></div>
+
 <div class="container details">
     <div class="row" ng-controller="ctrlDetail">
         <div class="col-md-12">
             @Html.GenerateBreadCrumbs(new BreadCrumbsGood(Model.CategoryId, Model.GoodName, Url))
         </div>
-        <div ng-init="initialize(@Html.SerializeToJson(Model))"></div>
+
         @*left side*@
         <div class="col-md-3">
             <h4 class="text-center text-uppercase">@Resource.RandProd</h4>
@@ -44,8 +44,12 @@
                         <div>
                             <b class="text-uppercase">@Resource.Count:&nbsp;</b><span>{{(item.types|filterBy:['colorId']:current.colorId)[0].countGood}}</span>
                         </div>
+                        <div ng-if="item.discount>0">
+                            <b class="text-uppercase">@Resource.Discount:&nbsp;</b><span>{{::item.discount}} %</span>
+                        </div>
                         <div>
-                            <b class="text-uppercase">@Resource.Price:&nbsp;</b><span>{{::item.priceUsd|currencyExtend:0}}</span>
+                            <b class="text-uppercase">@Resource.Price:&nbsp;</b><span class="price-prod" ng-class="::item.discount>0?'old-price':''">{{::item.priceUsd|currencyExtend:0}}</span>
+                            <span ng-if="::item.discount>0" class="new-price">{{::item.priceWithDiscount|currencyExtend:0}}</span>
                         </div>
                         <hr />
                         <div class="btn-group" data-toggle="buttons">
@@ -86,6 +90,7 @@
             </div>
         </div>
         @*End Right side*@
+        <div ng-init="initialize(@Html.SerializeToJson(Model))"></div>
     </div>
     @*Additional*@
     @Html.Action("RecentlyViewedUser")
@@ -96,7 +101,7 @@
     <link href="~/Content/Zoom.css" rel="stylesheet" />
 
     <link href="~/Content/Select-picker.css" rel="stylesheet" />
-    @*<link href="~/Content/ItemProd.css" rel="stylesheet" />*@
+
     <link href="~/Content/DetailItem.css" rel="stylesheet" />
     <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
 

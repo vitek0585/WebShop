@@ -8,7 +8,7 @@ using WebShop.Repo.Interfaces;
 
 namespace WebShop.Controllers.Controller
 {
-    [TypeOfCulture]
+   
     [RoutePrefix("Main")]
     public class MainController : ShopBaseController
     {

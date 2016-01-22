@@ -7,7 +7,7 @@ using WebShop.Models;
 
 namespace WebShop.Infostructure.Cart
 {
-    
+
 
     public class UserCart : ICart<UserOrder>
     {
@@ -19,20 +19,15 @@ namespace WebShop.Infostructure.Cart
 
         }
 
-        public void AddGood(UserOrder good, dynamic origin)
+        public void AddGood(UserOrder good)
         {
-            var comparer = new ComparerClassificationGood();
+            var comparer = new ComparerUserOrder();
             var target = _goods.FirstOrDefault(g => comparer.Equals(g, good));
 
             if (target != null)
                 target.CountGood += good.CountGood;
             else
             {
-                good.ClassificationId = origin.ClassificationId;
-                good.ColorName = origin.ColorName;
-                good.SizeName = origin.SizeName;
-                good.GoodName = origin.GoodName;
-                good.Photos = origin.Photos;
                 _goods.Add(good);
             }
 
@@ -45,7 +40,7 @@ namespace WebShop.Infostructure.Cart
 
         public void SetCountGoods(IEnumerable<UserOrder> goods)
         {
-            var comparer = new ComparerClassificationGood();
+            var comparer = new ComparerUserOrder();
             foreach (var good in goods)
             {
                 var target = _goods.FirstOrDefault(g => comparer.Equals(g, good));
@@ -70,34 +65,22 @@ namespace WebShop.Infostructure.Cart
             }
 
         }
-        public IEnumerable<SalePos> GetSalePoses()
-        {
-            return Mapper.Map<IEnumerable<SalePos>>(_goods);
-        }
 
-        public Sale GetSale(string userName)
+
+        public bool Remove(UserOrder order)
         {
-            var sale = new Sale()
-            {
-                DateSale = DateTime.Now,
-                Summa = _goods.Sum(n => n.PriceUsd * n.CountGood),
-                UserName = userName
-            };
-            return sale;
-        }
-        public UserOrder Remove(UserOrder id)
-        {
-            var comparer = new ComparerClassificationGood();
-            var good = _goods.FirstOrDefault(i => comparer.Equals(i, id));
+            var compare = new ComparerUserOrder();
+            var good = _goods.FirstOrDefault(i => compare.Equals(i, order));
             if (good != null)
             {
                 _goods.Remove(good);
-                return good;
+                return true;
             }
-            throw new ArgumentException(String.Format("No good by id {0}", id.ToString()));
+            return false;
         }
+
         #region implements IEqualityComparer
-        public class ComparerClassificationGood : IEqualityComparer<UserOrder>
+        public class ComparerUserOrder : IEqualityComparer<UserOrder>
         {
             public bool Equals(UserOrder x, UserOrder y)
             {

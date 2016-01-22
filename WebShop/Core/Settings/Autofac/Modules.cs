@@ -56,7 +56,8 @@ namespace WebShop.Core.Settings.Autofac
         {
             builder.RegisterType(typeof(GoodService)).As(typeof(IGoodService)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(CategoryService)).As(typeof(ICategoryService)).InstancePerLifetimeScope();
-
+            builder.RegisterType<PurchaseService>().As<IPurchaseService>().InstancePerLifetimeScope();
+            
             UriBuilder uriBuilder = new UriBuilder();
             uriBuilder.Scheme = "https";
             uriBuilder.Host = "api.privatbank.ua";

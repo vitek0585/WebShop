@@ -14,7 +14,6 @@ namespace WebShop.EFModel.Model
         public int SaleId { get; set; }
 
         public virtual Sale Sale { get; set; }
-
-
+        public int? Discount { get; set; }
     }
 }

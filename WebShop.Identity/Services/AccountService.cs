@@ -88,5 +88,9 @@ namespace WebShop.Identity.Services
             return result;
         }
 
+        public void SingOut()
+        {
+            _authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
     }
 }

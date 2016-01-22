@@ -56,11 +56,17 @@
             <i class="menu-option glyphicon glyphicon-search"></i>
         </li>
         @Html.Partial("HeaderPartial/_IconHeaderPartial")
-        <li class="icon-menu "><i class="menu-option glyphicon glyphicon-user"></i></li>
-        <li class="icon-menu"><i class="menu-option glyphicon glyphicon-shopping-cart"></i></li>
+        <li class="icon-menu"><i class="menu-option glyphicon glyphicon-user"></i></li>
+        <li class="icon-menu" ng-controller="CartStateController as cartStateVm">
+            <i class="menu-option glyphicon glyphicon-shopping-cart">
+                <span class="cart-count" ng-if="cartStateVm.cart.length>0" ng-cloak>{{cartStateVm.cart.length}}</span>
+            </i>
+        </li>
 
     </ul>
 </div>
+
+
 <script type="text/template" id="registerTmpl">
     @Html.Partial("/Views/Account/Template/RegisterTmpl.cshtml")
 </script>
