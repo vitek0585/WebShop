@@ -2,8 +2,8 @@
     'use strict';
 
     var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal", 'ngAnimate', 'ngTooltips',
-    'toaster', "confirmApp", "spinnerApp", "serializeApp", "httpApp", "cartApp","slick"]);
-
+    'toaster', "confirmApp", "spinnerApp", "serializeApp", "httpApp", "cartApp", "slick"]);
+  
     global.injectRequires = function (arr) {
         Array.prototype.push.apply(this.requires, arr);
     }
@@ -16,12 +16,12 @@
             ru: "грн."
         }
     });
- 
+
     global.config(configCart);
     configCart.$inject = ["cartSvcProvider"];
 
     function configCart(cartSvcProvider) {
-        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart");
+        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart", "/Cart/Update", "/Cart/Details");
     };
 
     global.controller("globalCtrl", [

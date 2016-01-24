@@ -79,15 +79,23 @@ namespace WebShop.Infostructure.Helpers
         {
             return ExpressionHelper.GetExpressionText(exp);
         }
-        public static string GetName<T>(this HtmlHelper html, Expression<Func<T, object>> exp)
+        public static string GetName<T>(this HtmlHelper html, Expression<Func<T, object>> exp, int? endRemove = null)
         {
             if (exp.Body.NodeType == ExpressionType.Convert || exp.Body.NodeType == ExpressionType.ConvertChecked)
             {
                 var uexp = (UnaryExpression)exp.Body;
-                return ((MemberExpression)uexp.Operand).Member.Name;
+                return FirstCharacterToLow(((MemberExpression)uexp.Operand).Member.Name);
             }
+            var str = FirstCharacterToLow(ExpressionHelper.GetExpressionText(exp));
+            if(endRemove.HasValue)
+            return str.Substring(0, str.Length - endRemove.Value);
 
-            return ExpressionHelper.GetExpressionText(exp);
+            return str;
+        }
+
+        private static string FirstCharacterToLow(string name)
+        {
+            return Char.ToLowerInvariant(name[0]) + name.Substring(1);
         }
 
     }

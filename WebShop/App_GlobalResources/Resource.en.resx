@@ -154,6 +154,9 @@ UNDER THE SAME ROOF</value>
   <data name="BuySuccess" xml:space="preserve">
     <value>your order is accepted, in the near time our employee of shop will contact with you!</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="CarouselTitle" xml:space="preserve">
     <value>A collection of stylish dresses</value>
   </data>
@@ -168,6 +171,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>сategory</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
     <value>clear filter</value>
@@ -204,6 +210,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="DataError" xml:space="preserve">
     <value>data are not correct</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Datails</value>
   </data>
   <data name="Discount" xml:space="preserve">
     <value>Discount</value>
@@ -328,11 +337,17 @@ UNDER THE SAME ROOF</value>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="Russian" xml:space="preserve">
     <value>Russian</value>
   </data>
   <data name="Sale" xml:space="preserve">
     <value>Sale</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="ShopOpt" xml:space="preserve">
     <value>Shopping Options</value>
@@ -360,6 +375,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>action executed successfully</value>
+  </data>
+  <data name="Summa" xml:space="preserve">
+    <value>Total</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>

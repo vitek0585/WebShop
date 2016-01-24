@@ -15,16 +15,7 @@
         <div class="col-md-3">
             <h4 class="text-center text-uppercase">@Resource.RandProd</h4>
             <hr />
-            <div class="rand-crod-carousel">
-                <slick infinite="true" slides-to-show="3" slides-to-scroll="1" arrows="false" autoplay-speed="2000"
-                       speed="500" vertical="true" data="randomItem" init-onload="true" autoplay="true"
-                       id="carousel-base">
-                    <div ng-repeat="item in randomItem" class="clearfix anim-show">
-                        @Html.Partial("Partial/_RandomGoodsPartial")
-                    </div>
-                </slick>
-            </div>
-
+            @Html.Partial("Partial/_RandomGoodsPartial")
         </div>
         @*right side*@
         <div class="col-md-9">
@@ -112,7 +103,7 @@
     <script src="~/Scripts/Angular/Common/Image-zoom.js"></script>
     <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
     <script src="~/Scripts/Angular/Common/DirectiveLoading.js"></script>
-    <script src="~/Scripts/Angular/Common/Slick.js"></script>
+
 
 
     <script src="~/Scripts/Angular/Home/Detail/Controller.js"></script>

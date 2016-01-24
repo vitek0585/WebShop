@@ -3,10 +3,10 @@
     var hrefProduct = "/Fashion/Good/";
 
 }
-<div class="col-md-12 widget-exclusive" ng-cloak ng-controller="exclusiveCtrl">
+<div class="col-md-12 widget-exclusive row-nopadding" ng-controller="exclusiveCtrl">
     <slick infinite="true" arrows="false" autoplay-speed="3000"
            speed="500" data="exclusiveGoods" init-onload="true" autoplay="true" fade="true"
-           slides-to-scroll="1" slides-to-show="1">
+           slides-to-scroll="1" slides-to-show="1" ng-cloak>
         <div ng-repeat="item in exclusiveGoods">
             <div>
                 <a href="{{::'@hrefProduct'+item.goodId}}">
@@ -20,6 +20,10 @@
             </div>
         </div>
     </slick>
-
+    <div class="loader-products" ng-if="isWaiter">
+        <div class="flexbox-container" style="height: 300px">
+            <img src="~/Image/loader.gif" alt="loading" style="height: 3em; width: 3em">
+        </div>
+    </div>
 </div>
 

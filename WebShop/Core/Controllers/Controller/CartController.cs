@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -9,6 +10,7 @@ using Microsoft.Owin.Security;
 using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
 using WebShop.EFModel.Model;
+using WebShop.Filters.Headers;
 using WebShop.Filters.ModelValidate;
 using WebShop.Infostructure.Cart;
 using WebShop.Infostructure.ResponseResult;
@@ -38,7 +40,7 @@ namespace WebShop.Core.Controllers.Controller
         {
             var cart = GetCart();
             var orders = cart.GetAll();
-            var data = _purchaseService.GetGoodsByOrder<UserOrder>(MapToClassificationGoods(orders), GetCurrentCurrency(), GetCurrentLanguage());
+            var data = _purchaseService.GetGoodsByCart<UserOrder>(MapToClassificationGoods(orders), GetCurrentCurrency(), GetCurrentLanguage());
             return View(data);
         }
 
@@ -49,8 +51,10 @@ namespace WebShop.Core.Controllers.Controller
         {
             try
             {
-                if (_purchaseService.IfExistsGood(Mapper.Map<ClassificationGood>(order)))
+                var item = _purchaseService.GetClassification(Mapper.Map<ClassificationGood>(order));
+                if (item != null)
                 {
+                    order.ClassificationId = item.ClassificationId;
                     var cart = GetCart();
                     cart.AddGood(order);
                     return JsonResultCustom(Resource.AddToCartSuccess, HttpStatusCode.Created);
@@ -121,6 +125,20 @@ namespace WebShop.Core.Controllers.Controller
             return JsonResultCustom(cart.GetAll());
 
         }
+
+        [Route("Details")]
+        [NoExecuteFilterHeaderDataProvider]
+        public JsonResult GetDetailsGoods(int id)
+        {
+            var data = _purchaseService.GetGoodsDetails<dynamic>(id);
+            
+            if(data.Any())
+            return JsonResultCustom(data);
+
+            return JsonResultCustom(Resource.AnotherError,HttpStatusCode.BadRequest);
+        }
+
+
         [Route("Test")]
         public JsonResult Test()
         {

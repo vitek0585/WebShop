@@ -44,7 +44,7 @@ namespace WebShop.Infostructure.BreadCrumsService
             var linksMutable = links
                 .Concat(Enumerable.Repeat(result.First().TypeName.ToString(), 1))
                 .Select(l => new { NameLink = l, CategoryId = 0, TypeName = result.First().TypeName, TypeHref = result.First().TypeHref })
-                .Concat<dynamic>(result.Reverse()).Select(l => new { l.NameLink, l.CategoryId, l.TypeName,l.TypeHref });
+                .Concat<dynamic>(result.Reverse()).Select(l => new { l.NameLink, l.CategoryId, l.TypeName,l.TypeHref }).AsEnumerable();
 
             return AutoMapper.Mapper.DynamicMap<IEnumerable<IBreadCrumbsCategoryModel>>(linksMutable);
 

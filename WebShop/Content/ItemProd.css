@@ -51,7 +51,17 @@
     /*width: 100%;*/
   
 }
+.cart-img {
 
+    height: 190px;
+    background-repeat: no-repeat;
+    background-position:  center;
+    background-size: cover;
+    background-image: url(/Image/not-image.png);
+    /*height: 385px;*/
+    /*width: 100%;*/
+  
+}
 .container-action-prod {
     display: flex;
     justify-content: center;

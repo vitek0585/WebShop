@@ -22,6 +22,7 @@ namespace WebShop.Core.Settings
             Mapper.CreateMap<Good, GoodHome>().ForMember(d => d.PhotoPath, opt => opt.MapFrom(g => GetPhoto(g))).
                 ForMember(g=>g.GoodCount,opt=>opt.MapFrom(o=>o.ClassificationGoods.Sum(c=>c.CountGood)));
             Mapper.CreateMap<UserOrder, ClassificationGood>();
+
         }
 
     }

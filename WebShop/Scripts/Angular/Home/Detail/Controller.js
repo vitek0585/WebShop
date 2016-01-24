@@ -5,25 +5,27 @@
     var modules = ['imageZoomApp', 'angular.filter', 'selectBotstrApp'];
     m.injectRequires(modules);
 
+    m.controller("randomCtrl", ["$scope", "httpService", function(scope, http) {
+        scope.randomItem = {};
+        scope.isWaiter = true;
+        http.getRequest({ count: 10 }, "/api/Good/RandomGood").then(function (d) {
+            scope.randomItem = d.data;
+            scope.isWaiter = false;
+        });
+    }]);
+
     m.controller("ctrlDetail", [
         "$scope", "cartSvc","httpService","$timeout",
         function (scope,cart,http,timeout) {
             
             scope.item = {};
-            scope.randomItem = {};
             scope.current = {};
 
             scope.initCurrent = function (item) {
                 scope.current.colorId = item.colorId;
                 scope.current.sizeId = item.sizeId;
-
-
             };
-                http.getRequest({count:10}, "/api/Good/RandomGood").then(function (d) {
-
-                    scope.randomItem = d.data;
-
-                });
+               
             scope.initialize = function (item) {
                 scope.item = item;
 

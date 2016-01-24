@@ -1,66 +1,70 @@
 ﻿@model IEnumerable<WebShop.Models.UserOrder>
 @{
     ViewBag.Title = Resource.Cart;
+    var data = Html.SerializeToJson(Model);
 }
-<div class="container" ng-controller="ctrl">
-    <div class="row" ng-controller="views">
+<div class="container cart-base" ng-controller="cartController as cartVm">
+    <div class="row">
         <h3 class="color-h text-uppercase">@Resource.Cart</h3>
         <hr />
-
+        @*Left side*@
         <div class="col-md-3">
-            @if (Request.IsAuthenticated)
-            {
+            @*@if (Request.IsAuthenticated)
+                {
                 <div ng-init="getHistory('@User.Identity.Name');getUserInfo('@User.Identity.Name')"></div>
                 @Html.Partial("_MenuUserPartial")
-            }
-            else
-            {
-                <h4 class="text-center text-uppercase">@Resource.NewGoods</h4>
-                @Html.Partial("/Views/Catalog/Partial/_ExclusiveGood.cshtml")
-            }
+                }*@
+            <h4 class="text-center text-uppercase">@Resource.NewGoods</h4>
+            @Html.Partial("/Views/Catalog/Partial/_ExclusiveGood.cshtml")
         </div>
-        <div class="col-md-9 cart" ng-switch on="view.current">
-            <div ng-switch-when="cart">
-                <form ng-init="items.count=@Model.Count()">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <input type="hidden" value="@User.Identity.Name" name="userName"/>
-                    }
+        @*End Left side*@
 
-                    <div class="row">
-                        @Html.Partial("_ItemOrder", Model)
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="clearfix">
-                                <button class="btn btn-primary btn-buy to-right" ng-disabled="!isActive||items.count==0" ng-click="showModal('buy');">
-                                    Buy<i class="glyphicon glyphicon-shopping-cart"></i>
-                                </button>
-                            </div>
-                            <hr />
-                            <div class="to-right" ng-cloak>
-                                <h4><span class="color-h text-uppercase">Total amount: </span>{{items.totalAmount|number:2}} $</h4>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="info" ng-class="result.css" ng-cloak>{{result.message}}</div>
-                    </div>
-                    @Html.Partial("_ModalWindow")
-                </form>
+        @*Right side*@
+        <div class="col-md-9 cart" ng-if="cartVm.items[0]">
+            <div class="col-md-12 table-cart">
+                @Html.Partial("_ItemOrder", Model)
             </div>
-            <div class="row" ng-switch-when="history">
-                @Html.Partial("_HistoryPartial")
+            <div class="col-md-12">
+                <div class="clearfix">
+                    <button class="btn btn-primary btn-buy to-right" ng-disabled="items.count==0">
+                        Buy<i class="glyphicon glyphicon-shopping-cart"></i>
+                    </button>
+                </div>
+                <hr />
+                <div class="to-right" ng-cloak>
+                    <h4>
+                        <span class="color-h text-uppercase">Total amount: </span>
+                        @* {{(items|filterBy:['priceUsd']:.pri|number:2}} $*@
+                    </h4>
+                </div>
             </div>
-            <div class="row" ng-switch-when="userInfo">
-                @Html.Partial("_UserInfoPartial")
-            </div>
+            @*@html.partial("_modalwindow")*@
         </div>
     </div>
+    <div ng-init="cartVm.initModel(@data)"></div>
 </div>
 @section scripts
 {
-    
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Content/Select-picker.css" rel="stylesheet" />
+    <link href="~/Content/DetailItem.css" rel="stylesheet" />
+    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+    <link href="~/Content/ItemProd.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/Angular/Common/angular-filter.js"></script>
+    <script src="~/Scripts/Angular/Cart/Directives/select-picker.directive.js"></script>
+
+    <script src="~/Scripts/angular-ui-router.js"></script>
+    <script src="~/Scripts/Angular/Cart/config.state-cart.js"></script>
     <script src="~/Scripts/Angular/Cart/Show/Controller.js"></script>
+
+    <script src="~/Scripts/Angular/Cart/Show/goodsDetailsCtrl.js"></script>
 }
+
+@*<div class="row" ng-switch-when="history">
+        @Html.Partial("_HistoryPartial")
+    </div>
+    <div class="row" ng-switch-when="userInfo">
+        @Html.Partial("_UserInfoPartial")
+    </div>*@

@@ -20,7 +20,7 @@ namespace WebShop.Models
         public decimal PriceWithDiscount { get; set; }
         public int Discount { get; set; }
         public int ClassificationId { get; set; }
-        public string ColorNameEn { get; set; }
+        public string ColorName { get; set; }
         public string SizeName { get; set; }
         public IEnumerable<string> Photos { get; set; }
         public string GoodName { get; set; }

@@ -8,27 +8,43 @@
         var cart = [];
         var urlAdd = '';
         var urlCart = '';
-
+        var urlUpdate = '';
+        var urlGetTypes = '';
         return {
             initUrl: initUrl,
-            $get: ["$q","toaster", "httpService", get]
+            $get: ["$q", "toaster", "httpService", get]
         }
         //-------------------functions $get
-        function get($q,toaster, http) {
-            
+        function get($q, toaster, http) {
+
             return {
                 cart: cart,
                 getCart: getCart,
-                add: add
+                add: add,
+                update: update,
+                getDetails: getDetails
             }
             //-------------------functions $get
             function getCart() {
                 var dfd = $q.defer();
-                http.getRequest({}, urlCart).then(function (d) {
-                    cart = d.data;
-                }).finally(end);
-                return dfd.promise;
 
+                if (urlCart == undefined)
+                    end();
+                else remoteCart();
+
+                return dfd.promise;
+                //func
+                function remoteCart() {
+                    try {
+
+                        http.getRequest({}, urlCart).then(function (d) {
+                            cart = d.data;
+                        }).finally(end);
+
+                    } catch (e) {
+                        end();
+                    }
+                }
                 function end() {
                     dfd.resolve(cart);
                 };
@@ -49,13 +65,43 @@
                 });
 
             };
+            function update(item) {
+                var dfd = $q.defer();
+                error({});
 
+
+                return dfd.promise;
+                function error(d) {
+                    dfd.reject(d);
+                    toaster.pop('error', '', d.data);
+                }
+            }
+
+            function getDetails(id) {
+                var dfd = $q.defer();
+                http.getByCache({ id: id }, urlGetTypes)
+                    .then(function (d) {
+                        dfd.resolve(d.data);
+                    }).catch(error);
+                return dfd.promise;
+
+                function error(d) {
+                    dfd.reject(d);
+                    toaster.pop('error', '', d.data);
+                }
+            }
 
         }
         //-------------------functions for provider
-        function initUrl(pathToAdd, pathToCart) {
-            urlAdd = pathToAdd;
-            urlCart = pathToCart;
+        function initUrl(pathToAdd, pathToCart, pathUpdate, pathGetTypes) {
+            if (pathToAdd != null)
+                urlAdd = pathToAdd;
+            if (pathToCart != null)
+                urlCart = pathToCart;
+            if (pathUpdate != null)
+                urlUpdate = pathUpdate;
+            if (pathGetTypes != null)
+                urlGetTypes = pathGetTypes;
         };
         //-------------------functions for additional
         function contains(arr, item) {

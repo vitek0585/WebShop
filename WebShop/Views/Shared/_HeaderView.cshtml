@@ -11,7 +11,7 @@
 }
 @*<li>@Html.RouteLink(Resource.Home, "CommonRoute", new { action = "Index", controller = "Home" }, null)</li>*@
 <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-left">
 
         @foreach (var item in ((IEnumerable<ITypeCategoryModel<ICategoryModelBase>>)ViewBag.Categories))
         {
@@ -59,7 +59,9 @@
         <li class="icon-menu"><i class="menu-option glyphicon glyphicon-user"></i></li>
         <li class="icon-menu" ng-controller="CartStateController as cartStateVm">
             <i class="menu-option glyphicon glyphicon-shopping-cart">
-                <span class="cart-count" ng-if="cartStateVm.cart.length>0" ng-cloak>{{cartStateVm.cart.length}}</span>
+                <a href="@Url.Action("Cart","Cart")" class="href-strech">
+                </a>
+                    <span class="cart-count" ng-if="cartStateVm.cart.length>0" ng-cloak>{{cartStateVm.cart.length}}</span>
             </i>
         </li>
 

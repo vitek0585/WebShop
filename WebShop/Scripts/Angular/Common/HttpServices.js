@@ -62,6 +62,16 @@ http.service("httpService", ["$http", function (http) {
         var promise = http.get(url, config);
         return promise;
     }
+    //для запроса данные передаются с строке адреса (принимает число или строку)
+    this.getByCache = function (param, url, headers) {
+        var config = {
+            headers: headers,
+            params: param,
+            cache:true
+        };
+        var promise = http.get(url, config);
+        return promise;
+    }
     //load Files принимает файл (один) номер id продукта к которому добавить фото
     this.fileRequest = function (url,item,param,headers) {
         var form = new FormData();

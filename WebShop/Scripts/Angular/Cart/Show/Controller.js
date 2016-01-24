@@ -1,99 +1,46 @@
 ﻿(function () {
     'use strict';
     var module = angular.module("globalApp");
-
+    module.injectRequires(['angular.filter']);
+    //config
+    module.config(cartUrlInit);
+    cartUrlInit.$inject = ["cartSvcProvider"];
+    //controllers
     module.controller("exclusiveCtrl", actionExclusiveWidget);
-
     module.controller("cartController", cartController);
     module.controller("userMenuController", userMenuController);
     module.controller("orderCalculateController", orderCalculateController);
 
     actionExclusiveWidget.$inject = ["$scope", 'httpService'];
-    cartController.$inject = ["$scope", "$timeout", "httpService"];
+    cartController.$inject = ["cartSvc"];
+
     userMenuController.$inject = ["$scope", "httpService"];
     orderCalculateController.$inject = ["$scope", "httpService"];
+
+    //Config
+    function cartUrlInit(cartSvcProvider) {
+        cartSvcProvider.initUrl(null, undefined, null, null);
+    }
     //Controllers
     function actionExclusiveWidget(scope, http) {
         scope.exclusiveGoods = [];
+        scope.isWaiter = true;
         http.getRequest({ count: 10 }, "/api/Good/RandomGood").then(function (d) {
             scope.exclusiveGoods = d.data;
+            scope.isWaiter = false;
         });
     }
-    function cartController(scope, timeout, http) {
-        var messages = {
-            remove: 'Do you want to remove products?',
-            buy: 'Do you want to buy products?'
-        }
-        var actions = {};
+    function cartController(cart) {
+        var vm = this;
+        vm.initModel = initModel;
+        vm.items = [];
 
-        scope.currentItem = { Id: undefined };
-        scope.isActive = true;
-        scope.items = { count: 0, totalAmount: 0 };
-        scope.modal = {
-            message: '',
-            isModal: false,
-            action: function () { }
-        };
-        scope.showModal = function (m) {
-            scope.isActive = false;
-            scope.modal.isModal = true;
-            scope.modal.action = actions[m];
-            scope.modal.message = messages[m];
-        };
-        scope.hideModal = function () {
-            scope.isActive = true;
-            scope.modal.isModal = false;
-        };
-        scope.result = {
-            message: '',
-            css: ''
-        };
-        var time;
-        var clearResult = function () {
-            scope.isActive = true;
-            timeout.cancel(time);
-            time = timeout(function () {
-                scope.result.message = '';
-                scope.result.css = '';
-            }, 5000, true);
-        }
-        var successRemove = function (d) {
-            scope.result.css = 'success';
-            scope.result.message = d.statusText;
-            scope.items.count = parseInt(d.data);
+        function initModel(model) {
+            if (model[0] != null)
+                cart.cart.push(model);
 
-            var elem = angular.element(document.querySelector("#item-" + scope.currentItem.Id));
-            elem.scope().$destroy();
-            elem.remove();
-            scope.items.totalAmount = 0;
-            scope.$broadcast("calculate");
-            clearResult();
+            vm.items = model;
         }
-        var success = function (d) {
-            scope.result.css = 'success';
-            scope.result.message = d.statusText;
-            clearResult();
-        }
-        var error = function (d) {
-            scope.result.css = 'label label-danger';
-            scope.result.message = d.statusText;
-            clearResult();
-        }
-        var remove = function () {
-
-            http.postRequest({ id: scope.currentItem.Id }, "/Cart/Remove", null).then(successRemove, error);
-        };
-
-        var buy = function () {
-            var data = $("form").serialize();
-            var headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-            http.postRequest(data, "/Cart/Buy", headers).then(success, error);
-        };
-
-        actions = {
-            remove: remove,
-            buy: buy
-        };
     }
     function userMenuController(scope, http) {
 

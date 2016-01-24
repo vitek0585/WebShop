@@ -26,7 +26,7 @@ namespace WebShop.Infostructure.BreadCrumsService
             var r = CategoryWithChild(_categoryId, lang, links);
             return CreateLinks(r.ToArray());
         }
-        protected IEnumerable<IBreadCrumbsModel> CreateLinks(IBreadCrumbsCategoryModel[] links)
+        protected new IEnumerable<IBreadCrumbsModel> CreateLinks(IBreadCrumbsCategoryModel[] links)
         {
             int i = 0;
             yield return new BreadCrumbsModel()

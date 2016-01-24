@@ -1,10 +1,8 @@
 ﻿.navbar-brand {
-
     padding: 0 15px;
- 
 }
+
 .cart-count {
-    
     position: relative;
     top: 9px;
     left: -15px;
@@ -13,9 +11,19 @@
     font-weight: bold;
     color: black;
 }
+
+.href-strech {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    top: 0;
+    left: 0;
+}
+
 .navbar-brand img {
     width: 135px;
 }
+
 @font-face {
     font-family: 'Ubuntu-L';
     src: url('../fonts/Ubuntu-L.ttf') format('truetype');
@@ -249,8 +257,9 @@ section {
 
 .cart .btn-buy {
     height: 2.4em;
-    width: 10em;
+    width: 8em;
     font-size: 0.8em;
+    
 }
 
 .cart input[type=number] {
@@ -760,6 +769,11 @@ blockquote {
         border-color: #E9E9E9;
     }
 
+.color-size {
+    width: 10%;
+        border: 1px solid #dddddd;
+}
+
 .loader-products {
     position: absolute;
     top: 0;
@@ -997,6 +1011,7 @@ blockquote {
     .widget-categ-rd-size > * {
         height: 200px !important;
     }
+
     .width2x {
         width: 100%;
     }
@@ -1006,4 +1021,30 @@ blockquote {
         padding-right: 10px;
         padding-top: 10px;
     }
+}
+
+.table-cart table tr > th {
+    text-transform: uppercase;
+}
+
+.table-cart .loader-products {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(233, 233, 233, 0.45);
+}
+
+.btn-cart-table {
+    bottom: 5px;
+    position: absolute;
+}
+.table-cart .btn-group > .btn, .btn-group-vertical > .btn {
+    position: relative;
+     float: none; 
+}
+.table-cart .cart-details {
+    line-height: 1.6em;
+    text-transform: capitalize;
 }
