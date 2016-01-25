@@ -28,12 +28,7 @@ function selectDirective(timeout, compile) {
                     $(elem).selectpicker('refresh');
                 });
             });
-            //scope.$watch('current', function refresh() {
-
-            //    timeout(function () {
-            //        $(elem).selectpicker('refresh');
-            //    });
-            //});
+            
         },
         scope: {
             item: "=",

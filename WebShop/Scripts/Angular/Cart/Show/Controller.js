@@ -1,5 +1,7 @@
-﻿(function () {
+﻿
+(function () {
     'use strict';
+
     var module = angular.module("globalApp");
     module.injectRequires(['angular.filter']);
     //config
@@ -12,14 +14,14 @@
     module.controller("orderCalculateController", orderCalculateController);
 
     actionExclusiveWidget.$inject = ["$scope", 'httpService'];
-    cartController.$inject = ["cartSvc"];
+    cartController.$inject = ["$scope", "cartSvc"];
 
     userMenuController.$inject = ["$scope", "httpService"];
     orderCalculateController.$inject = ["$scope", "httpService"];
 
     //Config
     function cartUrlInit(cartSvcProvider) {
-        cartSvcProvider.initUrl(null, undefined, null, null);
+        cartSvcProvider.initUrl(null, undefined, null, null, null);
     }
     //Controllers
     function actionExclusiveWidget(scope, http) {
@@ -30,17 +32,19 @@
             scope.isWaiter = false;
         });
     }
-    function cartController(cart) {
+    function cartController($scope, cart) {
         var vm = this;
         vm.initModel = initModel;
         vm.items = [];
 
         function initModel(model) {
-            if (model[0] != null)
-                cart.cart.push(model);
-
             vm.items = model;
         }
+
+        $scope.$on('removeItem', function (e, args) {
+            vm.items.remove(args.id, 'classificationId');
+            
+        });
     }
     function userMenuController(scope, http) {
 

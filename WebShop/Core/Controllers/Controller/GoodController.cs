@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using WebShop.Core.Controllers.Base;
+using WebShop.Filters.Headers;
 using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models;

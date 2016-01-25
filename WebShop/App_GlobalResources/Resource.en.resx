@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>about us</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>accept</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>my account</value>
   </data>
   <data name="AddToCart" xml:space="preserve">
     <value>Add to cart</value>
@@ -193,6 +199,9 @@ UNDER THE SAME ROOF</value>
   <data name="ConfirmPswdInValid" xml:space="preserve">
     <value>password is not confirm</value>
   </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>contact us</value>
+  </data>
   <data name="Count" xml:space="preserve">
     <value>Count</value>
   </data>
@@ -211,11 +220,20 @@ UNDER THE SAME ROOF</value>
   <data name="DataError" xml:space="preserve">
     <value>data are not correct</value>
   </data>
+  <data name="Desc" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Descriptions" xml:space="preserve">
+    <value>On the web-site of shop, you will be able to pick up a clothing suited to every fancy, ten of thousands of commodities is presented in him. Fashion renews the assortment every environment (by a commodity that was returned). Besides the brand of masculine, woman clothing, bags, and accessories in an online shop the known British brands, and also most popular brands of Europe and USA, are collected: Esprit, G - Star, Levi's, Ray - Ban, Diesel, Adidas et al. The assortment of commodity is counted mainly on young people in age from 16 35 to. Besides a shoe, clothing, bags and accessories of Fashion offers the wide assortment of cosmetic of the known brands of BOURJOIS, Rimmel London, Dr. Bronner. Also in a presence lower linen, accessories for hair, exclusive bijouterie, ecologically clean clothing and bags making on the basis of the time-processed raw material.</value>
+  </data>
   <data name="Details" xml:space="preserve">
     <value>Datails</value>
   </data>
   <data name="Discount" xml:space="preserve">
     <value>Discount</value>
+  </data>
+  <data name="DoYouWantRemove" xml:space="preserve">
+    <value>do you want to delete the current product from the cart?</value>
   </data>
   <data name="DressFor" xml:space="preserve">
     <value>dress for</value>
@@ -255,6 +273,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Information</value>
   </data>
   <data name="InStock" xml:space="preserve">
     <value>In stock</value>
@@ -303,6 +324,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="NotInStock" xml:space="preserve">
     <value>Not in stock</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>password</value>

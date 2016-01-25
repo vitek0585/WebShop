@@ -125,8 +125,9 @@
      -webkit-transform: translateY(45px) scale(1);
     transform: translateY(45px) scale(1);
     opacity: 1;
-    color: black;
-   text-shadow: 1px 1px 5px #787576;
+      font-weight: bold;
+    color: rgba(234, 234, 234, 0.92);
+    text-shadow: 0px 0px 5px #0A0A0A;
 }
 #carousel-recently-viewed.slick-slider {
     overflow: hidden;

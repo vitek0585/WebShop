@@ -40,10 +40,7 @@
                     <img src="/Image/title.png" alt="fashion form-angular fashion" />
                 </a>
             </div>
-            @{
-                Html.RenderPartial("_HeaderView");
-            }
-
+            @Html.Action("NavBarMenu", "Main")
         </div>
     </div>
     <div class="body-content">
@@ -71,9 +68,11 @@
     <script src="~/Scripts/Angular/Common/ngtooltips.js"></script>
     <script src="~/Scripts/Angular/Common/Slick.js"></script>
 
+
+    <script src="~/Scripts/Angular/Home/Index/Slick.js"></script>
     <script src="~/Scripts/Angular/Services/cartSvc.js"></script>
     <script src="~/Scripts/Angular/Global/GlobalApp.js"></script>
-    <script src="~/Scripts/Angular/Account/Register/Controller.js"></script>
+    <script src="~/Scripts/Angular/Modal/Register/Controller.js"></script>
     <script src="~/Scripts/Angular/Cart/cartStateController.js"></script>
     @RenderSection("scripts", required: false)
 </body>

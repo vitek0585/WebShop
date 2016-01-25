@@ -385,4 +385,28 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>о нас</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>мой профиль</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>наши контакты</value>
+  </data>
+  <data name="Desc" xml:space="preserve">
+    <value>описание</value>
+  </data>
+  <data name="Descriptions" xml:space="preserve">
+    <value>На сайте магазина, вы сможете подобрать одежду на любой вкус, в нем представлены десятки тысяч товаров. Fashion обновляет свой ассортимент каждую среду (товаром который вернули). Помимо своей марки мужской, женской одежды, сумок, и аксессуаров в интернет-магазине собраны известные Британские бренды, а также самые популярные бренды Европы и США: Esprit, G-Star, Levi's, Ray-Ban, Diesel, Adidas и другие. Ассортимент товара рассчитан в основном на молодых людей в возрасте от 16 до 35 лет. Помимо обуви, одежды, сумок и аксессуаров Fashion предлагает широкий ассортимент косметики известных брендов BOURJOIS, Rimmel London, Dr. Bronner. Также в наличии нижние белье, аксессуары для волос, эксклюзивная бижутерия, экологически чистая одежда и сумки изготовлении на основе вторично-переработанного сырья.</value>
+  </data>
+  <data name="DoYouWantRemove" xml:space="preserve">
+    <value>Вы хотите удалить текущий продукт из корзины?</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>информация</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>применить</value>
+  </data>
 </root>

@@ -10,6 +10,7 @@
         var urlCart = '';
         var urlUpdate = '';
         var urlGetTypes = '';
+        var urlRemove = '';
         return {
             initUrl: initUrl,
             $get: ["$q", "toaster", "httpService", get]
@@ -22,7 +23,8 @@
                 getCart: getCart,
                 add: add,
                 update: update,
-                getDetails: getDetails
+                getDetails: getDetails,
+                remove: remove
             }
             //-------------------functions $get
             function getCart() {
@@ -57,26 +59,28 @@
                     if (!contains(cart, item))
                         cart.push(item);
 
-                }, function (d) {
-                    console.log(d.data);
-                    toaster.pop('error', '', d.data);
-                }).finally(function () {
+                }).catch(error).finally(function () {
                     item.isActive = true;
                 });
+                function error(d) {
+                    notify(d);
+                }
 
             };
             function update(item) {
                 var dfd = $q.defer();
-                error({});
 
+                http.postRequest({}, item, urlUpdate).then(function (d) {
+                    dfd.resolve(d.data);
+                }).catch(error);
 
                 return dfd.promise;
                 function error(d) {
                     dfd.reject(d);
-                    toaster.pop('error', '', d.data);
+                    notify(d);
                 }
-            }
 
+            }
             function getDetails(id) {
                 var dfd = $q.defer();
                 http.getByCache({ id: id }, urlGetTypes)
@@ -84,24 +88,47 @@
                         dfd.resolve(d.data);
                     }).catch(error);
                 return dfd.promise;
-
                 function error(d) {
                     dfd.reject(d);
-                    toaster.pop('error', '', d.data);
+                    notify(d);
                 }
+            }
+            function remove(id) {
+                var dfd = $q.defer();
+
+                http.postRequest({ id: id }, {}, urlRemove).then(function (d) {
+                    dfd.resolve(d.data);
+                }).catch(error);
+
+                return dfd.promise;
+                function error(d) {
+                    dfd.reject(d);
+                    notify(d);
+                }
+
+            }
+            function notify(d) {
+                if (d === undefined)
+                    return;
+                if (typeof (d.data) == 'object') {
+                    d.data = d.data.join('\r');
+                }
+                toaster.pop('error', '', d.data);
             }
 
         }
         //-------------------functions for provider
-        function initUrl(pathToAdd, pathToCart, pathUpdate, pathGetTypes) {
+        function initUrl(pathToAdd, pathToCart, pathUpdate, pathGetTypes, pathRemove) {
             if (pathToAdd != null)
                 urlAdd = pathToAdd;
-            if (pathToCart != null)
+            if (pathToCart != null || pathToCart === undefined)
                 urlCart = pathToCart;
             if (pathUpdate != null)
                 urlUpdate = pathUpdate;
             if (pathGetTypes != null)
                 urlGetTypes = pathGetTypes;
+            if (pathRemove != null)
+                urlRemove = pathRemove;
         };
         //-------------------functions for additional
         function contains(arr, item) {

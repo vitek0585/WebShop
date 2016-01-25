@@ -1,4 +1,16 @@
-﻿(function () {
+﻿Array.prototype.remove = function (item, field) {
+
+    var array = this;
+    for (var i = 0; i < array.length; i++) {
+
+        if (array[i][field] == item) {
+            array.splice(i, 1);
+            break;
+        }
+    }
+
+};
+(function () {
     'use strict';
 
     var global = angular.module("globalApp", ["lazyLoadApp", "vesparny.fancyModal", 'ngAnimate', 'ngTooltips',
@@ -21,7 +33,7 @@
     configCart.$inject = ["cartSvcProvider"];
 
     function configCart(cartSvcProvider) {
-        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart", "/Cart/Update", "/Cart/Details");
+        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart", "/Cart/Update", "/Cart/Details","Cart/Remove");
     };
 
     global.controller("globalCtrl", [

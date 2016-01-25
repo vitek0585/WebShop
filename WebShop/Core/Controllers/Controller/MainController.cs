@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using WebShop.Core.Controllers.Base;
 using WebShop.Filters.Culture;
 using WebShop.Infostructure.Common;
@@ -8,20 +9,20 @@ using WebShop.Repo.Interfaces;
 
 namespace WebShop.Controllers.Controller
 {
-   
+
     [RoutePrefix("Main")]
     public class MainController : ShopBaseController
     {
         private IGoodService _goodService;
-        private ICategoryService _categoryService; 
+        private ICategoryService _categoryService;
 
 
-        public MainController(IGoodService goodService,ICategoryService category, ICookieConsumer storage) 
+        public MainController(IGoodService goodService, ICategoryService category, ICookieConsumer storage)
             : base(storage)
         {
             _categoryService = category;
             _goodService = goodService;
-            
+
         }
         [Route("~/")]
         public ActionResult Index()
@@ -35,7 +36,7 @@ namespace WebShop.Controllers.Controller
         [Route("ChangeLanguage")]
         public ActionResult ChangeLanguage(string lang, string refUrl)
         {
-            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Language, 
+            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Language,
                 lang, ValuesApp.Languages);
 
             return Redirect(CheckValidReturnUrl(refUrl));
@@ -43,12 +44,21 @@ namespace WebShop.Controllers.Controller
         [Route("ChangeCurrency")]
         public ActionResult ChangeCurrency(string currency, string refUrl)
         {
-            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Currency, 
+            _storage.SetValueStorage(ControllerContext.HttpContext, ValuesApp.Currency,
                 currency, ValuesApp.Currencies);
 
             return Redirect(CheckValidReturnUrl(refUrl));
         }
-      
-       
+        #region Child Action
+        [ChildActionOnly]
+        [Route("NavBarMenu")]
+        public PartialViewResult NavBarMenu()
+        {
+            var data = _categoryService.AllCategory<ITypeCategoryModel<ICategoryModelBase>>(GetCurrentLanguage());
+            return PartialView(data);
+        }
+
+        #endregion
+
     }
 }

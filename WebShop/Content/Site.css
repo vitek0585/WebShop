@@ -626,7 +626,9 @@ i.glyphicon:first-child::before {
     color: #888888;
     font-size: 0.8em;
 }
-
+.footer div:not(:first-child) {
+    padding-left: 30px
+}
     .footer a {
         color: #888888;
         transition: color .5s;

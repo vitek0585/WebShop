@@ -25,8 +25,9 @@ namespace WebShop.Infostructure.BreadCrumsService
         protected IEnumerable<IBreadCrumbsCategoryModel> CategoryWithChild(int id, string lang, params string[] links)
         {
             var data = _categoryRepository.EnableProxy<ICategoryRepository>().GetAll()
-                .Where(c => c.CategoryId == id).Include(c => c.Parent).Include(c => c.Name)
-                .Include(c => c.Parent.Name).Include(c => c.Parent.Parent).Include(c => c.Type)
+                .Where(c => c.CategoryId == id).Include(c => c.Parent).Include(c => c.Parent.Parent)
+                .Include(c => c.Parent.Parent.Parent).Include(c => c.Name)
+                .Include(c => c.Type)
                 .FirstOrDefault();
 
             if (data == null)

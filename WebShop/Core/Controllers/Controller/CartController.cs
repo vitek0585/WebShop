@@ -43,7 +43,6 @@ namespace WebShop.Core.Controllers.Controller
             var data = _purchaseService.GetGoodsByCart<UserOrder>(MapToClassificationGoods(orders), GetCurrentCurrency(), GetCurrentLanguage());
             return View(data);
         }
-
         [HttpPost]
         [Route("Add")]
         [ModelValidationFilter]
@@ -101,12 +100,12 @@ namespace WebShop.Core.Controllers.Controller
         [Route("Remove")]
         [HttpPost]
         [ModelValidationFilter]
-        public JsonResult Remove(UserOrder order)
+        public JsonResult Remove(int id)
         {
             try
             {
                 var cart = GetCart();
-                var isDrop = cart.Remove(order);
+                var isDrop = cart.Remove(id);
 
                 if (isDrop)
                     return JsonResultCustom(Resource.Success);
@@ -125,20 +124,32 @@ namespace WebShop.Core.Controllers.Controller
             return JsonResultCustom(cart.GetAll());
 
         }
-
         [Route("Details")]
-        [NoExecuteFilterHeaderDataProvider]
         public JsonResult GetDetailsGoods(int id)
         {
             var data = _purchaseService.GetGoodsDetails<dynamic>(id);
-            
-            if(data.Any())
-            return JsonResultCustom(data);
 
-            return JsonResultCustom(Resource.AnotherError,HttpStatusCode.BadRequest);
+            if (data.Any())
+                return JsonResultCustom(data);
+
+            return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
         }
+        [Route("Update")]
+        public JsonResult UpdateCart([Bind(Include = "ClassificationId,GoodId,SizeId,ColorId,CountGood")]UserOrder order)
+        {
+            var item = _purchaseService.GetClassification(Mapper.Map<ClassificationGood>(order));
+            if (item != null)
+            {
+                var cart = GetCart();
+                var idToReplace = order.ClassificationId;
+                order.ClassificationId = item.ClassificationId;
+                var isUpdate = cart.Update(idToReplace, order);
+                if (isUpdate)
+                    return JsonResultCustom(String.Empty);
+            }
 
-
+            return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
+        }
         [Route("Test")]
         public JsonResult Test()
         {

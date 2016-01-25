@@ -2,17 +2,18 @@
     'use strict';
     angular.module('globalApp')
         .controller('goodsDetailsCtrl', goodsDetailsCtrl);
-    angular.module('globalApp').filter('filterBy', filterBy);
-    angular.module('globalApp').filter('correctBy', correctBy);
+
     angular.module('globalApp').injectRequires(['selectBotstrApp']);
 
-    goodsDetailsCtrl.$inject = ['cartSvc', '$filter'];
-    filterBy.$inject = ['$filter'];
-    correctBy.$inject = ['$filter'];
+    goodsDetailsCtrl.$inject = ['$scope','cartSvc', '$filter', '$fancyModal', '$compile'];
 
-    function goodsDetailsCtrl(cart, filter) {
+
+    function goodsDetailsCtrl($scope,cart, filter, modal, $compile) {
+   
         var VIEW_DET = 'det';
         var VIEW_DET_CORR = 'det-corr';
+
+        var idToRemove;
         var tmpData = {};
         var vm = this;
         vm.isWaiter = false;
@@ -24,9 +25,14 @@
         vm.getDetails = getDetails;
         vm.saveDetail = save;
         vm.cancel = cancel;
+        vm.remove = remove;
+        vm.openModal = open;
         vm.select = selectPicker;
         vm.isCorrectCount = isCorrectCount;
 
+        vm.open = function () {
+            //TODO this function is opening the modal window
+        };
         //functions
         function initCurrent(item) {
             vm.current = item;
@@ -48,12 +54,15 @@
             }).finally(dispose);
         }
 
-        function save(size, color) {
+        function save(size, color, clsId) {
             vm.isWaiter = true;
-            vm.current[size] = filter('filterBy')(vm.details, vm.current, size);
-            vm.current[color] = filter('filterBy')(vm.details, vm.current, color);
-            vm.view = VIEW_DET;
+
             cart.update(vm.current).then(function (d) {
+                vm.current[size] = filter('filterBy')(vm.details, vm.current, size);
+                vm.current[color] = filter('filterBy')(vm.details, vm.current, color);
+                vm.current[clsId] = filter('filterBy')(vm.details, vm.current, clsId);
+                vm.view = VIEW_DET;
+
             }).finally(dispose);
         }
 
@@ -75,26 +84,20 @@
             vm.isWaiter = false;
         }
 
-    }
+        function open(id) {
+            idToRemove = id;
+            vm.open();
 
-    function filterBy($filter) {
-        return function (data, current, name) {
-
-            var w = $filter('where')(data, {
-                sizeId: current.sizeId,
-                colorId: current.colorId,
-                goodId: current.goodId
-            });
-
-            var f = $filter('first')(w);
-
-            return f[name];
         }
-    }
-    function correctBy($filter) {
-        return function (data, current, name) {
-            
-            return (current[name] > $filter('filterBy')(data, current, name));
+        function remove() {
+                $scope.$emit('removeItem', { id: idToRemove });
+            //cart.remove(idToRemove).then(function (d) {
+            //    modal.close();
+            //});
         }
-    }
+
+    };
+
+
+
 })();

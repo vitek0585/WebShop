@@ -24,10 +24,11 @@ namespace WebShop.Infostructure.ResponseResult
             _status = status;
             Data = data;
         }
+        
         public JsonResultCustom(object data)
             : this(data, HttpStatusCode.OK)
         {
-            
+
         }
         public override void ExecuteResult(ControllerContext context)
         {
@@ -36,7 +37,7 @@ namespace WebShop.Infostructure.ResponseResult
             var response = context.HttpContext.Response;
             response.ContentType = "application/json";
             response.StatusCode = (int)_status;
-            response.Output.Write(Data);
+            response.Write(Data);
         }
 
     }

@@ -34,14 +34,21 @@
             </div>
             <div class="cart-img" ng-if="item.@photos==null"></div>
         </td>
-        <td>
+        <td style="position: relative">
             <div>
                 {{item.@name}}
-                <button class="btn btn-sm btn-danger remove"
-                        ng-click="showModal('remove');currentItem.Id=item.@clsId">
-                    Remove <i class="glyphicon glyphicon-remove"></i>
-                </button>
             </div>
+            <a class="btn btn-sm btn-danger remove btn-cart-table"
+               ng-click="detailVm.openModal(item.@clsId)">
+                @Resource.Remove <i class="glyphicon glyphicon-remove"></i>
+            </a>
+            <div modal-window
+                 ok-txt="@Resource.Ok"
+                 open="detailVm.open"
+                 cancel-txt="@Resource.Cancel"
+                 msg="'@Resource.DoYouWantRemove'"
+                 ok-hadler="detailVm.remove()"></div>
+           
         </td>
         <td>
             {{item.@priceDisc|currencyExtend:0}}
@@ -77,8 +84,10 @@
                     </div>
                     <div select-by-radio details="detailVm.details" ng-cloak="true" class="selectpicker" current="detailVm.current"></div>
                     <div class="btn-cart-table">
-                        <a class="btn btn-primary btn-buy" ng-click="detailVm.saveDetail('@size','@color');"
-                           ng-disabled="(detailVm.details|correctBy:detailVm.current:'@count')">@Resource.Save</a>
+                        <button class="btn btn-primary btn-buy" ng-click="detailVm.saveDetail('@size','@color');"
+                                ng-disabled="(detailVm.details|correctBy:detailVm.current:'@count')">
+                            @Resource.Save
+                        </button>
                         <a class="btn btn-primary btn-buy" ng-click="detailVm.cancel()">@Resource.Cancel</a>
                     </div>
                 </div>

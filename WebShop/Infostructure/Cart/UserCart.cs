@@ -38,18 +38,18 @@ namespace WebShop.Infostructure.Cart
             return _goods;
         }
 
-        public void SetCountGoods(IEnumerable<UserOrder> goods)
+        public bool Update(int id, UserOrder goods)
         {
-            var comparer = new ComparerUserOrder();
-            foreach (var good in goods)
+            var target = _goods.SingleOrDefault(g => g.ClassificationId == id);
+            if (target != null)
             {
-                var target = _goods.FirstOrDefault(g => comparer.Equals(g, good));
-                if (target != null)
-                {
-                    target.CountGood = good.CountGood;
-                }
+                target.ClassificationId = goods.ClassificationId;
+                target.CountGood = goods.CountGood;
+                target.ColorId = goods.ColorId;
+                target.SizeId = goods.SizeId;
+                return true;
             }
-
+            return false;
         }
 
         public IEnumerable<int> GetAllGoodsId()
@@ -67,14 +67,13 @@ namespace WebShop.Infostructure.Cart
         }
 
 
-        public bool Remove(UserOrder order)
+        public bool Remove(int id)
         {
-            var compare = new ComparerUserOrder();
-            var good = _goods.FirstOrDefault(i => compare.Equals(i, order));
+            var good = _goods.SingleOrDefault(i => i.ClassificationId == id);
             if (good != null)
             {
-                _goods.Remove(good);
-                return true;
+                
+                return _goods.Remove(good);
             }
             return false;
         }

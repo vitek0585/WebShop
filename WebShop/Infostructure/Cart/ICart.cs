@@ -7,9 +7,9 @@ namespace WebShop.Infostructure.Cart
     {
         void AddGood(TItem good);
         IEnumerable<TItem> GetAll();
-        void SetCountGoods(IEnumerable<TItem> goods);
+        bool Update(int id,TItem goods);
 
-        bool Remove(TItem id);
+        bool Remove(int id);
   
     }
 }

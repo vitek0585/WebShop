@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
+using WebShop.Filters.Headers;
 using WebShop.Filters.ModelValidate;
 using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
@@ -32,7 +33,7 @@ namespace WebShop.Core.Controllers.Controller
         }
 
         #region Login
-
+    
         [Route("Login"), HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

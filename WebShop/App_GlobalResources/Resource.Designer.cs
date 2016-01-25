@@ -61,11 +61,29 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to о нас.
+        /// </summary>
+        public static string AboutUs {
+            get {
+                return ResourceManager.GetString("AboutUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to применить.
         /// </summary>
         public static string Accept {
             get {
                 return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to мой профиль.
+        /// </summary>
+        public static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
             }
         }
         
@@ -287,6 +305,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to наши контакты.
+        /// </summary>
+        public static string ContactUs {
+            get {
+                return ResourceManager.GetString("ContactUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество.
         /// </summary>
         public static string Count {
@@ -341,6 +368,24 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to описание.
+        /// </summary>
+        public static string Desc {
+            get {
+                return ResourceManager.GetString("Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to На сайте магазина, вы сможете подобрать одежду на любой вкус, в нем представлены десятки тысяч товаров. Fashion обновляет свой ассортимент каждую среду (товаром который вернули). Помимо своей марки мужской, женской одежды, сумок, и аксессуаров в интернет-магазине собраны известные Британские бренды, а также самые популярные бренды Европы и США: Esprit, G-Star, Levi&apos;s, Ray-Ban, Diesel, Adidas и другие. Ассортимент товара рассчитан в основном на молодых людей в возрасте от 16 до 35 лет. Помимо обуви, одежды,  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Descriptions {
+            get {
+                return ResourceManager.GetString("Descriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Детали.
         /// </summary>
         public static string Details {
@@ -355,6 +400,15 @@ namespace WebShop.App_GlobalResources {
         public static string Discount {
             get {
                 return ResourceManager.GetString("Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы хотите удалить текущий продукт из корзины?.
+        /// </summary>
+        public static string DoYouWantRemove {
+            get {
+                return ResourceManager.GetString("DoYouWantRemove", resourceCulture);
             }
         }
         
@@ -472,6 +526,15 @@ namespace WebShop.App_GlobalResources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to информация.
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
             }
         }
         
@@ -616,6 +679,15 @@ namespace WebShop.App_GlobalResources {
         public static string NotInStock {
             get {
                 return ResourceManager.GetString("NotInStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to применить.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         

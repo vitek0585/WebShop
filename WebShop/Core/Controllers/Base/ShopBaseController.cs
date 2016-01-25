@@ -65,6 +65,7 @@ namespace WebShop.Core.Controllers.Base
         {
             return new JsonResultCustom(data, statusCode);
         }
+        
         protected JsonResult JsonResultCustom(object data)
         {
             return new JsonResultCustom(data);
