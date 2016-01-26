@@ -43,6 +43,7 @@
                 template: e,
                 type: 'html'
             });
+            e = angular.element(template());
             $compile(e)($scope);
         }
         

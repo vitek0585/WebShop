@@ -391,6 +391,12 @@
   <data name="Account" xml:space="preserve">
     <value>мой профиль</value>
   </data>
+  <data name="BagEmpty" xml:space="preserve">
+    <value>ваша корзина пуста</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>оформить заказ</value>
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>наши контакты</value>
   </data>
@@ -408,5 +414,14 @@
   </data>
   <data name="Ok" xml:space="preserve">
     <value>применить</value>
+  </data>
+  <data name="PayMentMeth" xml:space="preserve">
+    <value>&lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;b&gt;&lt;/br&gt;
+Предоплата банковской картой или через PayPal.
+(Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
+выберите валюту отличную от гривны)</value>
+  </data>
+  <data name="TotalCoast" xml:space="preserve">
+    <value>общая стоимость</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<div class="col-md-12" ng-cloak>
+﻿<div class="col-md-12" ng-cloak >
     <div class="item-detail">
         <input type="hidden" ng-bind="::item.goodId"/>
         <div class="image-prod col-md-12 col-sm-12">
@@ -11,8 +11,8 @@
                    arrows="false"
                    init-onload=true lazy-load="true">
                 <div ng-repeat="photo in item.photos">
-                    <zoom ng-src="{{::'/Image/Products/'+photo}}" al alt="not img" class="primary-img"
-                          style="width: 100%;" mark-height="120" mark-width="120" zoom-lvl="3"/>
+                    <zoom ng-src="{{::'/Image/Products/'+photo}}" alt="not img" class="primary-img"
+                           mark-height="120" mark-width="120" zoom-lvl="3"/>
                 </div>
                 <div ng-if="item.photos.length==0">
                     <img ng-src="{{::'/Image/not-image.png'}}" alt="not img" class="primary-img"

@@ -1,7 +1,12 @@
-﻿@model IEnumerable<WebShop.Models.UserOrder>
+﻿@using WebShop.Models
+@model IEnumerable<UserOrder>
 @{
     ViewBag.Title = Resource.Cart;
     var data = Html.SerializeToJson(Model);
+    var priceDisc = Html.GetName<UserOrder>(o => o.PriceWithDiscount);
+    var count = Html.GetName<UserOrder>(o => o.CountGood);
+
+
 }
 <div class="container cart-base" ng-controller="cartController as cartVm">
     <div class="row">
@@ -9,40 +14,46 @@
         <hr />
         @*Left side*@
         <div class="col-md-3">
-            @*@if (Request.IsAuthenticated)
-                {
-                <div ng-init="getHistory('@User.Identity.Name');getUserInfo('@User.Identity.Name')"></div>
-                @Html.Partial("_MenuUserPartial")
-                }*@
             <h4 class="text-center text-uppercase">@Resource.NewGoods</h4>
             @Html.Partial("/Views/Catalog/Partial/_ExclusiveGood.cshtml")
         </div>
         @*End Left side*@
 
         @*Right side*@
-        <div class="col-md-9 cart" ng-if="cartVm.items[0]">
-            <div class="col-md-12 table-cart">
-                @Html.Partial("_ItemOrder", Model)
-            </div>
-            <div class="col-md-12">
-                <div class="clearfix">
-                    <button class="btn btn-primary btn-buy to-right" ng-disabled="items.count==0">
-                        Buy<i class="glyphicon glyphicon-shopping-cart"></i>
-                    </button>
+        @if (Model.Any())
+        {
+            <div class="col-md-9 cart">
+                <div class="col-md-12">
+                    <div class="to-right" ng-cloak>
+                        <h4>
+                            <span class="color-h text-uppercase">@Resource.TotalCoast: </span>
+                            {{(cartVm.items|sum:'@priceDisc':'@count')|currencyExtend:0}}
+                        </h4>
+                    </div>
+                    <div class="clearfix">
+                        <button class="btn btn-primary btn-buy to-right" ng-disabled="items.count==0">
+                            @Resource.Checkout<i class="glyphicon glyphicon-shopping-cart"></i>
+                        </button>
+                    </div>
                 </div>
-                <hr />
-                <div class="to-right" ng-cloak>
-                    <h4>
-                        <span class="color-h text-uppercase">Total amount: </span>
-                        @* {{(items|filterBy:['priceUsd']:.pri|number:2}} $*@
-                    </h4>
+                <div class="col-md-12 table-cart">
+                    @Html.Partial("_ItemOrder", Model)
                 </div>
             </div>
-            @*@html.partial("_modalwindow")*@
-        </div>
+            <div ng-init="cartVm.initModel(@data)"></div>
+        }
+        else
+        {
+            <div class="col-md-9">
+                <h3 class="cart-empty">@Resource.BagEmpty</h3>
+            </div>
+        }
     </div>
-    <div ng-init="cartVm.initModel(@data)"></div>
+    @Html.Partial("Partial/_PayCardPartial")
+    @Html.Action("RecentlyViewedUser", "Good")
 </div>
+
+
 @section scripts
 {
     <link href="~/Content/bootstrap-select.css" rel="stylesheet" />

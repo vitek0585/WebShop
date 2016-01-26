@@ -111,7 +111,8 @@
                 if (d === undefined)
                     return;
                 if (typeof (d.data) == 'object') {
-                    d.data = d.data.join('\r');
+                    d.data = d.data.join(' ');
+              
                 }
                 toaster.pop('error', '', d.data);
             }

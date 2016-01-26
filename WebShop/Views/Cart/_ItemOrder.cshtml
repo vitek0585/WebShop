@@ -15,7 +15,7 @@
 }
 
 <table class="table table-bordered" ng-cloak="true">
-    <col width="20%"></col>
+    <col width="15%"></col>
     <col width="20%"></col>
     <col width="15%"></col>
     <col width="30%"></col>
@@ -30,7 +30,7 @@
 
     <tr ng-repeat="item in cartVm.items" ng-controller="goodsDetailsCtrl as detailVm">
         <td>
-            <div ng-style="{'background':'url(/Image/Products/{{::item.@photos&nbsp;[0]}}) no-repeat center','background-size': 'cover'}" class="cart-img" ng-if="item.photos!=null">
+            <div ng-style="{'background':'url(/Image/Products/{{::item.@photos&nbsp;[0]}}) no-repeat center','background-size': 'contain'}" class="cart-img" ng-if="item.photos!=null">
             </div>
             <div class="cart-img" ng-if="item.@photos==null"></div>
         </td>
@@ -70,7 +70,7 @@
                 </div>
                 @*details change*@
                 <div ng-switch-when="det-corr">
-                    <div>{{detailVm.details|filterBy:detailVm.current:'@count'}} </div>
+                    <div><b>@Resource.Count MAX:</b>&nbsp;{{detailVm.details|filterBy:detailVm.current:'@count'}} </div>
                     <div>
                         <input name="@count" ng-model="detailVm.current.@count" type="number" class="form-control" min="1" ng-class="{'custom-invalid': (detailVm.details|correctBy:detailVm.current:'@count')}" />
                     </div>
@@ -84,7 +84,7 @@
                     </div>
                     <div select-by-radio details="detailVm.details" ng-cloak="true" class="selectpicker" current="detailVm.current"></div>
                     <div class="btn-cart-table">
-                        <button class="btn btn-primary btn-buy" ng-click="detailVm.saveDetail('@size','@color');"
+                        <button class="btn btn-primary btn-buy" ng-click="detailVm.saveDetail('@size','@color','@clsId','@count');"
                                 ng-disabled="(detailVm.details|correctBy:detailVm.current:'@count')">
                             @Resource.Save
                         </button>

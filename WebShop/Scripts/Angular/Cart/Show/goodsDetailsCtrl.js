@@ -12,7 +12,7 @@
    
         var VIEW_DET = 'det';
         var VIEW_DET_CORR = 'det-corr';
-
+        var originItem = {};
         var idToRemove;
         var tmpData = {};
         var vm = this;
@@ -35,7 +35,8 @@
         };
         //functions
         function initCurrent(item) {
-            vm.current = item;
+            vm.current = clone(item);
+            originItem = item;
         }
 
         function isCorrectCount(count) {
@@ -54,7 +55,7 @@
             }).finally(dispose);
         }
 
-        function save(size, color, clsId) {
+        function save(size, color, clsId,count) {
             vm.isWaiter = true;
 
             cart.update(vm.current).then(function (d) {
@@ -62,7 +63,7 @@
                 vm.current[color] = filter('filterBy')(vm.details, vm.current, color);
                 vm.current[clsId] = filter('filterBy')(vm.details, vm.current, clsId);
                 vm.view = VIEW_DET;
-
+                originItem[count] = vm.current[count];
             }).finally(dispose);
         }
 
@@ -90,7 +91,8 @@
 
         }
         function remove() {
-                $scope.$emit('removeItem', { id: idToRemove });
+            console.log("remove");
+                //$scope.$emit('removeItem', { id: idToRemove });
             //cart.remove(idToRemove).then(function (d) {
             //    modal.close();
             //});

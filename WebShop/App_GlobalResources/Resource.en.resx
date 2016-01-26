@@ -147,6 +147,9 @@
   <data name="Availability" xml:space="preserve">
     <value>Availability</value>
   </data>
+  <data name="BagEmpty" xml:space="preserve">
+    <value>your cart is empty</value>
+  </data>
   <data name="BlockqouteDressFor" xml:space="preserve">
     <value>More than 100 world-famous labels, including his own line of Fashion. As well as daily tips on style and fashion news.</value>
   </data>
@@ -180,6 +183,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Change</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>checkout</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
     <value>clear filter</value>
@@ -334,6 +340,12 @@ UNDER THE SAME ROOF</value>
   <data name="PaswdInValid" xml:space="preserve">
     <value>Password is required (min 6 and max 20 latin characters) and start the latter</value>
   </data>
+  <data name="PayMentMeth" xml:space="preserve">
+    <value>&lt;b&gt;PAYMENT METHODS:&lt;b&gt;&lt;/br&gt;
+Prepay by credit card or through PayPal.
+( If you want to pay for purchases using PayPal, Please ,
+select a currency other than the hryvnia )</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
@@ -402,6 +414,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="Summa" xml:space="preserve">
     <value>Total</value>
+  </data>
+  <data name="TotalCoast" xml:space="preserve">
+    <value>total cost</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>

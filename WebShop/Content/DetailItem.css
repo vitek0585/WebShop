@@ -28,7 +28,8 @@
 .item-detail .image-prod {
     margin-top: 5px;
     height: 471px;
-    
+        /*overflow: hidden;*/
+
 }
 .image-slider {
 

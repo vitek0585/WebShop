@@ -151,6 +151,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ваша корзина пуста.
+        /// </summary>
+        public static string BagEmpty {
+            get {
+                return ResourceManager.GetString("BagEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Более 100 всемирно известных лейблов, включая собственную линию Fashion. А также ежедневные советы по стилю и модные новости..
         /// </summary>
         public static string BlockqouteDressFor {
@@ -247,6 +256,15 @@ namespace WebShop.App_GlobalResources {
         public static string Change {
             get {
                 return ResourceManager.GetString("Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to оформить заказ.
+        /// </summary>
+        public static string Checkout {
+            get {
+                return ResourceManager.GetString("Checkout", resourceCulture);
             }
         }
         
@@ -710,6 +728,18 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;b&gt;&lt;/br&gt;
+        ///Предоплата банковской картой или через PayPal.
+        ///(Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
+        ///выберите валюту отличную от гривны).
+        /// </summary>
+        public static string PayMentMeth {
+            get {
+                return ResourceManager.GetString("PayMentMeth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Цена.
         /// </summary>
         public static string Price {
@@ -922,6 +952,15 @@ namespace WebShop.App_GlobalResources {
         public static string Summa {
             get {
                 return ResourceManager.GetString("Summa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to общая стоимость.
+        /// </summary>
+        public static string TotalCoast {
+            get {
+                return ResourceManager.GetString("TotalCoast", resourceCulture);
             }
         }
         

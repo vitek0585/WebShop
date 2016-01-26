@@ -24,8 +24,8 @@
     });
     global.value("kindsRate", {
         ukr: {
-            en: "grn.",
-            ru: "грн."
+            en: "grn",
+            ru: "грн"
         }
     });
 

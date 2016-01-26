@@ -21,7 +21,7 @@
         </div>
         @*right side*@
         <div class="col-md-9">
-            <div class="col-md-12" class="container-good-detail" style="min-height: 625px">
+            <div class="col-md-12" class="container-good-detail" style="min-height: 625px;overflow: hidden;">
                 <div class="col-md-5 right">
                     @Html.Partial("Partial/_DetailsPartial")
                 </div>
@@ -89,6 +89,7 @@
     </div>
     @*Additional*@
     @Html.Action("RecentlyViewedUser")
+    @Html.Partial("/Views/Cart/Partial/_PayCardPartial.cshtml")
 </div>
 @section scripts
 {
