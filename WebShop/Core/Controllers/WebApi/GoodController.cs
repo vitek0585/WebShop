@@ -24,17 +24,17 @@ namespace WebShop.Controllers.WebApi
     [RoutePrefix("api/Good")]
     public class GoodController : ApiController
     {
-        private IPhotoRepository _photo;
+       
         private IGoodService _goodService;
 
         private ICookieConsumer _storage;
         private byte _totalPerPage = 9;
 
-        public GoodController(IPhotoRepository photo, ICookieConsumer storage, IGoodService goodService)
+        public GoodController(ICookieConsumer storage, IGoodService goodService)
         {
             _storage = storage;
             _goodService = goodService;
-            _photo = photo;
+           
 
         }
         [HttpGet]
@@ -138,7 +138,7 @@ namespace WebShop.Controllers.WebApi
                 //good = _goods.Add(goodApi.GetGood());
                 Parallel.ForEach(goodApi.Files, async f =>
                 {
-                    await _photo.Add(good.GoodId, new MemoryStream(f.Data), f.FileName, f.MimeType);
+                    //await _photo.Add(good.GoodId, new MemoryStream(f.Data), f.FileName, f.MimeType);
                 });
 
                 //_unit.Save();

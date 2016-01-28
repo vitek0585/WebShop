@@ -11,15 +11,14 @@ namespace WebShop.EFModel.Model
         public Good()
         {
             ClassificationGoods = new HashSet<ClassificationGood>();
-            CommentGoods = new HashSet<CommentGood>();
-            Image = new HashSet<Image>();
-            SalePos = new HashSet<SalePos>();
-        }
 
+            Image = new HashSet<Image>();
+        }
+        [Key]
         public int GoodId { get; set; }
 
         [Required]
-       public string GoodNameRu { get; set; }
+        public string GoodNameRu { get; set; }
         [Required]
         public string GoodNameEn { get; set; }
         public decimal PriceUsd { get; set; }
@@ -36,15 +35,11 @@ namespace WebShop.EFModel.Model
 
 
         public int? CategoryId { get; set; }
-   
+
         public virtual Category Category { get; set; }
 
         public virtual ICollection<ClassificationGood> ClassificationGoods { get; set; }
-
-        public virtual ICollection<CommentGood> CommentGoods { get; set; }
-
         public virtual ICollection<Image> Image { get; set; }
 
-        public virtual ICollection<SalePos> SalePos { get; set; }
     }
 }

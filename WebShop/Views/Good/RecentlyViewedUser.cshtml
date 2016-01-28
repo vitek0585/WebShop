@@ -12,8 +12,8 @@
         </div>
     </div>
     <slick infinite="true" slides-to-show="5" slides-to-scroll="1" arrows="true" autoplay-speed="2000"
-           speed="500" autoplay="false" 
-           id="carousel-recently-viewed">
+           speed="500" autoplay="true" 
+           id="carousel-recently-viewed" ng-cloak="true">
         @foreach (var item in Model)
         {
             int id = item.GoodId;

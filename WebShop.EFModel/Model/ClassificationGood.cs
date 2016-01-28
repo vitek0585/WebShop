@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +8,10 @@ namespace WebShop.EFModel.Model
     [Table("ClassificationGood")]
     public partial class ClassificationGood
     {
+        public ClassificationGood()
+        {
+            SalePoses = new HashSet<SalePos>();
+        }
         [Key]
         public int ClassificationId { get; set; }
 
@@ -22,5 +28,6 @@ namespace WebShop.EFModel.Model
         public virtual Good Good { get; set; }
 
         public virtual Size Size { get; set; }
+        public virtual ICollection<SalePos> SalePoses { get; set; }
     }
 }

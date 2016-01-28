@@ -1,6 +1,4 @@
-﻿//var prod = angular.module("prodApp", ["httpApp", "notifyApp", 'slick', 'lazyLoadApp']);
-
-var prod = angular.module("globalApp");
+﻿var prod = angular.module("globalApp");
 var arr = ["httpApp", "httpRouteApp", "pagingApp",'slick', 'ui.bootstrap', 'angularRangeSlider'
 , 'azSuggestBox'];
 prod.injectRequires(arr);

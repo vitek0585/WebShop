@@ -4,6 +4,7 @@ namespace WebShop.EFModel.Model
 {
     public partial class SalePos
     {
+        [Key]
         public int SalePosId { get; set; }
         public decimal Price { get; set; }
         public int CountGood { get; set; }

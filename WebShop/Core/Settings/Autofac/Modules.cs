@@ -23,6 +23,8 @@ using WebShop.Identity.Services;
 using WebShop.Infostructure.Cart;
 using WebShop.Infostructure.Storage.Implements;
 using WebShop.Infostructure.Storage.Interfaces;
+using WebShop.Log.Abstract;
+using WebShop.Log.Concreate;
 using WebShop.Models;
 using WebShop.Repo.Interfaces;
 using WebShop.Repo.Repositories;
@@ -39,7 +41,7 @@ namespace WebShop.Core.Settings.Autofac
             builder.RegisterType(typeof(CategoryTypeRepository)).As(typeof(ICategoryTypeRepository)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(SaleRepository)).As(typeof(ISaleRepository)).InstancePerLifetimeScope();
             builder.RegisterType(typeof(SalePosRepository)).As(typeof(ISalePosRepository)).InstancePerLifetimeScope();
-            builder.RegisterType<PhotoGoodsRepository>().As<IPhotoRepository>().InstancePerLifetimeScope();
+            //builder.RegisterType<PhotoGoodsRepository>().As<IPhotoRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ClassificationGoodRepository>().As<IClassificationGoodRepository>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ColorRepository>().As<IColorRepository>().InstancePerLifetimeScope();
@@ -83,6 +85,8 @@ namespace WebShop.Core.Settings.Autofac
         {
             builder.RegisterType<CookieConsumer>().As<ICookieConsumer>().InstancePerLifetimeScope();
             builder.RegisterType<CartProvider>().As<ICartProvider<UserOrder>>().InstancePerLifetimeScope();
+            builder.RegisterType<LogSql>().As<ILogWriter<string>>().InstancePerLifetimeScope();
+           // builder.RegisterType<LogSql>().As<ILogReader<string>>().InstancePerLifetimeScope();
 
 
         }

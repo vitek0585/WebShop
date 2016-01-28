@@ -8,7 +8,6 @@ namespace WebShop.EFModel.Model
     [Table("Sale")]
     public partial class Sale
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sale()
         {
             SalePos = new HashSet<SalePos>();
@@ -16,14 +15,16 @@ namespace WebShop.EFModel.Model
 
         public int SaleId { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "datetime")]
         public DateTime DateSale { get; set; }
 
-
-        [Required]
-        [StringLength(100)]
+        public int? UserId { get; set; }
+        [StringLength(20)]
+        public string Phone { get; set; }
+        [StringLength(50)]
+        public string Email { get; set; }
+        [StringLength(50)]
         public string UserName { get; set; }
-
         public virtual ICollection<SalePos> SalePos { get; set; }
     }
 }

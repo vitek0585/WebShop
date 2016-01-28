@@ -1,20 +1,22 @@
 ﻿@using WebShop.Infostructure.Extenssions
 @using WebShop.Models.Account
-@*@model WebShop.Models.Account.RegisterViewModel*@
+
 @{
     var name = Html.GetName<RegisterViewModel>(m => m.UserName);
     var email = Html.GetName<RegisterViewModel>(m => m.Email);
+    var teleph = Html.GetName<RegisterViewModel>(m => m.PhoneNumber);
+    
     var password = Html.GetName<RegisterViewModel>(m => m.Password);
     var confirmPassw = Html.GetName<RegisterViewModel>(m => m.ConfirmPassword);
     var predicate = "{0}&&registerForm.{0}.$invalid";
 
     var namePredicate = predicate.F(name);
+    var telephPredicate = predicate.F(teleph);
     var emailPredicate = predicate.F(email);
     var pswdPredicate = predicate.F(password);
     var confPswdPredicate = predicate.F(confirmPassw);
 }
 <form method="POST" class="form-horizontal" role="form" novalidate name="registerForm" id="registerForm">
-    @*<toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>*@
     @Html.AntiForgeryToken()
     @*Name user*@
     <div class="form-group" ng-init="blurs('@name')">
@@ -35,6 +37,26 @@
              ng-class="@namePredicate?'custom-invalid':'custom-valid'"
              ng-cloak>
             <span ng-show="@namePredicate">@Resource.NameInValid</span>
+        </div>
+    </div>
+    @*Telephone user*@
+    <div class="form-group" ng-init="blurs('@teleph')">
+        <div class="col-sm-12">
+            <input type="text"
+                   class="form-control"
+                   id="@teleph"
+                   placeholder="@Resource.PhoneNumber"
+                   name="@teleph"
+                   ng-model="user.@teleph"
+                   ng-pattern="/^[0-9]{10,15}$/"
+                   ng-blur="@teleph=true"
+                   ng-required="true"
+                   ng-class="@telephPredicate?'custom-invalid':'custom-valid'">
+        </div>
+        <div class="col-sm-12 errro-input"
+             ng-class="@telephPredicate?'custom-invalid':'custom-valid'"
+             ng-cloak>
+            <span ng-show="@telephPredicate">@Resource.PhoneInValid</span>
         </div>
     </div>
     @*Email*@
@@ -98,7 +120,7 @@
             <span ng-show="@confPswdPredicate">@Resource.ConfirmPswdInValid</span>
         </div>
     </div>
-    @*<div ng-if="responseHandler.errorMessages.length>0" class="col-md-12 form-group anim-show" ng-cloak>
+    @*<div ng-if="responseHandler.errorMessages.length>0" class="col-xs-12 form-group anim-show" ng-cloak>
         <div class="label-error" ng-repeat="mess in responseHandler.errorMessages">
             {{::mess}}
         </div>

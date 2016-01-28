@@ -62,7 +62,7 @@ http.service("httpService", ["$http", function (http) {
         var promise = http.get(url, config);
         return promise;
     }
-    //для запроса данные передаются с строке адреса (принимает число или строку)
+    //для запроса данные передаются с строке адреса (принимает число или строку)кешируется
     this.getByCache = function (param, url, headers) {
         var config = {
             headers: headers,

@@ -34,17 +34,35 @@
     }
     function cartController($scope, cart) {
         var vm = this;
+        var isAuth = false;
+        vm.isBusy = false;
         vm.initModel = initModel;
+        vm.auth = auth;
+        vm.doOrder = doOrder;
         vm.items = [];
 
         function initModel(model) {
             vm.items = model;
+            cart.cart = vm.items;
         }
 
-        $scope.$on('removeItem', function (e, args) {
-            vm.items.remove(args.id, 'classificationId');
+        function auth(authUser) {
+            isAuth = authUser;
+        }
+
+        function doOrder() {
             
-        });
+            if (isAuth) {
+                vm.isBusy = true;
+                cart.doOrderR().finally(function() {
+                    vm.isBusy = false;
+                    vm.items.length = 0;
+                });
+            } else {
+                angular.element(document.getElementById('login')).scope().openModal('loginTmpl', 'loginCtrl');
+            }
+        }
+
     }
     function userMenuController(scope, http) {
 

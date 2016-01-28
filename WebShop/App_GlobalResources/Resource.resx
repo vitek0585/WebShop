@@ -409,6 +409,16 @@
   <data name="DoYouWantRemove" xml:space="preserve">
     <value>Вы хотите удалить текущий продукт из корзины?</value>
   </data>
+  <data name="FastCheckout" xml:space="preserve">
+    <value>быстрый заказ</value>
+  </data>
+  <data name="FastOrderTool" xml:space="preserve">
+    <value>Вам потребуется указать
+только имя и номер телефона</value>
+  </data>
+  <data name="FullOrderTool" xml:space="preserve">
+    <value>Полноценное оформление заказа</value>
+  </data>
   <data name="Info" xml:space="preserve">
     <value>информация</value>
   </data>
@@ -416,10 +426,16 @@
     <value>применить</value>
   </data>
   <data name="PayMentMeth" xml:space="preserve">
-    <value>&lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;b&gt;&lt;/br&gt;
+    <value>СПОСОБЫ ОПЛАТЫ:
 Предоплата банковской картой или через PayPal.
 (Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
 выберите валюту отличную от гривны)</value>
+  </data>
+  <data name="PhoneInValid" xml:space="preserve">
+    <value>телефонный номер не валиден (номер должен состоять от 10 до 15 цифр)</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>телефонный номер</value>
   </data>
   <data name="TotalCoast" xml:space="preserve">
     <value>общая стоимость</value>

@@ -4,19 +4,23 @@
         .provider("cartSvc", cartExecute);
 
     function cartExecute() {
-
+        var tmpl = "<div >" +
+           "<div class='label-error' ng-repeat='mess in errors track by $index'>{{::mess}}</div>" +
+           "</div>";
         var cart = [];
         var urlAdd = '';
         var urlCart = '';
         var urlUpdate = '';
         var urlGetTypes = '';
         var urlRemove = '';
+        var urlDoOrder = '';
+        var urlDoOrderReg = '';
         return {
             initUrl: initUrl,
-            $get: ["$q", "toaster", "httpService", get]
+            $get: ["$q", "toaster", "httpService", "$compile", get]
         }
         //-------------------functions $get
-        function get($q, toaster, http) {
+        function get($q, toaster, http, $compile) {
 
             return {
                 cart: cart,
@@ -24,7 +28,9 @@
                 add: add,
                 update: update,
                 getDetails: getDetails,
-                remove: remove
+                remove: remove,
+                doOrderR: doOrderR,
+                doOrder: doOrder
             }
             //-------------------functions $get
             function getCart() {
@@ -107,19 +113,52 @@
                 }
 
             }
-            function notify(d) {
-                if (d === undefined)
-                    return;
-                if (typeof (d.data) == 'object') {
-                    d.data = d.data.join(' ');
-              
+
+            function doOrderR() {
+                var dfd = $q.defer();
+
+                http.postRequest({}, {}, urlDoOrderReg).then(function (d) {
+                    dfd.resolve(d.data);
+                    cart.length = 0;
+                    toaster.pop('success', '', d.data, 6000);
+                }).catch(error);
+
+                return dfd.promise;
+                function error(d) {
+                    dfd.reject(d);
+                    notify(d);
                 }
-                toaster.pop('error', '', d.data);
+            }
+            function doOrder(user) {
+                var dfd = $q.defer();
+
+                http.requestFormSimpleData(urlDoOrder, user, undefined).then(function (d) {
+                    dfd.resolve(d.data);
+                    cart.length = 0;
+                    toaster.pop('success', '', d.data, 6000);
+                }).catch(function (d) {
+                    dfd.reject(d.data);
+                    notify(d);
+                });
+
+                return dfd.promise;
+
+            }
+            function notify(d) {
+
+                if (angular.isArray(d.data)) {
+                    var e = angular.element('<div>').append(d.data.map(function(e) {
+                        return angular.element("<div>").addClass("label-error").text(e)[0];
+                    }));
+                    toaster.pop('error', '', e.html(), 4000, "trustedHtml");
+                    return;
+                } 
+                toaster.pop('error', '', d.data, 4000);
             }
 
         }
         //-------------------functions for provider
-        function initUrl(pathToAdd, pathToCart, pathUpdate, pathGetTypes, pathRemove) {
+        function initUrl(pathToAdd, pathToCart, pathUpdate, pathGetTypes, pathRemove, pathDoOrderReg, pathDoOrder) {
             if (pathToAdd != null)
                 urlAdd = pathToAdd;
             if (pathToCart != null || pathToCart === undefined)
@@ -130,6 +169,10 @@
                 urlGetTypes = pathGetTypes;
             if (pathRemove != null)
                 urlRemove = pathRemove;
+            if (pathDoOrderReg != null)
+                urlDoOrderReg = pathDoOrderReg;
+            if (pathDoOrder != null)
+                urlDoOrder = pathDoOrder;
         };
         //-------------------functions for additional
         function contains(arr, item) {

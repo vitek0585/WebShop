@@ -8,22 +8,24 @@
 @{
     var name = Html.GetName(m => m.UserName);
     var email = Html.GetName(m => m.Email);
+    var teleph = Html.GetName<RegisterViewModel>(m => m.PhoneNumber);
 
     var predicate = "{0}&&confirmForm.{0}.$invalid";
 
+    var telephPredicate = predicate.F(teleph);
     var namePredicate = predicate.F(name);
     var emailPredicate = predicate.F(email);
 
 }
 <div class="container" ng-controller="extConfCtrl">
-    <toaster-container toaster-options="{'time-out': 3000, 'close-button':false, 'animation-class': 'toast-top-right'}"></toaster-container>
+
     <div class="row row-nomargin">
-        <div class="col-md-12 text-uppercase">
+        <div class="col-xs-12 text-uppercase">
             <span class="separator-text">@Resource.ExtLgConf</span>
             <hr/>
         </div>
-        <div class="col-md-8 conf-lg-bg register-bg ">
-            <div class="col-md-8">
+        <div class="col-xs-8 conf-lg-bg register-bg ">
+            <div class="col-xs-8">
                 <form method="POST" class="form-horizontal" role="form" novalidate name="confirmForm" id="registerForm">
                     @Html.AntiForgeryToken()
                     <input type="hidden" value="@ViewBag.ReturnUrl" name="returnUrl"/>
@@ -48,6 +50,26 @@
                             <span ng-show="@namePredicate">@Resource.NameInValid</span>
                         </div>
                     </div>
+                    @*Telephone user*@
+                    <div class="form-group" ng-init="blurs('@teleph')">
+                        <div class="col-sm-12">
+                            <input type="text"
+                                   class="form-control"
+                                   id="@teleph"
+                                   placeholder="@Resource.PhoneNumber"
+                                   name="@teleph"
+                                   ng-model="user.@teleph"
+                                   ng-pattern="/^[0-9]{10,15}$/"
+                                   ng-blur="@teleph=true"
+                                   ng-required="true"
+                                   ng-class="@telephPredicate?'custom-invalid':'custom-valid'">
+                        </div>
+                        <div class="col-sm-12 errro-input"
+                             ng-class="@telephPredicate?'custom-invalid':'custom-valid'"
+                             ng-cloak>
+                            <span ng-show="@telephPredicate">@Resource.PhoneInValid</span>
+                        </div>
+                    </div>
                     @*Email*@
                     <div class="form-group" ng-init="blurs('@email')">
                         <div class="col-sm-12">
@@ -66,18 +88,11 @@
                             <span ng-show="@emailPredicate">@Resource.EmailInValid</span>
                         </div>
                     </div>
-                    @*<div ng-if="responseHandler.errorMessages.length>0" class="form-group anim-show" ng-cloak style="padding: 0 5px;">
-                        <div class="label-error col-sm-12" ng-repeat="mess in responseHandler.errorMessages">
-                            {{::mess}}
-                        </div>
-                    </div>*@
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
                             <button class="btn btn-primary btn-buy" ng-click="submit(confirmForm)">@Resource.Register</button>
                         </div>
                     </div>
-
-                    @*ng-disabled="!registerForm.$valid"*@
                 </form>
             </div>
             <spin-wait show-when="responseHandler.isBusy"/>

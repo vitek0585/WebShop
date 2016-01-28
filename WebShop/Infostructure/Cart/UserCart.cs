@@ -51,22 +51,6 @@ namespace WebShop.Infostructure.Cart
             }
             return false;
         }
-
-        public IEnumerable<int> GetAllGoodsId()
-        {
-            return _goods.Select(g => g.GoodId).Distinct();
-        }
-        public void RenewPriceGoods(IEnumerable<Good> goods)
-        {
-            foreach (var good in goods)
-            {
-                Array.ForEach(_goods.Where(g => g.GoodId == good.GoodId).ToArray(),
-                    g => g.PriceUsd = good.PriceUsd);
-            }
-
-        }
-
-
         public bool Remove(int id)
         {
             var good = _goods.SingleOrDefault(i => i.ClassificationId == id);
@@ -76,6 +60,11 @@ namespace WebShop.Infostructure.Cart
                 return _goods.Remove(good);
             }
             return false;
+        }
+
+        public void Clear()
+        {
+            _goods.Clear();
         }
 
         #region implements IEqualityComparer

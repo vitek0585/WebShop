@@ -51,7 +51,7 @@
 
     function template() {
         return "<div class='row row-nomargin dialog-modal'>" +
-                "<div class='col-md-12' ng-cloak>" +
+                "<div class='col-xs-12' ng-cloak>" +
                     "<div class='text-uppercase message-info'>{{vm.msg}}</div>" +
                     "<div style='margin-top: 80px;text-align: right;'>" +
                         "<button class='btn btn-primary btn-buy' style='margin-right: 10px;' ng-click='vm.okHadler()'>{{vm.okTxt}}</button>" +

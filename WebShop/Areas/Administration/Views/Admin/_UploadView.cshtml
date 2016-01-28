@@ -1,4 +1,4 @@
-﻿<div class="row col-md-12 current-img">
+﻿<div class="row col-xs-12 current-img">
     <div ng-repeat="photo in currentItem.item.photos track by $index" style="display: inline-block; position: relative">
         <img ng-src='/GetPhoto/{{photo}}' alt='No image' />
         <button class="btn btn-sm btn-danger " ng-click="showModal(photo,'removeImg',$event)">Remove</button>
@@ -6,7 +6,7 @@
     <hr />
 </div>
 <div class="row">
-    <div class="col-md-12" ng-show="currentItem.item.goodId!=null || !mode.isEdit">
+    <div class="col-xs-12" ng-show="currentItem.item.goodId!=null || !mode.isEdit">
         <button class="btn btn-primary" ng-click="selectFile()">
             Upload<i class="glyphicon glyphicon-open"></i>
         </button>

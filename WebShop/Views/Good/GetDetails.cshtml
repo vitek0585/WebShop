@@ -9,23 +9,23 @@
 
 <div class="container details">
     <div class="row" ng-controller="ctrlDetail">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             @Html.GenerateBreadCrumbs(new BreadCrumbsGood(Model.CategoryId, Model.GoodName, Url))
         </div>
 
         @*left side*@
-        <div class="col-md-3">
+        <div class="col-xs-3">
             <h4 class="text-center text-uppercase">@Resource.RandProd</h4>
             <hr />
             @Html.Partial("Partial/_RandomGoodsPartial")
         </div>
         @*right side*@
-        <div class="col-md-9">
-            <div class="col-md-12" class="container-good-detail" style="min-height: 625px;overflow: hidden;">
-                <div class="col-md-5 right">
+        <div class="col-xs-9">
+            <div class="col-xs-12" class="container-good-detail" style="min-height: 625px;overflow: hidden;">
+                <div class="col-xs-5 right">
                     @Html.Partial("Partial/_DetailsPartial")
                 </div>
-                <div class="col-md-7" ng-cloak>
+                <div class="col-xs-7" ng-cloak>
                     <h4 class="color-h text-uppercase">{{::item.goodName}}</h4>
                     <div>
                         <b class="text-uppercase">@Resource.Availability:&nbsp;</b><span ng-class="item.goodCount>0?'success-text':'warning-text'">
@@ -63,7 +63,7 @@
                     <hr />
                     <div class="clearfix">
                         <div class="row row-nomargin">
-                            <div class="col-md-12" ng-init="count=1">
+                            <div class="col-xs-12" ng-init="count=1">
                                 <b class="text-uppercase">@Resource.Qty:&nbsp;</b>
                                 <input type="number" ng-disabled="item.goodCount==0" ng-model="count" class="form-control" min="1"
                                        ng-max=""

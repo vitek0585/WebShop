@@ -259,6 +259,13 @@ UNDER THE SAME ROOF</value>
   <data name="ExtLgConf" xml:space="preserve">
     <value>the page is external login confirmation</value>
   </data>
+  <data name="FastCheckout" xml:space="preserve">
+    <value>quick order</value>
+  </data>
+  <data name="FastOrderTool" xml:space="preserve">
+    <value>You will need to indicate
+only the name and phone number</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>filter</value>
   </data>
@@ -273,6 +280,9 @@ UNDER THE SAME ROOF</value>
   </data>
   <data name="ForWoman" xml:space="preserve">
     <value>woman</value>
+  </data>
+  <data name="FullOrderTool" xml:space="preserve">
+    <value>The full order processing</value>
   </data>
   <data name="GoView" xml:space="preserve">
     <value>view</value>
@@ -414,6 +424,12 @@ select a currency other than the hryvnia )</value>
   </data>
   <data name="Summa" xml:space="preserve">
     <value>Total</value>
+  </data>
+  <data name="PhoneInValid" xml:space="preserve">
+    <value>phone number is not valid ( the number should consist of 10 to 15 digits)</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>phone number</value>
   </data>
   <data name="TotalCoast" xml:space="preserve">
     <value>total cost</value>

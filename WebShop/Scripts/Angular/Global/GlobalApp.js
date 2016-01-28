@@ -33,7 +33,7 @@
     configCart.$inject = ["cartSvcProvider"];
 
     function configCart(cartSvcProvider) {
-        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart", "/Cart/Update", "/Cart/Details","Cart/Remove");
+        cartSvcProvider.initUrl("/Cart/Add", "/Cart/GetCart", "/Cart/Update", "/Cart/Details", "Cart/Remove", "/Cart/DoOrderReg", "/Cart/DoOrder");
     };
 
     global.controller("globalCtrl", [

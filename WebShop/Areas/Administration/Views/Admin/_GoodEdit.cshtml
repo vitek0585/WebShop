@@ -7,7 +7,7 @@
                    ng-model="currentItem.item.goodName" ng-minlength="3" ng-required="true"
                    ng-class="!editForm.goodName.$valid&&editForm.goodName.$dirty?'custom-invalid':'custom-valid'">
         </div>
-        <div class="col-sm-10 col-md-push-2" ng-class="editForm.priceUsd.$valid?'custom-valid':'custom-invalid'" ng-cloak>
+        <div class="col-sm-10 col-xs-push-2" ng-class="editForm.priceUsd.$valid?'custom-valid':'custom-invalid'" ng-cloak>
             <span ng-show="!editForm.goodName.$valid&&editForm.goodName.$dirty">Good name is required (min 3, max 100 characters)</span>
         </div>
     </div>
@@ -18,7 +18,7 @@
                    ng-model="currentItem.item.priceUsd" ng-required="true"
                    ng-class="!editForm.priceUsd.$valid&&editForm.priceUsd.$dirty?'custom-invalid':'custom-valid'" min="0" max="1000000">
         </div>
-        <div class="col-sm-10 col-md-push-2" ng-class="editForm.priceUsd.$valid?'custom-valid':'custom-invalid'" ng-cloak>
+        <div class="col-sm-10 col-xs-push-2" ng-class="editForm.priceUsd.$valid?'custom-valid':'custom-invalid'" ng-cloak>
             <span ng-show="!editForm.priceUsd.$valid&&editForm.priceUsd.$dirty">Price of good is required (min 0, max 1000000)</span>
         </div>
     </div>
@@ -29,7 +29,7 @@
                    ng-model="currentItem.item.goodCount" ng-required="true"
                    ng-class="!editForm.goodCount.$valid&&editForm.goodCount.$dirty?'custom-invalid':'custom-valid'" min="0" max="1000000">
         </div>
-        <div class="col-sm-10 col-md-push-2" ng-class="editForm.$valid?'custom-valid':'custom-invalid'" ng-cloak>
+        <div class="col-sm-10 col-xs-push-2" ng-class="editForm.$valid?'custom-valid':'custom-invalid'" ng-cloak>
             <span ng-show="!editForm.goodCount.$valid&&editForm.goodCount.$dirty">Count of good is required (min 0, max 1000000)</span>
         </div>
     </div>

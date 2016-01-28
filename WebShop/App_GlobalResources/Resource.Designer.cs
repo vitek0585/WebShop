@@ -485,6 +485,25 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to быстрый заказ.
+        /// </summary>
+        public static string FastCheckout {
+            get {
+                return ResourceManager.GetString("FastCheckout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вам потребуется указать
+        ///только имя и номер телефона.
+        /// </summary>
+        public static string FastOrderTool {
+            get {
+                return ResourceManager.GetString("FastOrderTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to фильтр.
         /// </summary>
         public static string Filter {
@@ -526,6 +545,15 @@ namespace WebShop.App_GlobalResources {
         public static string ForWoman {
             get {
                 return ResourceManager.GetString("ForWoman", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Полноценное оформление заказа.
+        /// </summary>
+        public static string FullOrderTool {
+            get {
+                return ResourceManager.GetString("FullOrderTool", resourceCulture);
             }
         }
         
@@ -728,7 +756,7 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;b&gt;&lt;/br&gt;
+        ///   Looks up a localized string similar to СПОСОБЫ ОПЛАТЫ:
         ///Предоплата банковской картой или через PayPal.
         ///(Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
         ///выберите валюту отличную от гривны).
@@ -736,6 +764,24 @@ namespace WebShop.App_GlobalResources {
         public static string PayMentMeth {
             get {
                 return ResourceManager.GetString("PayMentMeth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to телефонный номер не валиден (номер должен состоять от 10 до 15 цифр).
+        /// </summary>
+        public static string PhoneInValid {
+            get {
+                return ResourceManager.GetString("PhoneInValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to телефонный номер.
+        /// </summary>
+        public static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
             }
         }
         

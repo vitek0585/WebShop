@@ -15,8 +15,8 @@ namespace WebShop.Log.Concreate
         private string _query;
         public LogSql()
         {
-            _query = "insert into Log (message,ecxeptionType,stackTrace,httpMethod,path,urlReferrer,userAgent,isAuthenticated,type) " +
-                                  "values (@message,@ecxeptionType,@stackTrace,@httpMethod,@path,@urlReferrer,@userAgent,@isAuthenticated,@type)";
+            _query = "insert into Log (message,exceptionType,stackTrace,exceptionMsg,httpMethod,path,urlReferrer,userAgent,isAuthenticated,type) " +
+                                  "values (@message,@exceptionType,@stackTrace,@exceptionMsg,@httpMethod,@path,@urlReferrer,@userAgent,@isAuthenticated,@type)";
 
             _conection = new Lazy<SqlConnection>(GetConnection);
         }
@@ -52,19 +52,26 @@ namespace WebShop.Log.Concreate
 
         private void IncludeException(SqlCommand command, Exception exception)
         {
-            SqlParameter exc = new SqlParameter("@ecxeptionType", SqlDbType.NVarChar);
+            SqlParameter exc = new SqlParameter("@exceptionType", SqlDbType.NVarChar);
             SqlParameter st = new SqlParameter("@stackTrace", SqlDbType.NVarChar);
+            SqlParameter msg = new SqlParameter("@exceptionMsg", SqlDbType.NVarChar);
             if (exception != null)
             {
-                exc.Value = exception.GetType();
-                st.Value = exception.StackTrace;
+                while (exception.InnerException != null)
+                {
+                    exception = exception.InnerException;
+                }
+                exc.Value = exception.GetType().ToString();
+                st.Value = (object)exception.StackTrace ?? DBNull.Value;
+                msg.Value = exception.Message;
             }
             else
             {
                 exc.Value = DBNull.Value;
                 st.Value = DBNull.Value;
+                msg.Value = DBNull.Value;
             }
-            command.Parameters.AddRange(new[] { exc, st });
+            command.Parameters.AddRange(new[] { exc, st, msg });
         }
 
         private bool _disposed;
@@ -84,7 +91,7 @@ namespace WebShop.Log.Concreate
                 _disposed = true;
                 GC.SuppressFinalize(this);
             }
-            
+
         }
 
         ~LogSql()

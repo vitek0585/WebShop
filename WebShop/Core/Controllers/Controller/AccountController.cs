@@ -154,7 +154,8 @@ namespace WebShop.Core.Controllers.Controller
             var user = new User()
             {
                 Email = model.Email,
-                UserName = model.UserName
+                UserName = model.UserName,
+                PhoneNumber = model.PhoneNumber
             };
             var result = await _account.CreateExternalUserAsync(user);
 
@@ -164,7 +165,7 @@ namespace WebShop.Core.Controllers.Controller
                 return Json(url);
             }
             AddErrors(result);
-            return Json(ModelState.Values.SelectMany(e => e.Errors, (m, e) => new {field = m.Value,error=e.ErrorMessage}));
+            return JsonResultCustom(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage),HttpStatusCode.BadRequest);
         }
         #region Log off
 

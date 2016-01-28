@@ -9,18 +9,18 @@
 <div class="container" ng-controller="prodCtrl">
   
     <div class="row row-nomargin row-nopadding">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             @Html.GenerateBreadCrumbs(new BreadCrumbsCategory(Model.CategoryId, Url))
         </div>
         @*left side*@
-        <div class="col-md-3">
+        <div class="col-xs-3">
             @Html.Action("Filter", new {id = Model.CategoryId})
             <hr/>
             <h4 class="text-center text-uppercase">@Resource.Exclusive</h4>
             @Html.Partial("Partial/_ExclusiveGood")
         </div>
         @*right side*@
-        <div class="col-md-9 all-product" ng-controller="pageCtrl" ng-init="category=@Model.CategoryId;clickPage(@ViewBag.Page)">
+        <div class="col-xs-9 all-product" ng-controller="pageCtrl" ng-init="category=@Model.CategoryId;clickPage(@ViewBag.Page)">
             <div class="row row-nomargin">
                 <div class="text-center">
                     <p class="separator"></p>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 @*End Sort by*@
-                <div ng-repeat="item in items|limitTo:items.length" class="col-md-4">
+                <div ng-repeat="item in items|limitTo:items.length" class="col-xs-4">
                     @Html.Partial("/Views/Main/Partial/_ProductsPartial.cshtml")
                 </div>
                 <div class="loader-products" ng-show="isWait">
@@ -80,10 +80,10 @@
         @*End Right side*@
     </div>
     @Html.Action("RecentlyViewedUser","Good")
-    @Html.Partial("/Views/Cart/Partial/_PayCardPartial.cshtml")
     @*social*@
     @Html.Partial("/Views/Main/Partial/_SocialPartial.cshtml")
     @*End social*@
+    @Html.Partial("/Views/Cart/Partial/_PayCardPartial.cshtml")
 </div>
 
 
@@ -98,16 +98,10 @@
     <link href="~/Content/suggest.box.css" rel="stylesheet" />
     <script src="~/Scripts/Angular/Common/suggest.box.js"></script>
     <link href="~/Content/combo-box-filter.css" rel="stylesheet" />
-
-    
-
-    <script src="~/Scripts/Angular/Home/Index/Slick.js"></script>
  
     <script src="~/Scripts/Angular/Common/ui-bootstrap-tpls-1.0.0.min.js"></script>
     <script src="~/Scripts/Angular/Common/Paging/RouteService.js"></script>
     <script src="~/Scripts/Angular/Common/Paging/PagingDirective.js"></script>
-
-    <script src="~/Scripts/Angular/Common/ServiceNotify.js"></script>
 
 
     <script src="~/Scripts/Angular/Home/Products/Controller.js"></script>

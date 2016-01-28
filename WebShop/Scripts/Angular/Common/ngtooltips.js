@@ -29,6 +29,7 @@
 
                         if (content.substring(0, 1) == '#') { content = $(content).html(); }
                         tag.html(content);
+                        tag.removeClass().addClass('tooltip_box ' + xclass);
 
                         switch(xclass) {
                             case 'bottom':
@@ -44,14 +45,14 @@
                                 left = elePos.left - tag.width() - 30;
                                 break;
                             default:
-                                top = elePos.top - tag.height() - 25;
-                                left = elePos.left - $(element).width() / 2 + 2;
-                                xclass = ' top';
+                                top = elePos.top - tag.outerHeight()-10;
+                                left = (elePos.left + $(element).outerWidth() / 2) - tag.outerWidth() / 2;
+                                xclass = 'top';
                                 break;
                         }
-                        tag.removeClass().addClass('tooltip_box ' + xclass);
                         if (top < 0) { top = 0; }
                         if (left < 0) { left = 0; }
+
                         tag.fadeIn(300).css({ 'top': top, 'left': left });
 
                         return false;

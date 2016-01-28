@@ -10,6 +10,7 @@ namespace WebShop.Infostructure.Cart
         bool Update(int id,TItem goods);
 
         bool Remove(int id);
-  
+
+        void Clear();
     }
 }

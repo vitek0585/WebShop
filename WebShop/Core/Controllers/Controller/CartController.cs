@@ -6,6 +6,8 @@ using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using WebShop.App_GlobalResources;
 using WebShop.Core.Controllers.Base;
@@ -15,7 +17,9 @@ using WebShop.Filters.ModelValidate;
 using WebShop.Infostructure.Cart;
 using WebShop.Infostructure.ResponseResult;
 using WebShop.Infostructure.Storage.Interfaces;
+using WebShop.Log.Abstract;
 using WebShop.Models;
+using WebShop.Models.Account;
 using WebShop.Repo.Interfaces;
 using WebShop.Repo.Model;
 
@@ -26,12 +30,12 @@ namespace WebShop.Core.Controllers.Controller
     {
         private IPurchaseService _purchaseService;
         private ICartProvider<UserOrder> _cartProvider;
-        private IAuthenticationManager _authenticationManager;
+        private ILogWriter<string> _log; 
         public CartController(ICookieConsumer storage, ICartProvider<UserOrder> cartProvider, IPurchaseService purchaseService,
-            IAuthenticationManager authenticationManager)
+            ILogWriter<string> log)
             : base(storage)
         {
-            _authenticationManager = authenticationManager;
+            _log = log;
             _cartProvider = cartProvider;
             _purchaseService = purchaseService;
         }
@@ -50,6 +54,7 @@ namespace WebShop.Core.Controllers.Controller
         {
             try
             {
+                throw new AggregateException(new Exception("Add Test exception"));
                 var item = _purchaseService.GetClassification(Mapper.Map<ClassificationGood>(order));
                 if (item != null)
                 {
@@ -61,7 +66,7 @@ namespace WebShop.Core.Controllers.Controller
             }
             catch (Exception e)
             {
-                //TODO log
+                _log.LogWriteError("erorr add cart",e);
                 return JsonResultCustom(e.Message, HttpStatusCode.BadRequest);
 
             }
@@ -69,21 +74,39 @@ namespace WebShop.Core.Controllers.Controller
             return JsonResultCustom(Resource.AddToCartError, HttpStatusCode.BadRequest);
 
         }
+        
         [Route("DoOrder")]
+        [ModelValidationFilter]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult DoOrder(QuickOrderViewModel user)
+        {
+            PurchaseResult result;
+            try
+            {
+                result = Ordering(null,user.UserName,user.Email,user.PhoneNumber);
+                if (result.Success)
+                    return JsonResultCustom(Resource.BuySuccess, HttpStatusCode.Accepted);
+            }
+            catch (Exception e)
+            {
+                return JsonResultCustom(e.Message, HttpStatusCode.BadRequest);
+            }
+            if (result.Exception != null)
+            {
+                _log.LogWriteError("erorr DoOrder cart", result.Exception);
+            }
+            return JsonResultCustom(result.Error, HttpStatusCode.BadRequest);
+        }
+        [Route("DoOrderReg")]
         [HttpPost]
         public JsonResult DoOrder()
         {
             PurchaseResult result;
             try
             {
-                var user = GetUserName();
-                var cart = GetCart();
-                var orders = cart.GetAll();
-                result = _purchaseService.MakeAnOrder(Mapper.Map<IEnumerable<ClassificationGood>>(orders), user, new ErrorBuy()
-                {
-                    NoEnoughtGoods = Resource.NoEnoughtGoods,
-                    AnotherError = Resource.AnotherError
-                });
+                var id = GetUserId();
+                result = Ordering(id);
                 if (result.Success)
                     return JsonResultCustom(Resource.BuySuccess, HttpStatusCode.Accepted);
             }
@@ -93,7 +116,7 @@ namespace WebShop.Core.Controllers.Controller
             }
             if (result.Exception != null)
             {
-                //TODO log
+                _log.LogWriteError("erorr DoOrderReg cart", result.Exception);
             }
             return JsonResultCustom(result.Error, HttpStatusCode.BadRequest);
         }
@@ -112,7 +135,7 @@ namespace WebShop.Core.Controllers.Controller
             }
             catch (Exception e)
             {
-                //TODO log
+                _log.LogWriteError("erorr Remove cart", e);
             }
             return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
 
@@ -150,22 +173,14 @@ namespace WebShop.Core.Controllers.Controller
 
             return JsonResultCustom(Resource.AnotherError, HttpStatusCode.BadRequest);
         }
-        [Route("Test")]
-        public JsonResult Test()
-        {
-            var cart = GetCart();
-            return Json(cart.GetAll(), JsonRequestBehavior.AllowGet);
-        }
+       
         #region Helpers method
 
         [NonAction]
-        private string GetUserName()
+        private int GetUserId()
         {
-            if (_authenticationManager.User.Identity.IsAuthenticated)
-            {
-                return _authenticationManager.User.Identity.Name;
-            }
-            return null;
+            return Request.GetOwinContext().Authentication.User.Identity.GetUserId<int>(); 
+
         }
         [NonAction]
         private ICart<UserOrder> GetCart()
@@ -176,6 +191,30 @@ namespace WebShop.Core.Controllers.Controller
         private static IEnumerable<ClassificationGood> MapToClassificationGoods(IEnumerable<UserOrder> orders)
         {
             return Mapper.Map<IEnumerable<ClassificationGood>>(orders);
+        }
+        [NonAction]
+        private ErrorBuy GutDoOrderErrors()
+        {
+            return new ErrorBuy()
+            {
+                NoEnoughtGoods = Resource.NoEnoughtGoods,
+                AnotherError = Resource.AnotherError
+            };
+        }
+        [NonAction]
+        private PurchaseResult Ordering(int? userId, string userName = null, string phone = null, string email = null)
+        {
+            var cart = GetCart();
+            var orders = cart.GetAll();
+            var errors = GutDoOrderErrors();
+            var result = _purchaseService.MakeAnOrder(Mapper.Map<IEnumerable<ClassificationGood>>(orders), userId, errors,
+                userName, phone, email);
+            if (result.Success)
+            {
+                cart.Clear();
+            }
+            return result;
+
         }
         #endregion
 

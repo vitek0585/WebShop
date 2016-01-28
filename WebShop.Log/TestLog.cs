@@ -79,6 +79,16 @@ namespace WebShop.Log
             GC.WaitForPendingFinalizers();
 
         }
-       
+        [Test]
+        public void TestLogWrite()
+        {
+            HttpContext.Current = new HttpContext(new HttpRequest("", "http://test.org", ""),
+                new HttpResponse(new StringWriter()));
+
+            LogSql log = new LogSql();
+            log.LogWriteError("TestLogSql message", new AggregateException(new Exception("Add Test exception")));
+           
+
+        }
     }
 }

@@ -88,9 +88,9 @@
     text-transform: uppercase;
     color: #fff;
     border: none;
-    height: 2.5em;
+    /*height: 2.5em;
     width: 9em;
-    font-size: 1.1em;
+    font-size: 1.1em;*/
     transition: background .2s;
 }
 
@@ -152,12 +152,12 @@
     transform: scale(1,1);
 }
 
-.other-prod > .col-md-5:hover > .fast-info-big {
+.other-prod > .col-xs-5:hover > .fast-info-big {
     transform: scale(1,1);
     transition: .5s;
 }
 
-.other-prod > .col-md-5:hover > .fast-info-big-base {
+.other-prod > .col-xs-5:hover > .fast-info-big-base {
     opacity: 0;
     z-index: -1;
 }
@@ -193,7 +193,7 @@
     }
 
 @media (min-width: 992px) {
-    .other-prod .col-md-4 {
+    .other-prod .col-xs-4 {
         margin-bottom: 36px;
     }
 }

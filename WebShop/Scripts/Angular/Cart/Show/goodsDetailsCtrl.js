@@ -91,11 +91,11 @@
 
         }
         function remove() {
-            console.log("remove");
-                //$scope.$emit('removeItem', { id: idToRemove });
-            //cart.remove(idToRemove).then(function (d) {
-            //    modal.close();
-            //});
+          
+            cart.remove(idToRemove).then(function (d) {
+                cart.cart.remove(idToRemove, 'classificationId');
+                modal.close();
+            });
         }
 
     };

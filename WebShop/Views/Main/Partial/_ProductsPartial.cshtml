@@ -1,7 +1,7 @@
 ﻿
 <div class="item-prod  anim-show" ng-cloak="true" ng-init="href='/Fashion/Good/'+item.goodId">
     <input type="hidden" ng-bind="::item.goodId" />
-    <div class="image-prod col-md-12 col-sm-12" ng-cloak="true">
+    <div class="image-prod col-xs-12 col-sm-12" ng-cloak="true">
         @*основная картинка*@
         <slick class="slider-for{{::$index}}"
                as-nav-for='.slider-nav{{::$index}}'
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="description-prod col-md-12 col-sm-12">
+    <div class="description-prod col-xs-12 col-sm-12">
         <div class="name-prod">{{::item.goodName}}</div>
         <div class="price-prod" ng-class="::item.discount>0?'old-price':''">{{::item.priceUsd | currencyExtend:0}}</div>
         <div class="new-price" ng-if="::item.discount>0">{{::item.priceWithDiscount | currencyExtend:0}}</div>

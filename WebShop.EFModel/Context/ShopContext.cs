@@ -14,11 +14,11 @@ namespace WebShop.EFModel.Context
         {
         }
 
-        public virtual DbSet<Brand> Brands { get; set; }
+       
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ClassificationGood> ClassificationGoods { get; set; }
         public virtual DbSet<Color> Colors { get; set; }
-        public virtual DbSet<CommentGood> CommentGoods { get; set; }
+
         public virtual DbSet<CategoryName> CategoryNames { get; set; }
         public virtual DbSet<CategoryType> CategoryTypes { get; set; }
         public virtual DbSet<Good> Goods { get; set; }
@@ -30,27 +30,36 @@ namespace WebShop.EFModel.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+           
+
             modelBuilder.Entity<Good>()
                 .Property(e => e.PriceUsd)
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<Good>()
-                .HasMany(g=>g.ClassificationGoods)
-                .WithRequired(c=>c.Good)
+                .HasMany(g => g.ClassificationGoods)
+                .WithRequired(c => c.Good)
+                .HasForeignKey(c => c.GoodId)
                 .WillCascadeOnDelete(true);
-          
-            
 
-            modelBuilder.Entity<SalePos>()
-                .HasOptional(e => e.ClassificationGood)
-                .WithMany()
+            modelBuilder.Entity<Good>()
+                .HasMany(g => g.Image)
+                .WithRequired(c => c.Good)
+                .HasForeignKey(c => c.GoodId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<ClassificationGood>()
+                .HasMany(e => e.SalePoses)
+                .WithOptional(s=>s.ClassificationGood)
+                .HasForeignKey(s=>s.ClassificationId)
                 .WillCascadeOnDelete(false);
-
    
+
 
             modelBuilder.Entity<Sale>()
                 .HasMany(e => e.SalePos)
                 .WithRequired(e => e.Sale)
+                .HasForeignKey(e=>e.SaleId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SalePos>()
@@ -62,6 +71,13 @@ namespace WebShop.EFModel.Context
            .WithMany(x => x.Children)
            .HasForeignKey(x => x.ParentId)
            .WillCascadeOnDelete(false);
+
+           modelBuilder.Entity<Category>()
+         .HasMany(x => x.Goods)
+         .WithOptional(g=>g.Category)
+         .HasForeignKey(g=>g.CategoryId);
+
+    
         }
     }
 }

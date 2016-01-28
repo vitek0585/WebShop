@@ -4,16 +4,12 @@
  * with disabling the responsiveness.
  */
 
-/* Account for fixed navbar */
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
+
 
 body,
 .navbar-fixed-top,
 .navbar-fixed-bottom {
-  min-width: 1170px;
+  min-width: 770px;
 }
 
 /* Don't let the lead text change font-size. */
@@ -46,10 +42,10 @@ body,
 .col-xs-4 {
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: #eee;
+  /*background-color: #eee;
   background-color: rgba(86,61,124,.15);
   border: 1px solid #ddd;
-  border: 1px solid rgba(86,61,124,.2);
+  border: 1px solid rgba(86,61,124,.2);*/
 }
 
 .container .navbar-header,
@@ -104,15 +100,15 @@ body,
 .navbar .navbar-nav .open .dropdown-menu {
   position: absolute;
   float: left;
-  background-color: #fff;
+  /*background-color: #fff;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, .15);
-  border-width: 0 1px 1px;
-  border-radius: 0 0 4px 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  border: 1px solid rgba(0, 0, 0, .15);*/
+  /*border-width: 0 1px 1px;
+  border-radius: 0 0 4px 4px;*/
+  /*-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);*/
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+/*.navbar-default .navbar-nav .open .dropdown-menu > li > a {
   color: #333;
 }
 .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
@@ -128,7 +124,7 @@ body,
 .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
   color: #999 !important;
   background-color: transparent !important;
-}
+}*/
 
 /* Undo form expansion */
 .navbar-form {
@@ -977,7 +973,7 @@ p {
     margin: 0 0 0;
 }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-xs-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-xs-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-xs-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-xs-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-xs-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-xs-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-xs-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-xs-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-xs-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-xs-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-xs-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-xs-12, .col-lg-12 {
     position: relative;
     min-height: 1px;
     padding-left: 5px;
@@ -1365,13 +1361,13 @@ blockquote {
     background: url(/Image/pay-card.png) no-repeat;
     background-size: contain;
      background-position: left;
-      height: 75px;
+      height: 65px;
        text-align: center;
 }
 .pay-card > blockquote {
     
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.7em;
         font-style: italic;
     text-align: justify;
 }
@@ -1380,4 +1376,16 @@ blockquote {
 }
 .table-cart {
     margin-top: 10px;
+}
+.clear-float {
+    clear: both;
+}
+.bold {
+    font-weight: bold;
+}
+.table-cart .selectpicker .dropdown-menu > li > a {
+    width: auto;
+    line-height: 1.3;
+    padding: 3px 6px;
+    font-size: 12px !important;
 }
