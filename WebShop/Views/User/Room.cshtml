@@ -1,0 +1,41 @@
+﻿@using WebShop.Infostructure.BreadCrumsService
+@model WebShop.Domain.Data.UserInfoIdentity
+@{
+    ViewBag.Title = Resource.UserRoom.ToUpper();
+}
+
+<div class="container ">
+    @Html.GenerateBreadCrumbs(new BreadCrumbsCommon(Url), Resource.UserRoom)
+    <div class="row row-nomargin">
+        <div class="text-center">
+            <p class="separator"></p>
+            <span class="separator-text">@Resource.UserRoom</span>
+        </div>
+    </div>
+    <div class="col-xs-12 cabinet">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#info" data-toggle="tab" ng-click="sliderSetup()">@Resource.UserInfo</a></li>
+            <li><a href="#history" data-toggle="tab">@Resource.History</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="info">
+                @Html.Partial("_UserInfo")
+            </div>
+            <div class="tab-pane fade image-edit" id="history">
+                @Html.Partial("_HistoryView")
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">@Html.Action("RecentlyViewedUser", "Good")</div>
+</div>
+
+@section scripts
+{
+    <link href="~/Content/ItemProd.css" rel="stylesheet" />
+    <link href="~/Content/WidgetRandom.css" rel="stylesheet" />
+<script src="~/Scripts/Angular/Cart/Filters/filter.goods.js"></script>
+    <script src="~/Scripts/Angular/Common/ui-bootstrap-tpls-1.0.0.min.js"></script>
+
+    <script src="~/Scripts/Angular/User/lazyLoadSvc.js"></script>
+    <script src="~/Scripts/Angular/User/user.room.controller.js"></script>
+}

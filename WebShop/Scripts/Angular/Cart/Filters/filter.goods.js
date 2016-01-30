@@ -46,4 +46,13 @@
             return result;
         }
     }
+    function total() {
+        return function (data, price, count) {
+
+            var result = data.reduce(function (sum, current) {
+                return sum + current[price] * current[count];
+            }, 0);
+            return result;
+        }
+    }
 })();

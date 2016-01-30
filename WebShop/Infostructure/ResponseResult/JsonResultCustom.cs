@@ -14,6 +14,7 @@ namespace WebShop.Infostructure.ResponseResult
             _status = status;
             Data = JsonConvert.SerializeObject(data,new JsonSerializerSettings()
             {
+                DateFormatString = "dd/MM/yyyy",
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });

@@ -426,7 +426,7 @@
     <value>применить</value>
   </data>
   <data name="PayMentMeth" xml:space="preserve">
-    <value>СПОСОБЫ ОПЛАТЫ:
+    <value>&lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;/b&gt;&lt;br/&gt;
 Предоплата банковской картой или через PayPal.
 (Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
 выберите валюту отличную от гривны)</value>
@@ -439,5 +439,20 @@
   </data>
   <data name="TotalCoast" xml:space="preserve">
     <value>общая стоимость</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>дата покупки</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>история</value>
+  </data>
+  <data name="SocialAccount" xml:space="preserve">
+    <value>аккаунты в социальных сетях</value>
+  </data>
+  <data name="UserInfo" xml:space="preserve">
+    <value>информация</value>
+  </data>
+  <data name="UserRoom" xml:space="preserve">
+    <value>кабинет пользователя</value>
   </data>
 </root>

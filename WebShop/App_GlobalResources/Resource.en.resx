@@ -233,7 +233,7 @@ UNDER THE SAME ROOF</value>
     <value>On the web-site of shop, you will be able to pick up a clothing suited to every fancy, ten of thousands of commodities is presented in him. Fashion renews the assortment every environment (by a commodity that was returned). Besides the brand of masculine, woman clothing, bags, and accessories in an online shop the known British brands, and also most popular brands of Europe and USA, are collected: Esprit, G - Star, Levi's, Ray - Ban, Diesel, Adidas et al. The assortment of commodity is counted mainly on young people in age from 16 35 to. Besides a shoe, clothing, bags and accessories of Fashion offers the wide assortment of cosmetic of the known brands of BOURJOIS, Rimmel London, Dr. Bronner. Also in a presence lower linen, accessories for hair, exclusive bijouterie, ecologically clean clothing and bags making on the basis of the time-processed raw material.</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Datails</value>
+    <value>Details</value>
   </data>
   <data name="Discount" xml:space="preserve">
     <value>Discount</value>
@@ -436,5 +436,20 @@ select a currency other than the hryvnia )</value>
   </data>
   <data name="ToUp" xml:space="preserve">
     <value>to up</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>purchase date </value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>history</value>
+  </data>
+  <data name="SocialAccount" xml:space="preserve">
+    <value>social account</value>
+  </data>
+  <data name="UserInfo" xml:space="preserve">
+    <value>information</value>
+  </data>
+  <data name="UserRoom" xml:space="preserve">
+    <value>personal cabinet of user</value>
   </data>
 </root>

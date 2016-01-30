@@ -386,6 +386,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to дата покупки.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to описание.
         /// </summary>
         public static string Desc {
@@ -563,6 +572,15 @@ namespace WebShop.App_GlobalResources {
         public static string GoView {
             get {
                 return ResourceManager.GetString("GoView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to история.
+        /// </summary>
+        public static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         
@@ -756,7 +774,7 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to СПОСОБЫ ОПЛАТЫ:
+        ///   Looks up a localized string similar to &lt;b&gt;СПОСОБЫ ОПЛАТЫ:&lt;/b&gt;&lt;br/&gt;
         ///Предоплата банковской картой или через PayPal.
         ///(Если вы хотите оплатить покупки при помощи PayPal, пожалуйста,
         ///выберите валюту отличную от гривны).
@@ -930,6 +948,15 @@ namespace WebShop.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to аккаунты в социальных сетях.
+        /// </summary>
+        public static string SocialAccount {
+            get {
+                return ResourceManager.GetString("SocialAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to сортировать по.
         /// </summary>
         public static string SortBy {
@@ -1016,6 +1043,24 @@ namespace WebShop.App_GlobalResources {
         public static string ToUp {
             get {
                 return ResourceManager.GetString("ToUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to информация.
+        /// </summary>
+        public static string UserInfo {
+            get {
+                return ResourceManager.GetString("UserInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to кабинет пользователя.
+        /// </summary>
+        public static string UserRoom {
+            get {
+                return ResourceManager.GetString("UserRoom", resourceCulture);
             }
         }
     }

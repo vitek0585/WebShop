@@ -12,6 +12,9 @@ using Owin;
 using WebShop.Api.CalculatePrice;
 using WebShop.Api.Storage;
 using WebShop.App_GlobalResources;
+using WebShop.Domain.Interfaces;
+using WebShop.Domain.Services;
+using WebShop.Domain.Services.UOF;
 using WebShop.EFModel.Context;
 using WebShop.EFModel.Model;
 using WebShop.Identity.Context;
@@ -19,7 +22,7 @@ using WebShop.Identity.Interfaces;
 using WebShop.Identity.Manager;
 using WebShop.Identity.Manager.CustomValidation;
 using WebShop.Identity.Models;
-using WebShop.Identity.Services;
+
 using WebShop.Infostructure.Cart;
 using WebShop.Infostructure.Storage.Implements;
 using WebShop.Infostructure.Storage.Interfaces;
@@ -46,7 +49,7 @@ namespace WebShop.Core.Settings.Autofac
                 .InstancePerLifetimeScope();
             builder.RegisterType<ColorRepository>().As<IColorRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SizeRepository>().As<ISizeRepository>().InstancePerLifetimeScope();
-
+    
 
             builder.RegisterType<ExchangeRatesRepository>().As<IExchangeRatesRepository>().InstancePerLifetimeScope();
 
@@ -69,6 +72,9 @@ namespace WebShop.Core.Settings.Autofac
             builder.Register(i => new ExchangeRatesService(DependencyResolver.Current.GetService<IUnitOfWork>(),
                 DependencyResolver.Current.GetService<IExchangeRatesRepository>(), uriBuilder.ToString()))
                 .As<IExchangeRatesService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<SaleService>().As<ISaleService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserAppService>().As<IUserAppService>().InstancePerLifetimeScope();
         }
     }
 

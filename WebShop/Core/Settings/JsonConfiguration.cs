@@ -13,6 +13,7 @@ namespace WebShop.Core.Settings
             {
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                
 #if DEBUG
                 Formatting = Formatting.Indented
 #endif

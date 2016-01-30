@@ -1,4 +1,5 @@
-﻿@using WebShop.Models
+﻿@using WebShop.Infostructure.BreadCrumsService
+@using WebShop.Models
 @model IEnumerable<UserOrder>
 @{
     ViewBag.Title = Resource.Cart;
@@ -10,8 +11,9 @@
 }
 <div class="container cart-base" ng-controller="cartController as cartVm">
     <div class="row">
+        @Html.GenerateBreadCrumbs(new BreadCrumbsCommon(Url), Resource.Cart)
         <h3 class="color-h text-uppercase">@Resource.Cart</h3>
-        <hr />
+        <hr/>
         @*Left side*@
         <div class="col-xs-3">
             <h4 class="text-center text-uppercase">@Resource.NewGoods</h4>
@@ -44,8 +46,8 @@
                 @if (!Request.IsAuthenticated)
                 {
 
-                    <br />
-                    <hr class="clear-float  col-xs-12" />
+                    <br/>
+                    <hr class="clear-float  col-xs-12"/>
                     <div ng-controller="modalCtrl" class="clear-float col-xs-12">
                         <button class="btn btn-primary btn-buy to-right" tooltip="@Resource.FastOrderTool" tooltip-pos="top"
                                 ng-click="openModal('checkoutTmpl','checkoutCtrl')">
@@ -56,7 +58,7 @@
                         </script>
                     </div>
                 }
-                <spin-wait show-when="cartVm.isBusy" />
+                <spin-wait show-when="cartVm.isBusy"/>
             </div>
             <div class="col-xs-9" ng-if="!cartVm.items[0]">
                 <h3 class="cart-empty">@Resource.BagEmpty</h3>

@@ -1,5 +1,6 @@
 ﻿@using WebShop.Models
 @{
+    var href = "/Fashion/Good";
     var name = Html.GetName<UserOrder>(o => o.GoodName);
     var id = Html.GetName<UserOrder>(o => o.GoodId);
     var clsId = Html.GetName<UserOrder>(o => o.ClassificationId);
@@ -30,9 +31,11 @@
 
     <tr ng-repeat="item in cartVm.items" ng-controller="goodsDetailsCtrl as detailVm">
         <td>
-            <div ng-style="{'background':'url(/Image/Products/{{::item.@photos&nbsp;[0]}}) no-repeat center','background-size': 'contain'}" class="cart-img" ng-if="item.photos!=null">
-            </div>
-            <div class="cart-img" ng-if="item.@photos==null"></div>
+            <a ng-href="@href/{{::item.@id}}">
+                <div ng-style="{'background':'url(/Image/Products/{{::item.@photos&nbsp;[0]}}) no-repeat center','background-size': 'contain'}" class="cart-img" ng-if="item.photos!=null">
+                </div>
+                <div class="none-img" ng-if="item.@photos==null"></div>
+            </a>
         </td>
         <td style="position: relative">
             <div>

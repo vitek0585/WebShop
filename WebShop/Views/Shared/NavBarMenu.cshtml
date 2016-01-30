@@ -51,11 +51,19 @@
 
         }
         @*Menu ICON*@
-        <li class="icon-menu">
+        @*<li class="icon-menu">
             <i class="menu-option glyphicon glyphicon-search"></i>
-        </li>
+        </li>*@
         @Html.Partial("HeaderPartial/_IconHeaderPartial")
-        <li class="icon-menu"><i class="menu-option glyphicon glyphicon-user"></i></li>
+        @if (Request.IsAuthenticated)
+        {
+            <li class="icon-menu">
+                <i class="menu-option glyphicon glyphicon-user">
+                    <a href="@Url.Action("Room","User")" class="href-strech">
+                    </a>
+                </i>
+            </li>
+        }
         <li class="icon-menu" ng-controller="CartStateController as cartStateVm">
             <i class="menu-option glyphicon glyphicon-shopping-cart">
                 <a href="@Url.Action("Cart","Cart")" class="href-strech">

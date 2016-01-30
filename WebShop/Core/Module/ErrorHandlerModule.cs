@@ -17,6 +17,7 @@ namespace WebShop.Core.Module
 
         private void ErrorHandler(object sender, EventArgs e)
         {
+            
             var exc = HttpContext.Current.Server.GetLastError();
             if (exc is HttpException && ((HttpException)exc).GetHttpCode() == 404)
             {

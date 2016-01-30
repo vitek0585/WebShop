@@ -51,13 +51,26 @@
     /*width: 100%;*/
   
 }
-.cart-img {
+.cart .cart-img {
 
     height: 145px;
+    width: 100%;
     background-repeat: no-repeat;
     background-position:  center;
-    background-size: cover;
-    background-image: url(/Image/not-image.png);
+    background-size: contain;
+ 
+    /*height: 385px;*/
+    /*width: 100%;*/
+  
+}
+.cart .none-img {
+
+    height: 145px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position:  center;
+    background-size: contain;
+ 
     /*height: 385px;*/
     /*width: 100%;*/
   

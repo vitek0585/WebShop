@@ -17,10 +17,10 @@
         var urlDoOrderReg = '';
         return {
             initUrl: initUrl,
-            $get: ["$q", "toaster", "httpService", "$compile", get]
+            $get: ["$q", "toaster", "httpService", "culture", get]
         }
         //-------------------functions $get
-        function get($q, toaster, http, $compile) {
+        function get($q, toaster, http, culture) {
 
             return {
                 cart: cart,
@@ -145,7 +145,10 @@
 
             }
             function notify(d) {
-
+                if (d.status == 500) {
+                    toaster.pop('error', '',culture=='ru'?'Произошла ошибка!':'Occured error!', 3000);
+                    return;
+                }
                 if (angular.isArray(d.data)) {
                     var e = angular.element('<div>').append(d.data.map(function(e) {
                         return angular.element("<div>").addClass("label-error").text(e)[0];

@@ -6,7 +6,7 @@
                 @Resource.DressFor<br /><span style="color: #DBB879">@ViewData["gender"]</span>
                 <div style="background: rgba(241, 241, 239, 0.65);"></div>
             </h2>
-            <button class="btn btn-primary btn-buy ">@Resource.GoView</button>
+            <a href="@Url.Action("Categories", "Catalog", new { type = ViewData["href"] })" class="btn btn-primary btn-buy ">@Resource.GoView</a>
         </div>
     </div>
     <div class="fast-info-big-base">
@@ -14,7 +14,7 @@
             <h2 class="speed-info-title">
                 @Resource.DressFor<br /><span style="color: #DBB879">@ViewData["gender"]</span>
             </h2>
-            <button class="btn btn-primary btn-buy ">@Resource.GoView</button>
+            <a class="btn btn-primary btn-buy ">@Resource.GoView</a>
         </div>
     </div>
     <img src="@ViewData["src"]" alt="" style="width: 100%;height:374px" />
