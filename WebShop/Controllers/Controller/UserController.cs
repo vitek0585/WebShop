@@ -7,7 +7,7 @@ using WebShop.Infostructure.Storage.Interfaces;
 namespace WebShop.Controllers.Controller
 {
     [RoutePrefix("User")]
-    //[Authorize]
+    [Authorize]
     public class UserController : AccountBaseController
     {
         private IUserAppService _userAppService;
@@ -25,7 +25,6 @@ namespace WebShop.Controllers.Controller
             return View(model);
         }
         [Route("History")]
-        //[HttpPost]
         public JsonResult HistoryOrder(int page)
         {
             var model = _userAppService.UserSales<dynamic>(null, page, _totalPerPage, GetCurrentCurrency(), GetCurrentLanguage());

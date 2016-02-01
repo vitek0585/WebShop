@@ -10,6 +10,7 @@ using WebShop.Domain.Interfaces;
 using WebShop.Filters.ModelValidate;
 using WebShop.Identity.Interfaces;
 using WebShop.Identity.Models;
+using WebShop.Infostructure.Common;
 using WebShop.Infostructure.Storage.Interfaces;
 using WebShop.Models.Account;
 
@@ -28,9 +29,15 @@ namespace WebShop.Controllers.Controller
             _unit = unit;
             _account = account;
         }
-
+        [Route("Login"), HttpGet]
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            TempData[ValuesApp.IsAutorize] = true;
+            return RedirectToAction("Index","Main");
+        }
         #region Login
-    
+
         [Route("Login"), HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -47,7 +54,7 @@ namespace WebShop.Controllers.Controller
             return JsonResultCustom(ReturnErrorModelState(), HttpStatusCode.BadRequest);
         }
 
-        
+
 
         #endregion
 
@@ -59,7 +66,7 @@ namespace WebShop.Controllers.Controller
         [ModelValidationFilter]
         public async Task<JsonResult> Register(RegisterViewModel model)
         {
-            User user = new User { UserName = model.UserName, Email = model.Email };
+            User user = new User { UserName = model.UserName, Email = model.Email,PhoneNumber = model.PhoneNumber};
             _unit.StartTransaction();
             var result = await _account.CreateUserAsync(user, model.Password);
             if (result.Succeeded)
@@ -71,21 +78,21 @@ namespace WebShop.Controllers.Controller
                 catch (Exception e)
                 {
                     _unit.Rollback();
-                    return JsonResultCustom("Error send message", HttpStatusCode.InternalServerError); 
+                    return JsonResultCustom("Error send message", HttpStatusCode.InternalServerError);
                 }
                 _unit.Commit();
 
                 return Json(Resource.RegConfirmMessage);
             }
             AddErrors(result);
-            return JsonResultCustom(ReturnErrorModelState(),HttpStatusCode.BadRequest);
+            return JsonResultCustom(ReturnErrorModelState(), HttpStatusCode.BadRequest);
         }
 
         [Route("ConfirmEmail")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(int userId, string code)
         {
-            
+
             if (code == null)
             {
                 return View("Error");
@@ -115,7 +122,7 @@ namespace WebShop.Controllers.Controller
             var loginInfo = await _account.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login",new {returnUrl});
+                return RedirectToAction("Login", new { returnUrl });
             }
 
             var result = await _account.ExternalSignInAsync(loginInfo);
@@ -133,7 +140,7 @@ namespace WebShop.Controllers.Controller
         [AllowAnonymous]
         public ActionResult ExternalLoginConfirmation()
         {
-            
+
             return View(new ExternalLoginConfirmationViewModel());
         }
 
@@ -162,7 +169,7 @@ namespace WebShop.Controllers.Controller
                 return Json(url);
             }
             AddErrors(result);
-            return JsonResultCustom(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage),HttpStatusCode.BadRequest);
+            return JsonResultCustom(ModelState.Values.SelectMany(e => e.Errors, (m, e) => e.ErrorMessage), HttpStatusCode.BadRequest);
         }
         #region Log off
 
@@ -172,7 +179,7 @@ namespace WebShop.Controllers.Controller
         public ActionResult LogOff()
         {
             _account.SingOut();
-           
+
             return RedirectToAction("Index", "Main");
         }
 

@@ -1,0 +1,26 @@
+#folder ignore, ignore only txt files, example /docs/*txt
+/*
+!WebShop
+!WebShop.Api
+!WebShop.EFModel
+!WebShop.Identity
+!WebShop.Log
+!WebShop.Repository
+!WebShop.ProxyMap
+!WebShop.Domain
+
+#data base
+!ShopDB.bak
+WebShop/Web.config
+WebShop/Image/Products
+#ignore
+!*.gitignore
+
+
+bin
+obj
+*.csproj
+*.csproj.user
+*.config
+*.zip
+

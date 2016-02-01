@@ -2,7 +2,6 @@
 
 
 global.controller("modalCtrl", ["$scope", '$fancyModal', function (scope, modal) {
-
     scope.openModal = function (templateId, ctrl) {
         modal.open({
             template: angular.element(document.querySelector('#' + templateId)).html(),
@@ -15,6 +14,10 @@ global.controller("modalCtrl", ["$scope", '$fancyModal', function (scope, modal)
             controller: ctrl
         });
     }
+    scope.isOpen = function(isOpen) {
+        
+        return isOpen == 'true';
+    };
 }]);
 
 global.controller("loginCtrl", ["$scope", "httpService", "formToObject", "$compile", "toaster", "$timeout", function (scope, http, ser, compile, toaster, t) {

@@ -14,6 +14,7 @@ namespace WebShop.Infostructure.Common
         public const string RandomCategory = "randomCategory";
         public const string Language = "lang";
         public const string Currency = "currency";
+        public const string IsAutorize = "isAutorize";
 
         public static string[] Currencies = { "uah", "usd" };
         public static string[] Languages = { "ru", "en" };
@@ -26,6 +27,7 @@ namespace WebShop.Infostructure.Common
         {
             get { return Currencies[0]; }
         }
+
 
         public static ListDictionary CurrencySymbol = new ListDictionary(StringComparer.InvariantCultureIgnoreCase)
         {

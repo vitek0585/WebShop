@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using Microsoft.Ajax.Utilities
+@using Microsoft.AspNet.Identity
+@using WebShop.Infostructure.Common
 @model IEnumerable<ITypeCategoryModel<ICategoryModelBase>>
 @{
     var banners = new Dictionary<int, Tuple<string, string>>()
@@ -7,6 +9,7 @@
         {2,Tuple.Create("/Image/Banners/banner-fashion-women.jpg","-30px")}
 
     };
+    string isAutorize = TempData[ValuesApp.IsAutorize].IfNotNull(c => (bool)c).ToString().ToLowerInvariant();
 }
 @*<li>@Html.RouteLink(Resource.Home, "CommonRoute", new { action = "Index", controller = "Home" }, null)</li>*@
 <div>
@@ -42,7 +45,7 @@
         }
         else
         {
-            <li ng-controller="modalCtrl">
+            <li ng-controller="modalCtrl" ng-init="isOpen('@isAutorize')?openModal('loginTmpl','loginCtrl'):''">
                 <a id="login" class="cursor-href" ng-click="openModal('loginTmpl','loginCtrl')">@Resource.LogIn</a>
             </li>
             <li ng-controller="modalCtrl">
@@ -52,8 +55,8 @@
         }
         @*Menu ICON*@
         @*<li class="icon-menu">
-            <i class="menu-option glyphicon glyphicon-search"></i>
-        </li>*@
+                <i class="menu-option glyphicon glyphicon-search"></i>
+            </li>*@
         @Html.Partial("HeaderPartial/_IconHeaderPartial")
         @if (Request.IsAuthenticated)
         {
